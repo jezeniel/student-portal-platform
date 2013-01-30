@@ -1,0 +1,9 @@
+#django
+*.log
+*.pot
+*.pyc
+local_settings.py
+
+#eclipse
+.project
+.pydevproject
