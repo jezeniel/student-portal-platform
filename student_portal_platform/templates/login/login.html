@@ -1,0 +1,15 @@
+<html>
+    <div id="loginform">
+        {% if messages %}
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'login_url' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="username">
+            <input type="password" name="password">
+            <input type="submit" value="login">
+        </form>
+    </div>
+</html>
