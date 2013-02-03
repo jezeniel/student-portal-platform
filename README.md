@@ -1,6 +1,4 @@
 ##Student Portal Platform
 ========
-
-A simple platform for creating student portals written in [django](www.django.project.com)
-
+A simple platform for creating student portals written in [Django](https://www.djangoproject.com/).
 
