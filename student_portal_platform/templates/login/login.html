@@ -7,9 +7,9 @@
         {% endif %}
         <form action="{% url 'login_url' %}" method="POST">
             {% csrf_token %}
-            <input type="text" name="username">
-            <input type="password" name="password">
+            {{loginform.as_p}}
             <input type="submit" value="login">
         </form>
+        <p><a href="{% url 'register_url' %}">Register</a></p>
     </div>
 </html>

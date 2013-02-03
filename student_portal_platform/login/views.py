@@ -20,15 +20,14 @@ def login_view(request):
         #if user is already logged in go to home page
         if request.user.is_authenticated():
             return redirect("home_url")
-        return render(request, 'login/login.html')
+        return render(request, 'login/login.html', {'loginform' : LoginForm()})
     
     elif request.method.upper() == "POST":
         form = LoginForm(request.POST)
         #check if the fields are valid
         if form.is_valid():
             #authenticates user return not if doesn't exist
-            user = authenticate(username = form.cleaned_data['username'],
-                                password = form.cleaned_data['password'])
+            user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password'])
             if user:
                 login(request, user)
                 return redirect('home_url')
