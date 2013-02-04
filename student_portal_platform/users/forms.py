@@ -16,9 +16,11 @@ class RegisterForm(forms.Form):
     birthday = forms.DateField(widget = DateSelectorWidget)
     username = forms.CharField(max_length=30)
     password1 = forms.CharField(widget = forms.PasswordInput, 
-                                label = (u"Password"))
+                                label = (u"Password"),
+                                min_length=8)
     password2 = forms.CharField(widget = forms.PasswordInput, 
-                                label = (u"Retype password"))
+                                label = (u"Retype password"),
+                                min_length=8)
     
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -31,12 +33,15 @@ class RegisterForm(forms.Form):
         raise forms.ValidationError("Username already exists.")
     
     def clean(self):
-        cleaned_data = super(RegisterForm, self).clean()
-        if cleaned_data.get("password1") != cleaned_data.get("password2"):
-            self._errors["password1"] = self.error_class(["Password doesn't match."])
-            del cleaned_data['password1']
-            del cleaned_data['password2']
-            
+        cleaned_data = super(RegisterForm,self).clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+        if  password1 and password2:
+            if password1 != password2:
+                self._errors['password1'] = self.error_class(["Password did not match."])
+                
+                del cleaned_data['password1']
+                del cleaned_data['password2']
+                
         return cleaned_data
-        
         
