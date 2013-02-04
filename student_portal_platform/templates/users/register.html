@@ -1,7 +1,14 @@
 <html>
-    <form action="{% url 'register_url' %}" method="POST">
-        {% csrf_token %}
-        {{registerform.as_p}}
-        <input type="submit" value="Register">
-    </form>
+    <head>
+
+    </head>
+    <body>
+	    <form action="{% url 'register_url' %}" method="POST">
+	        {% csrf_token %}
+	        {% for field in registerform %}
+	           <p>{{field.label_tag}} : {{field}} {{field.errors.as_text}}</p>
+	        {% endfor %}
+	        <input type="submit" value="Register">
+	    </form>
+    </body>
 </html>

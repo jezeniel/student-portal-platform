@@ -16,7 +16,7 @@ def register(request):
     elif request.method.upper() == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            pass
+            return HttpResponse([(key,value) for key,value in form.cleaned_data.items()])
         else:
-            pass
+            return render(request, 'users/register.html', {'registerform': form})
         
