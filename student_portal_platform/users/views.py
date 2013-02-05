@@ -16,7 +16,18 @@ def register(request):
     elif request.method.upper() == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            return HttpResponse([(key,value) for key,value in form.cleaned_data.items()])
+            userdata = {key:value for (key,value) in form.cleaned_data.items()} 
+            user = User.objects.create_user(username=userdata['username'],
+                                            password=userdata['password1'],
+                                            email=userdata['email'],
+                                            first_name=userdata['firstname'],
+                                            last_name=userdata['lastname'])
+            userinfo = UserInfo.objects.create(user=user,
+                                               address=userdata['address'],
+                                               course=userdata['course'],
+                                               birthday=userdata['birthday'])
+            
+            return HttpResponse("Registered Successfully.")
         else:
             return render(request, 'users/register.html', {'registerform': form})
         
