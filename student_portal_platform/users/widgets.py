@@ -4,12 +4,12 @@ from django.forms import widgets
 from django import forms
 
 class DateSelectorWidget(widgets.MultiWidget):
-    def __init__(self, attrs=None, dt=None, mode=0):
+    def __init__(self, attrs=None):
         months = []
         for i in range(1,13):
             months.append((i, date(2000,i,1).strftime("%B")))
         days = [(day,day) for day in range(1,32)]
-        years = [(year, year) for year in range(1900,2013)]
+        years = [(year, year) for year in range(1970,2013)]
 
         _widgets = (
             widgets.Select(attrs=attrs, choices=days), 
@@ -24,7 +24,8 @@ class DateSelectorWidget(widgets.MultiWidget):
                 return [value.day, value.month, value.year]
             return [None, None, None]
         except AttributeError:
-            return value
+            dt = [int(x) for x in value.split("-")]
+            return [dt[2], dt[1],dt[0]]
 
     def format_output(self, rendered_widgets):
         return u''.join(rendered_widgets)
