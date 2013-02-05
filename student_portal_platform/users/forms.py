@@ -30,7 +30,15 @@ class RegisterForm(forms.Form):
             user = User.objects.get(username = username)
         except User.DoesNotExist:
             return username
-        raise forms.ValidationError("Username already exists.")
+        raise forms.ValidationError("User already exists.")
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            user = User.objects.get(email = email)
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError("Email already used.")
     
     def clean(self):
         cleaned_data = super(RegisterForm,self).clean()
