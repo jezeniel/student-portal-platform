@@ -1,6 +1,7 @@
 from datetime import date, datetime
 
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -22,12 +23,15 @@ def register(request):
                                             email=userdata['email'],
                                             first_name=userdata['firstname'],
                                             last_name=userdata['lastname'])
+            
             userinfo = UserInfo.objects.create(user=user,
                                                address=userdata['address'],
                                                course=userdata['course'],
                                                birthday=userdata['birthday'])
             
-            return HttpResponse("Registered Successfully.")
+            messages.info(request, "Registered successfully.")
+            return redirect("login_url")
+        
         else:
             return render(request, 'users/register.html', {'registerform': form})
         
