@@ -11,11 +11,12 @@ def home_view(request):
     return render(request, "home.html", { 'user': request.user })
     
 def login_view(request):
+    
+    if request.user.is_authenticated():
+        return redirect("home_url")
     #if method is GET render login page else authenticate user
     if request.method.upper() == "GET":
         #if user is already logged in go to home page
-        if request.user.is_authenticated():
-            return redirect("home_url")
         return render(request, 'login/login.html', {'loginform' : LoginForm()})
     
     elif request.method.upper() == "POST":
@@ -25,6 +26,7 @@ def login_view(request):
             #authenticates user return not if doesn't exist
             user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password'])
             if user:
+                request.session.set_expiry(0)
                 login(request, user)
                 return redirect('home_url')
         messages.error(request, "Invalid Login!")
