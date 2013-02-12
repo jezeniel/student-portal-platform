@@ -7,7 +7,15 @@
         {% endif %}
         <form action="{% url 'login_url' %}" method="POST">
             {% csrf_token %}
-            {{loginform.as_p}}
+            {% for field in loginform %}
+                <p>
+                {% if field.html_name == 'remember' %}
+                    {{field}} {{field.label}}
+                {% else %}
+                    {{field.label}} {{field}}
+                {% endif %}
+                </p>
+            {% endfor %}
             <input type="submit" value="login">
         </form>
         <p><a href="{% url 'register_url' %}">Register</a></p>
