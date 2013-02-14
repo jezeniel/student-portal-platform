@@ -25,6 +25,8 @@ def login_view(request):
             if user:
                 if request.POST.has_key("remember"):
                     request.session.set_expiry(1209600)
+                else:
+                    request.session.set_expiry(0)
                 login(request, user)
                 return redirect('home_url')
         messages.error(request, "Invalid Login!")
