@@ -11,7 +11,7 @@ from .forms import RegisterForm
 def register(request):
     if request.method.upper() == 'GET':
         if not request.user.is_authenticated():
-            return render(request, 'development/register.html', { 'registerform' : RegisterForm()})
+            return render(request, 'proto_design/register.html', { 'registerform' : RegisterForm()})
         return redirect("home_url")
     
     elif request.method.upper() == 'POST':
@@ -33,5 +33,5 @@ def register(request):
             return redirect("login_url")
         
         else:
-            return render(request, 'development/register.html', {'registerform': form})
+            return render(request, 'proto_design/register.html', {'registerform': form})
         

@@ -12,7 +12,7 @@ def login_view(request):
     #if method is GET render login page else authenticate user
     if request.method.upper() == "GET":
         #if user is already logged in go to home page
-        return render(request, 'development/login.html', 
+        return render(request, 'proto_design/index.html', 
                       {'loginform' : LoginForm()})
     
     elif request.method.upper() == "POST":
