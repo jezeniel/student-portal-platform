@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns #remove after development
 
 admin.autodiscover()
 
@@ -19,3 +20,6 @@ urlpatterns = patterns('',
     url(r'^logout/', 'login.views.logout_view', name= 'logout_url'),
     url(r'^register/', 'users.views.register', name= 'register_url'),
 )
+
+#remove after development
+urlpatterns +=  staticfiles_urlpatterns()
