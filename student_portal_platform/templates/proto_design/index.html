@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SNS Portal</title>
-	<link rel="stylesheet" href="css/reset.css" media="all">
-	<link rel="stylesheet" href="css/style.css" media="all">
-	<script src="js/html5shiv.js"></script>
+	<link rel="stylesheet" href="{{ STATIC_URL}}css/reset.css" media="all">
+	<link rel="stylesheet" href="{{ STATIC_URL}}css/style.css" media="all">
+	<script src="{{ STATIC_URL }}js/html5shiv.js"></script>
 </head>
 <body>
 
@@ -14,12 +14,12 @@
 		<div class="header-wrapper container">
 
 			<a href="#" id="logo">
-				<img src="img/logo.png" alt="Logos">
+				<img src="{{ STATIC_URL }}img/logo.png" alt="Logos">
 			</a>
 
 			<div class="form-nav">
 				<a href="#" class="btn">Sign in</a>
-				<a href="#" class="btn">Join</a>
+				<a href="{% url 'register_url' %}" class="btn">Join</a>
 			</div>
 
 		</div>
@@ -36,19 +36,27 @@
 			</section>
 
 			<div class="form-mod login-form">
-				<form action="">
-					<p  class="form-field">
-						<label for="username">Username</label>
-						<input type="text" name="username">
-					</p>
-					<p  class="form-field">
-						<label for="pass">Password</label>
-						<input type="password" name="pass">
-					</p>
-					<p class="rmbr-field">
-						<input type="checkbox" name="rmbr-user">
-						<label for="rmbr-user">Remember me</label>
-					</p>
+				<form action="{% url 'login_url' %}" method="POST">
+				    {% csrf_token %}
+
+	                {% if messages %}
+	                     {% for message in messages %}
+	                         <p>{{message}}</p>
+	                     {% endfor %}
+	                {% endif %}
+                
+				    {% for field in loginform %}
+				        {% if field.name != 'remember' %}
+							<p  class="form-field">
+								<label for="{{field.name}}">{{field.label}}</label>
+								{{field}}
+							</p>
+						{% else %}
+							<p class="rmbr-field">
+								{{field}} {{field.label}}
+							</p>
+						{% endif %}
+					{% endfor %}
 					<button class="submit-btn btn">Sign in</button>
 				</form>
 			</div>

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SNS Portal</title>
-	<link rel="stylesheet" href="css/reset.css" media="all">
-	<link rel="stylesheet" href="css/style.css" media="all">
-	<script src="js/html5shiv.js"></script>
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css" media="all">
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" media="all">
+	<script src="{{ STATIC_URL }}js/html5shiv.js"></script>
 </head>
 <body>
 
@@ -13,11 +13,11 @@
 
 		<div class="header-wrapper container">
 			<a href="#" id="logo">
-				<img src="img/logo.png" alt="Logos">
+				<img src="{{ STATIC_URL }}img/logo.png" alt="Logos">
 			</a>
 
 			<div class="form-nav">
-				<a href="#" class="btn">Sign in</a>
+				<a href="{% url 'login_url' %}" class="btn">Sign in</a>
 				<a href="#" class="btn">Join</a>
 			</div>
 
@@ -30,23 +30,14 @@
 		<div class="inner container mod">
 
 			<div class="form-mod register-form">
-				<form action="">
-					<p  class="form-field">
-						<label for="username">Username</label>
-						<input type="text" name="username">
-					</p>
-					<p  class="form-field">
-						<label for="pass">Password</label>
-						<input type="password" name="pass">
-					</p>
-					<p  class="form-field">
-						<label for="confpass">Confirm Password</label>
-						<input type="password" name="confpass">
-					</p>
-					<p  class="form-field">
-						<label for="email">Email</label>
-						<input type="email" name="email">
-					</p>
+				<form action="{% url 'register_url' %}" method="POST">
+				    {% csrf_token %}
+					{% for field in registerform %}
+					   <p class="form-field">
+					       <label for='{{field.name}}'>{{field.label}}</label>
+					       {{field}} {{field.errors.as_text}}
+					   </p>
+					{% endfor%}
 					<button class="submit-btn btn">Sign up</button>
 				</form>
 			</div>
