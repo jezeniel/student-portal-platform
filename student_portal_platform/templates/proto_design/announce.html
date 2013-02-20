@@ -1,0 +1,15 @@
+<html>
+    <head>
+    
+    </head>
+    <body>
+        <form action="{% url 'announce_url' %}" method="POST">
+            {% csrf_token %}
+            {% for field in announcementForm %}
+                <p>{{field}}</p>
+            {% endfor %}
+            <input type="submit" value="Post" />
+        </form>
+    
+    </body>
+</html>
