@@ -35,7 +35,7 @@
 					{% for field in registerform %}
 					   <p class="form-field">
 					       <label for='{{field.name}}'>{{field.label}}</label>
-					       {{field}} {{field.errors.as_text}}
+					       {{field}} <span class="error-text">{{field.errors.as_text}}</span>
 					   </p>
 					{% endfor%}
 					<button class="submit-btn btn">Sign up</button>

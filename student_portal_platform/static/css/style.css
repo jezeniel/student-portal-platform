@@ -116,6 +116,10 @@ header {
 			.form-mod .form-field{
 				margin:20px 0;
 			}
+			
+		    .form-mod .error-text {
+			     color: #ff0000;
+			}
 
 			.form-mod .form-field label{
 				 margin: 0 0 10px;
