@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
 from .models import Announcement
@@ -9,7 +9,7 @@ from .forms import AnnouncementForm
 @login_required(login_url="login_url")
 def announcement_post(request):
     if request.method == "GET":
-        return render(request, 'proto_design/post-announce.html',
+        return render(request, 'proto_design/announce-post.html',
                       { 'announcementForm' : AnnouncementForm()})
         
     elif request.method == "POST":
@@ -22,4 +22,5 @@ def announcement_post(request):
         
         
 def announcement_view(request, post_id):
-    return HttpResponse("You are viewing " + post_id)
+    announcement = get_object_or_404(Announcement, id=post_id)
+    return render(request, 'proto_design/announce-view.html', {'announcement': announcement})
