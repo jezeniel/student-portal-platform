@@ -5,15 +5,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from .forms import LoginForm
+from announcement.models import Announcement
 
 def login_view(request):
     if request.user.is_authenticated():
+        #if user is already logged in go to home page
         return redirect("home_url")
     #if method is GET render login page else authenticate user
     if request.method.upper() == "GET":
-        #if user is already logged in go to home page
+        x = Announcement.objects.order_by("-postdate")[0]
         return render(request, 'proto_design/index.html', 
-                      {'loginform' : LoginForm()})
+                      {'loginform' : LoginForm(), 'announcement' : x})
     
     elif request.method.upper() == "POST":
         form = LoginForm(request.POST)
@@ -37,5 +39,4 @@ def logout_view(request):
     logout(request)
     messages.success(request, "Successfully logged out!")
     return redirect("login_url")
-    #return render(request, 'login/login.html', {'error_message' : 'logged out'})
 
