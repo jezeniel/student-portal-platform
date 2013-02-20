@@ -3,7 +3,7 @@
     
     </head>
     <body>
-        <form action="{% url 'announce_url' %}" method="POST">
+        <form action="{% url 'announce_post' %}" method="POST">
             {% csrf_token %}
             {% for field in announcementForm %}
                 <p>{{field}}</p>
