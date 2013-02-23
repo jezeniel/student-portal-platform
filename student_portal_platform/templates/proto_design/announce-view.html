@@ -1,3 +1,4 @@
+{% load comments %}
 <html>
     <head>
         <style type="text/css">
@@ -6,6 +7,9 @@
                 width:500px;
             }
         
+            #id_honeypot {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -13,6 +17,27 @@
 	        <h1>{{announcement.title}}</h1>
 	        <h4>{{announcement.postdate}} by {{announcement.author}}</h4>
 	        <p> {{announcement.content}} </p>
+        </div>
+        <div id="commentbox">
+            {% render_comment_list for announcement %}
+            
+            {% if user.is_authenticated %}
+                {% get_comment_form for announcement as form %}
+                <form action="{% comment_form_target %}" method="POST">
+                    {% csrf_token %}
+                    {{form.comment}}
+                    {{form.honeypot}}
+                    {{form.content_type}}
+                    {{form.object_pk}}
+                    {{form.timestamp}}
+                    {{form.security_hash}}
+                    <input type="hidden" name="next" value="{% url 'announce_view' announcement.id %}">
+                    <input type="submit" value="Add Comment" id="id_submit">
+                </form>
+            {% else %}
+                <p> Please <a href="{% url 'login_url' %}">login</a> to post a comment.</p>
+            {% endif %}
+        
         </div>
     </body>
 </html>

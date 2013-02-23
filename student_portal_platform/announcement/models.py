@@ -6,7 +6,8 @@ class Announcement(models.Model):
     author = models.ForeignKey(User)
     content = models.TextField()
     postdate = models.DateTimeField(auto_now_add = True)
-    subjectcode = models.CharField(max_length = 50, default = '')
+    subjectcode = models.CharField(max_length = 50, default = 'global')
     
     def __unicode__(self):
         return self.subjectcode + '--' + self.title + '-' + str(self.postdate)
+    

@@ -13,13 +13,12 @@ def announcement_post(request):
                       { 'announcementForm' : AnnouncementForm()})
         
     elif request.method == "POST":
-        form = announcementForm(request.POST)
+        form = AnnouncementForm(request.POST)
         if form.is_valid():
             announcement = Announcement.objects.create(title = form.cleaned_data['title'],
                                                        content = form.cleaned_data['content'],
                                                        author = request.user)
             return HttpResponse("you posted")
-        
         
 def announcement_view(request, post_id):
     announcement = get_object_or_404(Announcement, id=post_id)

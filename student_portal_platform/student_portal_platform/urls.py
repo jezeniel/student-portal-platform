@@ -19,7 +19,8 @@ urlpatterns = patterns('',
     url(r'^home/' , 'userprofile.views.home_view', name = 'home_url'),
     url(r'^logout/', 'login.views.logout_view', name= 'logout_url'),
     url(r'^register/', 'users.views.register', name= 'register_url'),
-    url(r'^announcement/', include('announcement.urls'))
+    url(r'^announcement/', include('announcement.urls')),
+    url(r'^comments/', include('django.contrib.comments.urls')),
 )
 
 #remove after development
