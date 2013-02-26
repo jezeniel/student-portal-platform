@@ -19,7 +19,20 @@
 	        <p> {{announcement.content}} </p>
         </div>
         <div id="commentbox">
-            {% render_comment_list for announcement %}
+            {% get_comment_count for announcement as comment_count %}
+            There are {{comment_count}} comment{{comment_count|pluralize}}.
+            {% get_comment_list for announcement as comment_list %}
+            {% for comment in comment_list %}
+                <dl>
+                    <dt>
+                        {{comment.submit_date|date:"F d,Y f A"}} - {{comment.user_name}}
+                    </dt>
+                    <dd>
+                        {{comment.comment}}
+                    </dd>
+                    
+                </dl>
+            {% endfor %}
             
             {% if user.is_authenticated %}
                 {% get_comment_form for announcement as form %}
@@ -31,11 +44,11 @@
                     {{form.object_pk}}
                     {{form.timestamp}}
                     {{form.security_hash}}
-                    <input type="hidden" name="next" value="{% url 'announce_view' announcement.id %}">
+                    <input type="hidden" name="next" value="{% url 'announcement:view' announcement.id %}">
                     <input type="submit" value="Add Comment" id="id_submit">
                 </form>
             {% else %}
-                <p> Please <a href="{% url 'login_url' %}">login</a> to post a comment.</p>
+                <p> Please <a href="{% url 'login_url' %}?next={% url 'announcement:view' announcement.id %}">login</a> to post a comment.</p>
             {% endif %}
         
         </div>

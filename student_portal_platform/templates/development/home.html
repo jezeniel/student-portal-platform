@@ -4,7 +4,7 @@
     </head>
     <body>
         <p>Welcome {{ user.username }} ! <a href="{% url 'logout_url' %}">Logout</a></p>
-        <p><a href="{% url 'announce_post' %}">Post Announcement</a></p>
+        <p><a href="{% url 'announcement:post' %}">Post Announcement</a></p>
         <p>{{user.first_name}} {{user.last_name}}</p>
         <p>{{user.userinfo.course}}</p>
         <p>{{user.userinfo.birthday}}</p>

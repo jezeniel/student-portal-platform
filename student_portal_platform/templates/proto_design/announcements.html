@@ -1,0 +1,24 @@
+<html>
+    <head>
+    
+    </head>
+    <body>
+       {% for announcement in announcements %}
+            <a href="{% url 'announcement:view' announcement.id %}">
+                <p>{{announcement.title}} - {{announcement.postdate}}</p>
+            </a>
+       {% endfor %}
+       
+       <div id="pages">
+            {% if announcements.has_previous %}
+                <a href="?page={{announcements.previous_page_number}}">previous</a>
+            {% endif %}
+            
+                Page {{ announcements.number }} of {{ announcements.paginator.num_pages}}
+                
+            {% if announcements.has_next %}
+                <a href="?page={{announcements.next_page_number}}">next</a>
+            {% endif %}
+       </div>     
+    </body>
+</html>
