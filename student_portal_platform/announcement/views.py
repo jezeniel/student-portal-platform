@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.http import HttpResponse
 
-from .models import Announcement
+from .models import GlobalAnnouncement
 from .forms import AnnouncementForm
 
 
@@ -16,17 +16,17 @@ def announcement_post(request):
     elif request.method == "POST":
         form = AnnouncementForm(request.POST)
         if form.is_valid():
-            announcement = Announcement.objects.create(title = form.cleaned_data['title'],
+            announcement = GlobalAnnouncement.objects.create(title = form.cleaned_data['title'],
                                                        content = form.cleaned_data['content'],
                                                        author = request.user)
             return HttpResponse("you posted")
         
 def announcement_view(request, post_id):
-    announcement = get_object_or_404(Announcement, id=post_id)
+    announcement = get_object_or_404(GlobalAnnouncement, id=post_id)
     return render(request, 'proto_design/announce-view.html', {'announcement': announcement})
 
 def announcement_list(request, page_num = 5):
-    announce_list = Announcement.objects.order_by("-postdate")
+    announce_list = GlobalAnnouncement.objects.order_by("-postdate")
     paginator = Paginator(announce_list, page_num)
     
     page = request.GET.get("page")
