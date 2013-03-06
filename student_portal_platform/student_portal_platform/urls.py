@@ -21,7 +21,8 @@ urlpatterns = patterns('',
     url(r'^register/', 'users.views.register', name= 'register_url'),
     url(r'^announcement/', include('announcement.urls', namespace="announcement")),
     url(r'^comments/', include('django.contrib.comments.urls')),
-    url(r'^quiz/(?P<quiz_id>\d+)/$', 'quiz.views.quiz_view', name = 'quiz_url')
+    url(r'^quiz/(?P<quiz_id>\d+)/$', 'quiz.views.quiz_view', name = 'quiz_url'),
+    url(r'^discussion/', include('discussion.urls', namespace="discuss")),
 )
 
 #remove after development

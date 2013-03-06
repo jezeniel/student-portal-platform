@@ -1,0 +1,15 @@
+<html>
+
+    <body>
+        <ul>
+            {% for thread in threads %}
+                <li><a href="{% url 'discuss:view' thread.id %}">{{thread.title}}</a> 
+                    posted by {{thread.author}}
+                    views: {{thread.views}}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'discuss:create' %}">Create A Thread</a>
+    </body>
+
+</html>

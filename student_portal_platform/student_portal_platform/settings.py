@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'announcement',
     'subject',
     'quiz',
+    'discussion',
 )
 
 # A sample logging configuration. The only tangible logging
