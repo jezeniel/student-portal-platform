@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from .forms import LoginForm
-from announcement.models import Announcement
+from announcement.models import GlobalAnnouncement
 
 SESSION_TIME = 1209600 #two weeks
 BROWSER_CLOSE = 0
@@ -22,7 +22,7 @@ def login_view(request):
         if request.GET.has_key('next'):
             loginform.initial['next'] = request.GET.get("next")
         #get the latest announcement by postdate
-        announcement = Announcement.objects.order_by("-postdate")[0]
+        announcement = GlobalAnnouncement.objects.order_by("-postdate")[0]
         return render(request, 'proto_design/index.html', 
                       {'loginform' : loginform, 'announcement' : announcement})
         

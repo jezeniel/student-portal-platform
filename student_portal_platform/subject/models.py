@@ -21,7 +21,7 @@ class Grade(models.Model):
     grade = models.DecimalField(max_digits = 5,decimal_places=2, default=0)
     
     def __unicode__(self):
-        return self.student.username + '-' + self.subject.name + '-' + str(self.grade)
+        return "%s-%s-%s" % (self.student.username ,self.subject.name, str(self.grade))
 
 #SIGNALS
 @receiver(m2m_changed, sender = Subject.students.through)
