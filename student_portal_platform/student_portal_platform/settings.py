@@ -3,6 +3,7 @@ import os
 
 SITE_ROOT = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
+LOGIN_URL = "login_url"
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 

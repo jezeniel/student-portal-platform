@@ -52,7 +52,7 @@ def login_view(request):
         messages.error(request, "Invalid Login!")
         return redirect('login_url')
 
-@login_required(login_url="login_url")
+@login_required
 def logout_view(request):
     logout(request)
     messages.success(request, "Successfully logged out!")

@@ -7,7 +7,7 @@ from .models import GlobalAnnouncement
 from .forms import AnnouncementForm
 
 
-@login_required(login_url="login_url")
+@login_required
 def announcement_post(request):
     if request.method == "GET":
         return render(request, 'proto_design/announce-post.html',
