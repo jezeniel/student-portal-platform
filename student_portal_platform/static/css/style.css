@@ -1,194 +1,540 @@
-/************************************************************************
-							General Styles
- *************************************************************************/
 
-body {
-	font: 14px/21px Verdana, Arial, Helvetica, sans-serif;
-	color: #444;
+/**************************************************
+                  General Styles
+**************************************************/
+html,body{
+  height: 100%;
 }
 
-a {
-	text-decoration:none;
-	color:#fff;
-}
-
-.container {
-	width: 960px;
-	margin: 0 auto;
-	overflow:hidden;
-}
-
-.mod{
-	margin-top:40px;
-	margin-bottom:40px;
-}
-
-.btn{
-	background-color: #68b12f;
-    background: linear-gradient(top, #68b12f, #50911e);
-    border: 1px solid #509111;
-    border-bottom: 1px solid #5b992b;
-    border-radius: 3px;
-    box-shadow: inset 0 1px 0 0 #9fd574;
-    color: #fff;
-    font-weight: bold;
-    padding: 6px 20px;
-    text-align: center;
-    text-shadow: 0 -1px 0 #396715;
+body{
+    padding-top:60px;
 }
 
 
 
-/************************************************************************
-							Area=Header
- *************************************************************************/
+/**************************************************
+                  End of General Styles
+**************************************************/
 
 
-header {
-     background: #222;
-     height: 100px;
+/**************************************************
+                  Overridden Styles
+**************************************************/
+.well{
+    padding:9px 0;
 }
 
-	.header-wrapper {}
-
-
-		#logo {
-
-		}
-
-		.header-wrapper .search-bar, .header-wrapper .form-nav {
-			 line-height:100px;
-		     float: right;
-		     margin: 0 0 0 15px;
-		}
-
-		.form-nav a {
-/*			padding:0 20px;*/
-			margin-right:20px;
-		}
-
-
-
-
-/************************************************************************
-							Area=Main-Content
- *************************************************************************/
-
-.main-wrapper {
-	background:#FBFBFA;
-	border-top: 1px solid #333; /*Find a better color works with the header's bottom border*/
+.media{
+    border-top:1px solid #efefef;
+    padding-top:15px;
 }
 
-	.inner-wrapper {
-
-	}
-
-		.inner-wrapper .welcome-msg{
-			float:right;
-			width:600px;
-		}
-
-			.welcome-msg h1{
-				font-size:24px;
-				margin:0 0 24px;
-			}
-
-
-		.inner .login-form{
-			float:left;
-		}
-
-		.inner .register-form{
-			margin:0 auto;
-		}
-
-		.form-mod{
-			width:320px;
-		}
-
-		.form-mod form{
-				padding:0 30px;
-				border:1px solid #c5c5c5;
-			    font-style: normal;
-			    border-radius:10px;
-			}
-
-			.form-mod .form-field{
-				margin:20px 0;
-			}
-			
-		    .form-mod .error-text {
-			     color: #ff0000;
-			}
-
-			.form-mod .form-field label{
-				 margin: 0 0 10px;
-				 display: block;
-			}
-
-
-			.form-mod .form-field input[type="text"],
-			.form-mod .form-field input[type="password"],
-			.form-mod .form-field input[type="email"]{
-				 font-size:14px;
-				 padding:10px 0;
-				 width:100%;
-				 -webkit-box-shadow: -1px -1px 0 0 rgba(50, 50, 50, 0.6);
-				 -moz-box-shadow:    -1px -1px 0 0 rgba(50, 50, 50, 0.6);
-				 box-shadow:         -1px -1px 0 0 rgba(50, 50, 50, 0.6);
-				 color:#888;
-			}
-
-			.form-mod .rmbr-field {
-				margin:-10px 0 20px;
-			}
-
-			.form-mod .rmbr-field label {
-			    font-size:11px;
-			    margin:0 0 0 -4px;
-			}
-
-			.form-mod .submit-btn{
-				margin: 0 0 24px;
-			}
-
-		.feature-list{
-		}
-
-			.feature-list .feature{
-				float:left;
-				margin-right:40px;
-				width:293px;
-			}
-
-				.feature h1{
-					font-size: 24px;
-					margin:0 0 24px;
-				}
-
-			.feature-list .last{
-				margin-right:0;
-			}
-
-
- /************************************************************************
-							Area=Footer
- *************************************************************************/
-footer {
-	background:#222222;
-	padding:15px 0;
+.media-heading{
+    margin-bottom:15px;
+    font-size:13px;
 }
 
-	.footer-nav{
+  .media-heading .post-time-elapsed{
+      display:block;
+      font-size:11px;
+  }
 
-	}
+.media-list .media-list{
+    margin-top:15px;
+}
 
-	.footer-nav li{
-		display:inline-block;
-		padding:0 20px;
-		font-size:11px;
-	}
 
-	.footer-nav a{
-		color:#fff;
-	}
+.nav .nav{
+    list-style: none;
+    margin:0 -15px;
+}
+
+.navbar .brand, 
+.navbar.navbar-inverse li a{
+  color: #e7e7e7;
+}
+
+.navbar.navbar-inverse li a:hover{
+}
+
+.navbar-search{
+    position: relative;
+}
+
+  .navbar-search .search-query{
+      padding-left:29px !important;
+  }
+
+.btn-group>.btn-small{
+  font-size:12px;
+}
+
+.btn-group .dropdown-menu li a{
+  color:#444;
+}
+
+/**************************************************
+    End of Overwritten Styles in Twitter BS
+**************************************************/
+
+/**************************************************
+                  Profile Styles
+**************************************************/
+
+
+#wrapper{
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom:-40px;
+}
+
+
+header h1{
+  margin: 0;
+  padding: 0;
+  line-height: 18px;
+}
+
+    header .navbar-search .icon-search{
+        position: absolute;
+        top:7px;
+        left:11px;
+    }
+
+    header .icon-home{
+        vertical-align: top;
+        padding-right:10px;
+    }
+
+
+
+
+.sidebar .nav-list i{
+    margin-right:10px;
+}
+
+
+.main{
+  border:1px solid #e3e3e3;
+ /* border-width: 0 1px 0 1px;*/
+}
+
+  .main .inner{
+    padding:0 20px;
+  }
+
+
+.post-options{
+    margin-top:-5px;
+    margin-bottom:10px;
+}
+
+  .post-options a{
+      font-size:11px;
+      padding: 0 10px 0 0;
+  }
+
+.user-box{
+    margin:0 0 15px;
+    border:0 !important;
+}
+
+.user-status{
+    /*padding:10px 15px;*/
+    padding: 4px 2px;
+    color:#fff;
+    float:right;
+}
+
+.user-mini-thumb{
+  float:left;
+}
+
+.user-settings{
+  float:right;
+  margin-left:10px;
+}
+
+
+.profile-tab{
+  margin-bottom: -1px;
+}
+/*.post-comment-box{
+    position: relative;
+
+}
+
+  .post-comment-box textarea{
+      font-size:12px;
+  }*/
+
+  .post-comment-label{
+      position: absolute;
+      color: #a1a1a1;
+      top:5px;
+      left:8px;
+      font-size: 12px;
+  }
+
+
+.post-btn{
+    margin-top:-15px;
+}
+
+
+.friend-list,
+.main-nav{
+  padding: 9px 0;
+  margin: 0 0 20px;
+  border: 1px solid #E3E3E3;
+}
+
+.main-nav{
+  padding: 0;
+}
+
+.main-nav .nav-list>li>a{
+  padding-top:8px;
+  padding-bottom:8px;
+}
+
+.friend-list ul.friends{
+  padding: 0;
+  overflow: hidden;
+}
+
+.friend-list .nav-header{
+  margin-left: -11px;
+} 
+
+.main-nav .nav-header{
+
+}
+
+
+.friends{}
+
+  .friends li{
+    /*overflow: hidden;
+      padding-top:5px;
+      padding-bottom:5px;*/
+      float:left;
+      margin: 3px;
+  }
+
+  .friends li a{
+    padding: 0;
+    margin: 0;
+    outline: none;
+  }
+
+  .friends li a:hover{
+      background:none;
+  }
+
+
+  .friends img{
+      float: left;
+      /*margin:0 10px 10px 0;*/
+      margin: 0;
+  }
+
+.friends ul{
+    list-style: none;
+}
+
+.see-more{
+    display:block;
+    /*margin:-5px 0 0 15px;*/
+    font-size:11px;
+    margin: -2px 0 0 5px;
+    text-align:right;
+    padding-right:10px;
+}
+
+.user-box .user-box-author{
+    font-size:16px;
+    line-height: 18px;
+}
+
+
+.recent-activity,
+.box{
+  border: 1px solid #E3E3E3;
+  margin-bottom: 18px;
+
+}
+
+.box .box-header{
+    background: #1b1b1b;
+    color:#f2f2f2;
+    padding: 10px;
+    margin: 0;
+}
+
+.box .item-header{
+  margin-bottom: -1px;
+  margin-top: 12px;
+}
+
+.recent-activity .media-list, .box .box-body{
+    padding: 0 9px;
+}
+
+.recent-activity .media-list{
+  height: 250px;
+  overflow: auto;
+}
+
+.notes{
+  margin-bottom:20px;
+}
+
+.notes>h3{
+  font-size:14px;
+}
+
+.list {
+  background: #FCF388;
+  color: #555;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #dedede;
+}
+
+.list a{
+    color:#BA350D;
+    text-decoration:underline;
+}
+
+.list li {
+  list-style: none;
+  border-bottom: 1px dotted #F08767;
+  text-indent: 25px;
+  height: auto;
+  padding: 10px;
+  text-transform: capitalize;
+}
+
+
+
+/**************************************************
+                  End of Profile Styles
+**************************************************/
+
+
+
+/**************************************************
+            Start of Form Styles
+**************************************************/
+
+
+.login, .register{
+  float:left;
+  background:#eee;
+  padding: 20px;
+}
+
+
+.form-menu{
+  padding: 0;
+  margin: 0;
+  list-style:none;
+}
+
+.form-menu li{
+  float: left;
+  padding:11px 10px;
+}
+
+
+.register .controls{
+  position: relative;
+}
+
+.register [class^="icon-"]{
+  position: absolute;
+  top:6px;
+  left: 8px;
+}
+
+.warning{
+  color:#ff0000;
+  position:absolute;
+  top:-20px;
+}
+
+.hint{
+  color:#888;
+  display:block;
+  font-size:11px;
+}
+
+.register input[type="text"],
+.register input[type="password"],
+.register input[type="email"]{
+  padding-left:25px;
+}
+
+
+/**************************************************
+            End of Form Styles
+**************************************************/
+
+/**************************************************
+            Start of Friend List Styles
+**************************************************/
+
+
+.friend-view{
+  margin: 20px;
+  border:1px solid #ccc;
+  padding:0;
+  width: 500px; /*Temporary*/
+  overflow:auto;
+  height: 350px;
+}
+
+.friend-view ul{
+  list-style:none;
+}
+
+.friend-view-header{
+  margin: 0;
+  padding: 5px;
+  background: #7f7c7f;
+}
+
+.friend-view-meta{
+  border-bottom: 1px solid #cfcfcf;
+  overflow: hidden;
+  margin-bottom: -20px;
+}
+
+.sort-by,
+.item-per,
+.friend-search{
+  padding: 8px;
+  margin: 0;
+}
+
+.sort-by em,
+.item-per em{
+  font-weight:500;
+  font-style:normal;
+}
+
+.sort-by a,
+.item-per a{
+  font-size:11px;
+}
+
+.sort-by{
+  float: left;
+}
+
+.item-per{
+  float: right;
+}
+
+.friend-search{
+  clear: both;
+}
+
+.friend-view-body{
+  padding: 10px;
+  overflow: hidden;
+}
+
+
+.friend-view-body .friend-result-count{
+  font-size:11px;
+  vertical-align: top;
+  display:block;
+}
+
+
+.friend-result-list li{
+  float: left;
+  margin: 0 15px 15px 10px;
+}
+
+.friend-result-list a{
+  font-size:12px;
+  text-decoration: none;
+}
+.friend-result-list img{
+  float:left;
+  margin:0 10px 10px 0;
+}
+
+.friend-search input[type="text"]{
+  margin:0;
+  padding:5px 0;
+}
+
+.friend-results{
+  margin-top: -10px;
+}
+
+.friend-results .section{
+  display:block;
+  font-size:11px;
+}
+
+.friend-search{
+  float:right;
+}
+
+/**************************************************
+            End of Friend List Styles
+**************************************************/
+
+/**************************************************
+            Start of Welcome Styles
+**************************************************/
+
+
+
+.info{
+  margin: 0 20px;
+}
+
+.info p{
+  margin: 10px 0;
+}
+
+.sched-list{
+  list-style:none;
+}
+
+.schedules{
+  background: #eee;
+}
+
+.schedules,.announcements{
+  padding: 20px;
+}
+
+.sched-list li{
+  margin-bottom: 18px;
+}
+
+.sched-list .sched{
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #ccc;
+}
+
+.info h5,
+.sched-list p{
+  margin: 0;
+  font-weight:bold;
+}
+
+.page-date{
+  font-size:11px;
+}
+
+
+

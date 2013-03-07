@@ -23,7 +23,7 @@ def login_view(request):
             loginform.initial['next'] = request.GET.get("next")
         #get the latest announcement by postdate
         announcement = GlobalAnnouncement.objects.order_by("-postdate")[0]
-        return render(request, 'proto_design/index.html', 
+        return render(request, 'official/home.html', 
                       {'loginform' : loginform, 'announcement' : announcement})
         
     elif request.method.upper() == "POST":
