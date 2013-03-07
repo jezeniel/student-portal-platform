@@ -1,5 +1,5 @@
 from django.conf.urls import url, patterns
-
+from django.contrib.auth.decorators import login_required
 from .views import ThreadList, ThreadDetail, ThreadCreate
 
 urlpatterns = patterns('', 
