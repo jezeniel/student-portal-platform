@@ -3,25 +3,50 @@ from re import match
 from django import forms
 from django.contrib.auth.models import User
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, Field, HTML, Div
+from crispy_forms.bootstrap import InlineRadios, FormActions
+
 from .widgets import DateSelectorWidget
 
-class RegisterForm(forms.Form):
-    firstname = forms.CharField(max_length = 100, 
-                                label = (u"First name"))
-    lastname = forms.CharField(max_length = 100,
-                               label = (u"Last name"))
-    course = forms.CharField(max_length = 50)
-    email = forms.EmailField()
-    address = forms.CharField()
-    birthday = forms.DateField(widget = DateSelectorWidget)
-    username = forms.CharField(max_length=30)
-    password1 = forms.CharField(widget = forms.PasswordInput, 
-                                label = (u"Password"),
-                                min_length=8)
-    password2 = forms.CharField(widget = forms.PasswordInput, 
-                                label = (u"Retype password"),
-                                min_length=8)
+class AccountForm(forms.Form):
+
+    email = forms.EmailField(required = True, 
+                             label = (u""),
+                             help_text = "ex. johndoe@domain.com")
+
+    username = forms.CharField(max_length=30, required = True, label = (u""))
     
+    password1 = forms.CharField(widget = forms.PasswordInput, 
+                    label = (u""),
+                    min_length=8,
+                    required = True,
+                     help_text = "At least 8 characters.",
+                )
+    
+    password2 = forms.CharField(widget = forms.PasswordInput, 
+                    label = (u""),
+                    min_length=8,
+                    required = True,
+                )
+    
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.html5_required = True
+        self.helper.form_tag = False
+        self.helper.layout = Layout (
+                        Fieldset(
+                            "Account Information",
+                            Field("username", placeholder = "Username", pattern = "[a-zA-Z0-9]+", css_class = "span11"),
+                            Field("email", placeholder = "Email", type = "email", css_class = "span11"),
+                            Field("password1", placeholder = "Password", pattern = "(.){8,}", css_class = "span11"),
+                            Field("password2", placeholder = "Confirm Password", pattern = "(.){8,}", css_class = "span11"),
+                        ),    
+                    )
+        
+        super(AccountForm, self).__init__(*args, **kwargs)
+  
+
     def clean_username(self):
         username = self.cleaned_data['username']
         if not match(r'^[a-zA-Z0-9]+$', username):
@@ -41,7 +66,7 @@ class RegisterForm(forms.Form):
         raise forms.ValidationError("Email already used.")
     
     def clean(self):
-        cleaned_data = super(RegisterForm,self).clean()
+        cleaned_data = super(AccountForm,self).clean()
         password1 = cleaned_data.get("password1")
         password2 = cleaned_data.get("password2")
         if  password1 and password2:
@@ -52,4 +77,48 @@ class RegisterForm(forms.Form):
                 del cleaned_data['password2']
                 
         return cleaned_data
-        
+    
+
+class PersonalForm(forms.Form):
+    firstname = forms.CharField(
+                    max_length = 100, 
+                    label = (u""),
+                    required = True,
+                )
+    
+    lastname = forms.CharField(
+                    max_length = 100,
+                    label = (u""),
+                    required = True,
+                )
+    
+    gender = forms.ChoiceField(
+                    widget= forms.RadioSelect,
+                    choices = (('male', 'Male'), ('memale', 'Female')),
+                    required = True,
+                    label = (u""),
+                )
+    
+    address = forms.CharField(max_length=255, required = True, label = (u""))
+    
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.html5_required = True
+        self.helper.layout = Layout (
+                        Fieldset(
+                            "Personal Information",
+                            Field("firstname", placeholder = "First Name", pattern = "[\sa-zA-Z]+", css_class = "span11"),
+                            Field("lastname", placeholder = "Last Name", pattern = "[\sa-zA-Z]+", css_class = "span11"),
+                            Field("address", placeholder = "Address", css_class = "span11" ),
+                            InlineRadios("gender", css_class = "inline"),       
+                        ),
+                        ButtonHolder(
+                            Submit('submit', 'Sign Up!', css_class = 'btn btn-large span11')            
+                        
+                        )
+                            
+                    )
+        super(PersonalForm, self).__init__(*args, **kwargs)
+  
+    

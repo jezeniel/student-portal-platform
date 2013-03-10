@@ -25,7 +25,6 @@ body{
 }
 
 .media{
-    border-top:1px solid #efefef;
     padding-top:15px;
 }
 
@@ -39,10 +38,6 @@ body{
       font-size:11px;
   }
 
-.media-list .media-list{
-    margin-top:15px;
-}
-
 
 .nav .nav{
     list-style: none;
@@ -51,11 +46,9 @@ body{
 
 .navbar .brand, 
 .navbar.navbar-inverse li a{
-  color: #e7e7e7;
+  color: #ccc;
 }
 
-.navbar.navbar-inverse li a:hover{
-}
 
 .navbar-search{
     position: relative;
@@ -63,6 +56,19 @@ body{
 
   .navbar-search .search-query{
       padding-left:29px !important;
+  }
+
+.nav-tabs > li{
+  margin-right:-3px;
+}
+
+  .nav-tabs > li > a{
+    border: 1px solid #ddd;
+  }
+
+  .nav-tabs > li > a:hover{
+    background: none;
+    border: 1px solid #ddd;
   }
 
 .btn-group>.btn-small{
@@ -81,12 +87,22 @@ body{
                   Profile Styles
 **************************************************/
 
+body{
+  background: #f8f8f8;
+}
 
 #wrapper{
   min-height: 100%;
   height: auto !important;
   height: 100%;
   margin-bottom:-40px;
+}
+
+.main-nav,
+.inner,
+.acad-sched,
+.recent-activity{
+  background: #fff;
 }
 
 
@@ -102,11 +118,23 @@ header h1{
         left:11px;
     }
 
-    header .icon-home{
+    header .nav [class^="icon-"]{
         vertical-align: top;
         padding-right:10px;
     }
+    
+    header a{
+      /*color:#e7e7e7;*/
+      color: #ccc;
+    }
 
+    header .user-mini-thumb:hover{
+      background:#2f2f2f;
+    }
+
+    header .user-mini-thumb a:hover{
+        text-decoration:none;
+    }
 
 
 
@@ -114,20 +142,27 @@ header h1{
     margin-right:10px;
 }
 
-
 .main{
-  border:1px solid #e3e3e3;
- /* border-width: 0 1px 0 1px;*/
+  position:relative;
 }
 
-  .main .inner{
-    padding:0 20px;
-  }
+.main .breadcrumb{
+  position:absolute;
+  right:-11px;
+}
+
+.main .inner{
+  clear:both;
+  padding:0 20px;
+  border:1px solid #e3e3e3;
+}
 
 
 .post-options{
     margin-top:-5px;
     margin-bottom:10px;
+    border-bottom:1px solid #e3e3e3;
+    padding-bottom: 15px;
 }
 
   .post-options a{
@@ -141,24 +176,55 @@ header h1{
 }
 
 .user-status{
-    /*padding:10px 15px;*/
-    padding: 4px 2px;
-    color:#fff;
     float:right;
+    
 }
+  
+  .user-status span{
+    color:#ccc;
+  }
 
-.user-mini-thumb{
-  float:left;
-}
+  .user-status span:hover{
+    color:#fff;
+  }
 
-.user-settings{
-  float:right;
-  margin-left:10px;
-}
+
+  .user-status .user-mini-thumb{
+    float:left;
+    margin: 4px 2px;
+  }
+
+  .user-status .user-settings{
+    float:right;
+    margin: 8px 0 0 8px;
+  }
+
+  .user-status .user-access-link{
+    margin: 11px 0;
+    float:right;
+  }
+
+  .user-status .user-access-link a{
+    padding: 0 5px;
+  }
+
+  .user-status .user-access-link a:hover{
+    color:#fff;
+    text-decoration: none;
+  }
 
 
 .profile-tab{
+  float: left;
   margin-bottom: -1px;
+}
+
+.profile-tab li{
+  background: #fff;
+}
+
+.profile-tab [class^="icon-"]{
+  padding: 0 5px 0 0;
 }
 /*.post-comment-box{
     position: relative;
@@ -183,7 +249,6 @@ header h1{
 }
 
 
-.friend-list,
 .main-nav{
   padding: 9px 0;
   margin: 0 0 20px;
@@ -199,28 +264,35 @@ header h1{
   padding-bottom:8px;
 }
 
-.friend-list ul.friends{
+
+.friend-list{
+  position: relative;
+  border: 1px solid #E3E3E3;
   padding: 0;
+  list-style:none;
+  margin: 0 20px 18px 0;
   overflow: hidden;
 }
 
-.friend-list .nav-header{
-  margin-left: -11px;
-} 
+  .friend-list .f-tip{
+    display:none;
+  }
 
-.main-nav .nav-header{
+  .friend-list li:hover .f-tip{
+    color: #fff;
+    position: absolute;
+    top: 4px;
+    left:25px;
+    background: rgba(0,0,0,0.7);
+    padding: 3%;
+    display:block;
+  }
 
-}
 
-
-.friends{}
-
-  .friends li{
-    /*overflow: hidden;
-      padding-top:5px;
-      padding-bottom:5px;*/
+  .friend-list li{
       float:left;
-      margin: 3px;
+      padding: 3%;
+      width: 27%;
   }
 
   .friends li a{
@@ -329,10 +401,19 @@ header h1{
             Start of Form Styles
 **************************************************/
 
+select,
+textarea,
+input[type="text"],
+input[type="password"]{
+  width:100%;
+}
+
 
 .login, .register{
-  float:left;
   background:#eee;
+}
+
+.login fieldset{
   padding: 20px;
 }
 
@@ -498,7 +579,10 @@ header h1{
 
 
 .info{
-  margin: 0 20px;
+  margin: 20px 0;
+  padding: 10px 20px;
+  background: #f3f3f3;
+  border:1px solid #e3e3e3;
 }
 
 .info p{
@@ -511,10 +595,6 @@ header h1{
 
 .schedules{
   background: #eee;
-}
-
-.schedules,.announcements{
-  padding: 20px;
 }
 
 .sched-list li{
@@ -537,4 +617,288 @@ header h1{
 }
 
 
+/**************************************************
+            End of Welcome Styles
+**************************************************/
+
+
+/**************************************************
+            Start of Profile Styles
+**************************************************/
+
+.user-space{
+  border: 1px solid #e7e7e7;
+  background: #fff;
+  margin-bottom: 18px;
+  padding: 20px 0;
+}
+
+  .user-space .user-area{
+    overflow: hidden;
+    margin-left: 20px;
+  }
+
+  .user-space .about-sec{
+    margin-right:20px;
+  }
+
+  .user-space .about-sec .more-text{
+    font-size:11px;
+    text-decoration: none;
+  }
+  
+  .user-space .user-thumb{
+    float:left;
+    margin-right:10px;
+  }
+
+  .user-space .user-meta-info{
+    list-style:none;
+    margin: 0;
+  }
+
+  .user-space .profile-btn .btn{
+    margin: 5px 0;
+  }
+
+.user-space .about-sec,
+.user-space .profile-btn{
+    margin-left:20px;
+}
+  .user-space .about-sec h4{
+    margin-top:0;
+  }
+
+
+.main .profile-tab-content{
+  background: #fff;
+  clear:both;
+  padding: 20px;
+  border:1px solid #e7e7e7;
+}
+
+/**************************************************
+            End of Profile Styles
+**************************************************/
+
+/**************************************************
+            Start of Discussion Styles
+**************************************************/
+
+.forum .forum-header{
+  margin-bottom:-10px;
+}
+
+table.table td,
+table.table th{
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+
+.table{
+  border: 1px solid #e7e7e7;
+  margin-bottom: 0;
+  background: #fff;
+}
+
+.table tr th{
+  font-size: 14px;
+}
+
+.table a{
+  text-decoration: none;
+}
+
+/*.table-striped tbody > tr > td:firt-child,
+.table-striped thead > tr:first-child >th{
+  padding-left:24px;
+}*/
+
+
+.table-striped tbody tr:hover > td,
+.table-striped tbody tr:hover > th {
+  background-color: #F3F3F3;
+}
+
+.topic-title{
+  font-size:14px;
+  margin: 0;
+ /* margin-left:14px;*/
+}
+
+  .topic-title a:hover{
+    border-bottom: 1px dotted #005580;
+  }
+
+.topic .post-date{
+   font-size:11px;
+
+}
+
+
+.topic .media{
+  padding: 15px;
+  background-color: #eee;
+  border: 1px solid #e7e7e7;
+}
+
+.topic-posts .media >.pull-left{
+  margin:0 30px 30px 0;
+}
+
+.topic-posts .media-heading{
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-size: 11px;
+}
+
+
+.topic-descri{
+  margin-left:14px;
+}
+
+.pagination{
+  float:right;
+  margin: 9px 0;
+}
+
+
+
+/**************************************************
+            End of Discussion Styles
+**************************************************/
+
+
+/**************************************************
+            Start of Chat Styles
+**************************************************/
+
+.chat-msg-wrap .chat-header{
+  text-align:center;
+  margin: 0;
+  background: #fff;
+}
+
+.chat-msg-wrap{
+  border:1px solid #e7e7e7;
+  float:left;
+  width: 70%;
+}
+
+
+  .chat-msg-wrap .chat-msg{
+    /*box-shadow:inset 1px 1px 1px rgba(0,0,0,0.5);*/
+    background: #fff;
+    height:400px;
+    overflow: auto;
+  }
+
+  .chat-msg-wrap .chat-talks{
+    list-style:none;
+    margin: 0;
+  }
+
+  .chat-msg-wrap .chat-talks li{
+    background: #eee;
+    padding: 10px;
+    border-bottom:1px solid #e6e6e6;
+  }
+
+  .chat-msg-wrap .chat-talks .chat-line{
+    overflow: hidden;
+  }
+
+  .chat-msg-wrap .chat-talks .chatter{
+    float:left;
+    margin: 0 50px 10px 0;
+  }
+
+  .chat-user{
+    vertical-align:top;
+    font-weight:bold;
+  }
+
+  .chat-msg-wrap .chat-talks .chatter .chat-time{
+    display: block;
+    font-size: 11px;
+  }
+
+
+  .chat-msg-wrap .chat-inp{
+    background: #fff;
+    padding: 10px;
+  }
+
+
+  .chat-msg-wrap .chat-inp .chat-hint{
+    font-weight:bold;
+  }
+
+  .chat-msg-wrap .chat-inp textarea{
+    width: 95%;
+    max-width: 95%;
+  }
+
+
+.chat-online-list{
+  float:right;
+  width: 28%;
+  background: #fff;
+}
+
+  .chat-online-list h4{
+    padding-left: 10px;
+  }
+
+  .chat-online-list .chat-users-online{
+    list-style:none;
+    margin: 0;
+  }
+
+  .chat-online-list .chat-users-online li{
+      padding: 10px 10px 10px 20px;
+      border:solid #ccc;
+      border-width: 1px 0;
+      margin-bottom:-1px;
+  }
+
+
+/**************************************************
+            End of Chat Styles
+**************************************************/
+
+
+
+@media screen and (max-width:980px){
+  
+  .friend-list li{
+      float:left;
+      padding: 3%;
+      width: 44%;
+      margin-right:0;
+  }
+  
+  .user-space .user-thumb{
+    margin-bottom:10px;
+  }
+  
+}
+
+@media screen and (max-width:767px){
+    header .brand{
+  
+    }
+}
+
+@media screen and (max-width:768px){
+  
+  .friend-list li {
+    float: left;
+    margin-right:-2%;
+    padding: 3%;
+    width: 10%;
+  }
+
+}
 

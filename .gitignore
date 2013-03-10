@@ -5,7 +5,9 @@
 *.pot
 *.pyc
 local_settings.py
-
+*/*/migrations
+.settings/
 #eclipse
 .project
 .pydevproject
+../.settings

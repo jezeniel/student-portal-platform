@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -18,13 +19,13 @@ def login_view(request):
     #if method is GET render login page else authenticate user
     if request.method.upper() == "GET":
         loginform = LoginForm()
+        
         #get the next link the have an initial value for it in the login formTWO_WEEKS
         if request.GET.has_key('next'):
             loginform.initial['next'] = request.GET.get("next")
-        #get the latest announcement by postdate
-        announcement = GlobalAnnouncement.objects.order_by("-postdate")[0]
+            
         return render(request, 'official/home.html', 
-                      {'loginform' : loginform, 'announcement' : announcement})
+                      {'loginform' : loginform})
         
     elif request.method.upper() == "POST":
         form = LoginForm(request.POST)
