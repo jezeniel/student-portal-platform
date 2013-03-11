@@ -1,0 +1,106 @@
+{% extends "official/base2.html" %}
+
+{% block content %}
+
+    <div id="wrapper" class="container">
+
+        <div class="row-fluid">
+            
+
+            <div class="span9">
+                <div class="forum">
+                    <h3 class="forum-header">Global Forums - <a href="{% url 'discuss:create' %}">Create a topic</a></h3>
+                    
+                    <div class="pagination">
+                      <ul>
+                        {% if page_obj.has_previous %}
+                            <li><a href="{% url 'discuss:list'%}?page={{page_obj.previous_page_number}}">Prev</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">Prev</a></li>
+                        {% endif %}
+                        {% for page in paginator.page_range %}
+                            {% if page_obj.number == page %}
+                                <li class="active"><a href="#">{{page}}</a></li>
+                            {% else %}
+                                <li><a href="{% url 'discuss:list' %}?page={{page}}">{{page}}</a></li>
+                            {% endif %}
+                        
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li><a href="{% url 'discuss:list' %}?page={{page_obj.next_page_number}}">Next</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">Next</a></li>
+                        {% endif %}
+                      </ul>
+                    </div>
+
+                    <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Topic</th>
+                                <th>Views</th>
+                                <th>Replies</th>
+                                <th>Created</th>
+                                <th>Last Reply</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for thread in threads %}
+                              <tr>
+                                <td>
+                                    <div class="topic-title">
+                                        <a href="{% url 'discuss:view' thread.id %}">{{thread.title}}</a></div>
+                                    <div class="topic-descri">
+                                        by <a href="#">{{thread.author}}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                  {{thread.views}}
+                                </td>
+                                <td>
+                                  {{thread.post_set.count}}
+                                </td>
+                                <td>
+                                  {{thread.post_date}}
+                    
+                                </td>
+                                <td>
+                                    7 hours 33 min ago </br>
+                                    by <a href="{% url 'profile_url' thread.get_latest_author.id  %}" class="topic-author">{{thread.get_latest_author}}</a>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                            
+                          </table>
+
+
+
+                          <div class="pagination">
+                            <ul>
+			                      {% if page_obj.has_previous %}
+			                          <li><a href="{% url 'discuss:list'%}?page={{page_obj.previous_page_number}}">Prev</a></li>
+			                      {% else %}
+			                          <li class="disabled"><a href="#">Prev</a></li>
+			                      {% endif %}
+			                      {% for page in paginator.page_range %}
+			                          {% if page_obj.number == page %}
+			                              <li class="active"><a href="#">{{page}}</a></li>
+			                          {% else %}
+			                              <li><a href="{% url 'discuss:list' %}?page={{page}}">{{page}}</a></li>
+			                          {% endif %}
+			                      
+			                      {% endfor %}
+			                      {% if page_obj.has_next %}
+			                          <li><a href="{% url 'discuss:list' %}?page={{page_obj.next_page_number}}">Next</a></li>
+			                      {% else %}
+			                          <li class="disabled"><a href="#">Next</a></li>
+			                      {% endif %}
+                            </ul>
+                          </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

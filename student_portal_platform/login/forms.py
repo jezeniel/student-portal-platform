@@ -24,13 +24,7 @@ class LoginForm(forms.Form):
                             Fieldset(
                                      "Login",
                                      HTML("""
-                                         {% if messages %}
-                                             {% for message in messages %}
-                                                 <div class="alert alert-{{message.tags}}">
-                                                     {{message}}
-                                                 </div>
-                                             {% endfor %}
-                                         {% endif %}
+
                                      """),
                                      Field("username", css_class = "span10", placeholder = "Username"),
                                      Field("password", css_class = "span10", placeholder = "Password"),

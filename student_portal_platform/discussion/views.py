@@ -20,6 +20,7 @@ class ThreadCreate(LoginRequiredMixin, CreateView):
     model = Thread
     form_class = ThreadForm
     template_name = "development/discussion-create.html"
+    queryset = Thread.objects.order_by("last_edit")
 
     def get_context_data(self, **kwargs):
         context = super(ThreadCreate, self).get_context_data(**kwargs)
@@ -48,10 +49,15 @@ class ReplyCreate(LoginRequiredMixin, CreateView):
 class ThreadList(LoginRequiredMixin, ListView):
     model = Thread
     context_object_name = "threads"
-    template_name = "development/discussion.html"
-
+    paginate_by = 5
+    template_name = "official/discuss-topics.html"
+    
+    def get_queryset(self, **kwargs):
+        return Thread.objects.order_by("-post_date")
+        
+        
 class ThreadDetail(LoginRequiredMixin, View):
-    template_name = "development/discussion-view.html"
+    template_name = "official/discuss-view.html"
     
     def get(self,request, thread_id, *args, **kwargs):
         thread = get_object_or_404(Thread, id = thread_id)
@@ -66,10 +72,12 @@ class ThreadDetail(LoginRequiredMixin, View):
     def post(self, request, thread_id, *args, **kwargs):
         thread = get_object_or_404(Thread, id = thread_id)
         reply_form = QuickReplyForm(request.POST)
+        print request.POST
         if reply_form.is_valid():
+            print "valid"
             author = request.user
             content = reply_form.cleaned_data['content']
             title = thread.title
             reply = Post.objects.create(content = content, author = author, title = title, thread = thread)
             return redirect("discuss:view", thread_id = thread.id )
-        return HttpResponse("WHAT?")
+        return redirect("discuss:view", thread_id = thread.id)

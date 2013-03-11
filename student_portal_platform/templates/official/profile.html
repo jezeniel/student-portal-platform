@@ -1,0 +1,123 @@
+{% extends "official/base2.html" %}
+
+{% block navigations %}
+    <li><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
+    <li class="active"><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
+{% endblock %}
+
+{% block content %}
+
+
+    <div id="wrapper" class="container">
+
+        <div class="row-fluid main">
+
+
+            <div class="span9">
+
+                <h4 class="owner">{{owner.get_full_name}} <span class="alias">({{owner.username}})</span></h4>
+
+                <div class="row-fluid user-space">
+   
+                        <div class="span4">
+
+                            <div class="user-area">
+
+                                <div class="user-thumb">
+                                    <a href="#">
+                                        <img src="{{STATIC_URL}}img/img128.png" alt="">
+                                    </a>
+                                </div>
+
+                                
+                                <div class="user-meta">
+                                    <ul class="user-meta-info">
+                                        <li>Student</li>
+                                        <li>J2</li>
+                                        <li>Member since Jan 1</li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+
+                            <!-- end of user-area -->
+
+                        </div>
+
+                        <div class="span8">
+
+                            <div class="about-sec">
+                                <h4>About Me</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut velit doloribus rerum ratione accusantium repudiandae nobis impedit praesentium distinctio fugit qui iste aliquid quis sapiente placeat eos earum iure eum. <a href="#" class="more-text">Read more ...</a></p>
+                            </div>
+                            {% if owner.id != user.id %}
+                            <div class="profile-btn">
+                                <a href="#" class="btn  btn-small">Send message</a>
+                                 <a href="#" class="btn btn-small">Add as friend</a>    
+                            </div>
+                            {% endif %}
+
+                        </div>
+                </div>
+
+                <div class="row-fluid">
+                    
+                    <div class="span12 main">
+
+                        <ul class="nav nav-tabs profile-tab">
+                          <li class="active">
+                            <a href="#">Comments</a>
+                          </li>
+                          <li><a href="#">Photos</a></li>
+                          <li><a href="#">Link 2</a></li>
+                        </ul>
+                        
+                        <div class="profile-tab-content">
+                            
+                            <div class="personal-info">
+                                <h5>Personal Info</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet aperiam maiores quidem optio ratione deleniti similique blanditiis cum mollitia perspiciatis fugiat sed? Perspiciatis dolores placeat eum iusto ipsam quae ipsa.</p>
+                            </div>
+
+                            <p>Hello</p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+                
+            </div>
+
+            <div class="span3">
+                <div class="friend-wrapper">
+                    <h4>Friends</h4>
+                    <ul class="friend-list">
+                        <li><span class="f-tip">I'm Christian</span><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                        <li><a href="#"><img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+                <!-- End of first row -->
+
+            </div>
+
+        </div>
+
+    </div>
+    
+{% endblock %}

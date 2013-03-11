@@ -1,0 +1,83 @@
+{% extends "official/base2.html" %}
+
+{% block content %}
+
+    <div id="wrapper" class="container">
+
+        <div class="row-fluid">
+            
+
+
+            <div class="span9">
+                <div class="topic">
+                    <!-- <h3 class="topic-title">Python Help: How to program fibonnaci series in Python?</h3> -->
+
+                    <ul class="media-list topic-posts">
+                       
+                       <li class="media">
+
+                          <a class="pull-left" href="#"><img class="media-object" src="{{ STATIC_URL }}img/no-image48.png"></a>
+
+                          <div class="media-body">
+
+                              <div class="media-heading">
+                                 <h4 class="topic-title">{{thread.title}}</h4>
+                                  Posted by <a href="{% url 'profile_url' thread.author.id %}">{{thread.author}}</a>
+                                 </br>
+                                 <span class="post-date">{{thread.post_date}}</span>
+                              </div>
+
+                              <div class="topic-msg">
+                                <p>{{thread.content}}</p>
+                                <div class="post-option">
+                                  <a href="#" class="btn btn-small">Reply</a>
+                                </div>
+                              </div>
+
+
+                              <!-- Start of Comments -->
+                              
+
+                          </div>
+
+                      </li>
+                        {% for post in thread.post_set.all %}
+                       <li class="media">
+
+                          <a class="pull-left" href="#"><img class="media-object" src="{{ STATIC_URL }}img/no-image48.png"></a>
+
+                          <div class="media-body">
+
+                              <div class="media-heading">
+                                 <h4 class="topic-title"></h4>
+                                  Posted by <a href="{% url 'profile_url' post.author.id %}">{{post.author}}</a>
+                                 </br>
+                                 <span class="post-date">{{post.post_date}}</span>
+                              </div>
+
+                              <div class="topic-msg">
+                                <p>{{post.content}}</p>
+                                <div class="post-option">
+                                  <a href="#" class="btn btn-small">Reply</a>
+                                </div>
+                              </div>
+
+
+                              <!-- Start of Comments -->
+                              
+
+                          </div>
+                      </li>
+                      {% endfor %}
+                
+                {% load crispy_forms_tags %}
+                <form id="id-quickreply" action="{% url 'discuss:view' thread.id %}" method="POST">
+                    {% crispy reply_form %}
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

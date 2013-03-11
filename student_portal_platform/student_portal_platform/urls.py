@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     
     url(r'^$', 'login.views.login_view', name = 'login_url'),
     url(r'^home/' , 'userprofile.views.home_view', name = 'home_url'),
+    url(r'^(?P<user_id>\d+)', 'userprofile.views.profile_view', name = 'profile_url'),
     url(r'^logout/', 'login.views.logout_view', name= 'logout_url'),
     url(r'^register/', 'users.views.register', name= 'register_url'),
     url(r'^announcement/', include('announcement.urls', namespace="announcement")),

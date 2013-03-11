@@ -18,11 +18,21 @@ class Thread(DiscussionAbstract):
     views = models.IntegerField(default = 0)
     posts = models.IntegerField(default = 0)
     
+    def get_latest_author(self):
+        try:
+            author = self.post_set.latest('post_date').author
+        except Post.DoesNotExist:
+            return self.author
+        else:
+            return author
+    
     def get_absolute_url(self):
         return reverse('discuss:view', kwargs = { 'thread_id': self.pk })
         
 class Post(DiscussionAbstract):
     title = models.CharField(max_length = 100, blank = True)
     thread = models.ForeignKey(Thread)
+    
+    
 
     

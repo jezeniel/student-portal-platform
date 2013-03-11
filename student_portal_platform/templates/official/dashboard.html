@@ -1,78 +1,12 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="ie6" lang="en"> <![endif]-->
-<!--[if IE 7]>         <html class="ie7" lang="en"> <![endif]-->
-<!--[if IE 8]>         <html class="ie8" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en">         <!--<![endif]-->
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" media="all">
+{% extends "official/base2.html" %}
 
 
-  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
-</head>
-<body>
+{% block navigations %}
+    <li class="active"><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
+    <li><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
+{% endblock %}
 
-     <!-- Start of HEADER -->
-     <header class="navbar navbar-inverse navbar-fixed-top">
-
-          <div class="navbar-inner"> 
-
-            <div class="container">
-
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <h1><a class="brand" href="#">Online Learning Platform</a></h1>
-
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li class="active"><a href="#"><i class="icon-home"></i>Home</a></li>
-                        <li><a href="#about">Profile</a></li>
-                    </ul>
-                </div>
-
-                <div class="user-status pull-right">
-                   <div class="user-mini-thumb">
-                       <img src="img/img32.png" alt="">
-                       <span>Chan Austria</span>
-                   </div>
-
-                   <div class="btn-group user-settings">
-                     <button class="btn btn-small">Settings</button>
-                     <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-                       <span class="caret"></span>
-                     </button>
-                     <ul class="dropdown-menu">
-                       <!-- dropdown menu links -->
-                        <li><a href="#">Page Settings</a></li>
-                        <li><a href="#">Help</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Logout</a></li>
-                     </ul>
-                   </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </header>
-
-    <!-- End of HEADER -->
-
+{% block content %}
     
     <!-- Start of Main Wrapper -->
     <div class="container" id="wrapper">
@@ -86,10 +20,10 @@
                     <ul class="nav nav-list">
 
                         <li>
-                            <span class="nav-header" data-toggle="collapse" data-target="#inner-nav">List header</span>
+                            <span class="nav-header" data-toggle="collapse" data-target="#inner-nav">Dashboard</span>
                             <ul class = "nav nav-list collapse in" id="inner-nav">
                                 <li><a href="#"><i class="icon-book"></i>My Course</a></li>
-                                <li><a href="#"><i class="icon-user"></i>Community</a></li>
+                                <li><a href="{% url 'discuss:list' %}"><i class="icon-user"></i>Community</a></li>
                                 <li><a href="#"><i class="icon-hdd"></i>Groups</a></li>  
                                 <li><a href="#"><i class="icon-file"></i>Files</a></li>
                             </ul>
@@ -97,61 +31,7 @@
                     </ul>
 
                 </div>
-                <!-- end of features nav -->
-
-                
-                <!-- Start of friends list -->
-                <div class="friend-list">
-
-                    <ul class="friends nav nav-list">
-
-                        <li>
-                            <span class="nav-header">Friends</span>
-
-                            <ul class="nav nav-list">
-                                <li>
-                                    <a href="#">
-                                        <img src="img/no-image48.png" alt="">
-                                    </a>  
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="img/no-image48.png" alt="">
-                                    </a> 
-                        
-                                </li>
-                                <li>
-                                   <a href="#">
-                                       <img src="img/no-image48.png" alt="">
-                                   </a> 
-        
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="img/no-image48.png" alt="">
-                                    </a> 
-                                    
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="img/no-image48.png" alt="">
-                                    </a> 
-                                   
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <img src="img/no-image48.png" alt="">
-                                    </a> 
-                                   
-                                </li>
-
-                            </ul>
-                    </ul>
-
-                    <div class="see-more"><a href="#">View all</a></div>
-                </div>
-                <!-- End of Friends list -->
-                
+                <!-- end of features nav -->          
 
             </div>
             <!-- End of Sidebar -->
@@ -159,68 +39,163 @@
             
             <!-- Start of Main -->
             <div class="main span7">
+
+                <div class="tabbable responsive">
+                    <ul class="nav nav-tabs profile-tab">
+                      <li><a href="announcement.html"><i class="icon-bullhorn"></i>Announcements</a></li>
+                      <li class="active">
+                        <a href="dashboard.html"><i class="icon-comment"></i>Posts</a>
+                      </li>
+                      <li><a href="#"><i class="icon-tasks"></i>To-dos</a></li>
+                    </ul>
+                </div>
+
                 <div class="inner">
-                <!-- Start  of About Section -->
-                <div class="user-box media">
 
-                       <a href="" class="pull-left">
-                           <img src="img/img128.png" alt="" class="media-object">
-                       </a>
+                 <ul class="media-list">
 
-                    <div class="media-body">
-                        <h3 class="media-heading user-box-author">
-                           <a href="#" class="post-author">Christian M. Austria</a>
-                        </h3>
-                        <h4>About</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim quo eligendi magni reprehenderit eos repellat obcaecati non ullam quam pariatur corrupti aut. Architecto doloremque aut aliquam veritatis modi ut eaque!</p>
-                    </div>
+                    <li class="media">
 
-                </div>
-                <!-- End of About section -->
+                        <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img64.png"></a>
 
-                <!-- Start of Profile Tab Section -->
-                <ul class="nav nav-tabs profile-tab">
-                  <li class="active"><a href="#">Announcements</a></li>
-                  <li>
-                    <a href="#">Posts</a>
-                  </li>
-                  <li><a href="#">To-dos</a></li>
-                </ul>
-                <!-- End of Profile Tab section -->
+                        <div class="media-body">
 
-                <!-- Start of Announcements -->
+                            <h4 class="media-heading">
+                                <a href="#" class="post-author">Christian M. Austria</a> shared a photo
+                                <span class="post-time-elapsed">Posted: 1 hour ago</span>
+                            </h4>
 
-                <div class="announcements">
-                    <h3>Announcements</h3>
-                    <div class="info">
-                        <h5>There will be no classes on Monday</h5>
-                        <span class="page-date">March 11, 2013</span>
-                        <div class="info-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi totam reprehenderit ipsum voluptate aut quo sint dicta eaque ab temporibus minus similique numquam sequi! Illo officiis obcaecati atque consequuntur eum.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quod possimus iste vel nam in nihil delectus corrupti distinctio reiciendis ipsam odit est cum accusantium voluptatem non incidunt magni ex.</p>
+
+                            <div class="post-options">
+                                <a href="#">Approve</a>
+                                <a href="#">Mark as spam</a>
+                                <a href="#">Comment</a>
+                            </div>
+
+                            <!-- Start of Comments -->
+                            <ul class="media-list">
+
+                                <li class="media">
+
+                                    <a class="pull-left" href="#">
+                                    <img class="media-object" src="{{STATIC_URL}}img/img32.png">
+                                    </a>
+
+                                     <div class="media-body">
+
+                                        <h4 class="media-heading"> 
+                                            <a href="#" class="post-author">Christian M. Austria</a> shared a photo
+                                            <span class="post-time-elapsed">Posted: 1 hour ago</span>
+                                        </h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quod possimus iste vel nam in nihil delectus corrupti distinctio reiciendis ipsam odit est cum accusantium voluptatem non incidunt magni ex.</p>
+
+                                        <div class="post-options">
+                                            <a href="#">Approve</a>
+                                            <a href="#">Mark as spam</a>
+                                            <a href="#">Comment</a>
+                                        </div>
+
+                                    </div>
+                                </li>
+
+
+                                <li class="media">
+
+                                    <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
+
+                                    <div class="media-body">
+
+                                    <h4 class="media-heading"> 
+                                        <a href="#" class="post-author">Christian M. Austria</a> shared a photo
+                                        <span class="post-time-elapsed">Posted: 1 hour ago</span>
+                                    </h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quod possimus iste vel nam in nihil delectus corrupti distinctio reiciendis ipsam odit est cum accusantium voluptatem non incidunt magni ex.</p>
+
+                                    <div class="post-options">
+                                        <a href="#">Approve</a>
+                                        <a href="#">Mark as spam</a>
+                                        <a href="#">Comment</a>
+                                    </div>
+
+                                    </div>
+                                </li>
+                            
+
+                            </ul>
+                            <!-- End of Comments -->
+
                         </div>
-                    </div>
 
-                    <div class="info">
-                        <h5>Foundation Day</h5>
-                        <span class="page-date">March 11, 2013</span>
-                        <div class="info-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi totam reprehenderit ipsum voluptate aut quo sint dicta eaque ab temporibus minus similique numquam sequi! Illo officiis obcaecati atque consequuntur eum.</p>
+                    </li>
+
+                   <li class="media">
+
+                        <a class="pull-left" href="#">
+                        <img class="media-object" src="{{STATIC_URL}}img/img64.png">
+                        </a>
+
+                        <div class="media-body">
+                            <h4 class="media-heading"> 
+                                <a href="#" class="post-author">Christian M. Austria</a> shared a photo
+                                <span class="post-time-elapsed">Posted: 1 hour ago</span>
+                            </h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quod possimus iste vel nam in nihil delectus corrupti distinctio reiciendis ipsam odit est cum accusantium voluptatem non incidunt magni ex.</p>
+
+                            <div class="post-options">
+                                <a href="#">Approve</a>
+                                <a href="#">Mark as spam</a>
+                                <a href="#">Comment</a>
+                            </div>
+
+                             <!-- Start of Comments -->
+                            <ul class="media-list">
+
+                                <li class="media">
+                                    <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
+
+                                    <div class="media-body">
+                                        <h4 class="media-heading"> 
+                                            <a href="#" class="post-author">Christian M. Austria</a> shared a photo
+                                            <span class="post-time-elapsed">Posted: 1 hour ago</span>
+                                        </h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quod possimus iste vel nam in nihil delectus corrupti distinctio reiciendis ipsam odit est cum accusantium voluptatem non incidunt magni ex.</p>
+
+                                        <div class="post-options">
+                                            <a href="#">Approve</a>
+                                            <a href="#">Mark as spam</a>
+                                            <a href="#">Comment</a>
+                                        </div>
+
+                                    </div>
+
+                                </li>
+
+                                <li class="media">
+
+                                    <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
+
+                                    <div class="media-body">
+                                        <h4 class="media-heading"> 
+                                            <a href="#" class="post-author">Christian M. Austria</a> shared a photo
+                                            <span class="post-time-elapsed">Posted: 1 hour ago</span>
+                                        </h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quod possimus iste vel nam in nihil delectus corrupti distinctio reiciendis ipsam odit est cum accusantium voluptatem non incidunt magni ex.</p>
+
+                                        <div class="post-options">
+                                            <a href="#">Approve</a>
+                                            <a href="#">Mark as spam</a>
+                                            <a href="#">Comment</a>
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul> 
+                                <!-- End of Comments -->
+
                         </div>
-                    </div>
-
-                    <div class="info">
-                        <h5>Oral Defense</h5>
-                        <span class="page-date">March 11, 2013</span>
-                        <div class="info-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi totam reprehenderit ipsum voluptate aut quo sint dicta eaque ab temporibus minus similique numquam sequi! Illo officiis obcaecati atque consequuntur eum.</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- End of Announcements -->
-
-                 
+                    </li>
+                </ul> <!-- End of Post-Lists -->
             </div>
             <!-- End of inner -->
             </div>
@@ -268,7 +243,7 @@
                     <ul class="media-list box-body">
 
                         <li class="media">
-                            <a class="pull-left" href="#"><img class="media-object" src="img/img32.png"></a>
+                            <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
 
                             <div class="media-body">
                                 <h5 class="media-heading"> 
@@ -282,7 +257,7 @@
 
                         <li class="media">
 
-                            <a class="pull-left" href="#"><img class="media-object" src="img/img32.png"></a>
+                            <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
 
                             <div class="media-body">
                                 <h5 class="media-heading"> 
@@ -296,7 +271,7 @@
 
                         <li class="media">
 
-                            <a class="pull-left" href="#"><img class="media-object" src="img/img32.png"></a>
+                            <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
 
                             <div class="media-body">
                                 <h5 class="media-heading"> 
@@ -310,7 +285,7 @@
 
                         <li class="media">
 
-                            <a class="pull-left" href="#"><img class="media-object" src="img/img32.png"></a>
+                            <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
 
                             <div class="media-body">
                                 <h5 class="media-heading"> 
@@ -334,9 +309,4 @@
         
     </div>
     <!-- End of Wrapper -->
-<footer></footer>
-<script src="{{STATIC_URL}}js/jquery.js"></script>
-<script src="{{STATIC_URL}}js/bootstrap.js"></script>
-
-</body>
-</html>
+{% endblock %}

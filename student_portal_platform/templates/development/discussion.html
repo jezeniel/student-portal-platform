@@ -8,7 +8,14 @@
                     views: {{thread.views}}
                 </li>
             {% endfor %}
+            
         </ul>
+        {% if is_paginated %}
+                hoho
+                <p>{{ paginator.page_range }}</p>
+                <p>{{ page_obj.start_index }}</p>
+                <p>{{ page_obj.end_index }}</p>
+        {% endif %}
         <a href="{% url 'discuss:create' %}">Create A Thread</a>
     </body>
 
