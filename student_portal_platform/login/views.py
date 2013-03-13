@@ -19,13 +19,16 @@ def login_view(request):
     #if method is GET render login page else authenticate user
     if request.method.upper() == "GET":
         loginform = LoginForm()
-        
+        try:
+            announcements = GlobalAnnouncement.objects.all()
+        except GlobalAnnouncement.DoesNotExist:
+            announcements = None
         #get the next link the have an initial value for it in the login formTWO_WEEKS
         if request.GET.has_key('next'):
             loginform.initial['next'] = request.GET.get("next")
             
         return render(request, 'official/home.html', 
-                      {'loginform' : loginform})
+                      {'loginform' : loginform, 'announcements': announcements})
         
     elif request.method.upper() == "POST":
         form = LoginForm(request.POST)

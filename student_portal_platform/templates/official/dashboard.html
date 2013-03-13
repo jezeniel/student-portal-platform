@@ -1,56 +1,15 @@
-{% extends "official/base2.html" %}
+{% extends "official/basetab.html" %}
 
-
-{% block navigations %}
-    <li class="active"><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
-    <li><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
-{% endblock %}
-
-{% block content %}
-    
-    <!-- Start of Main Wrapper -->
-    <div class="container" id="wrapper">
-
-        <div class="row-fluid">
-            <!-- Start of Sidebar -->
-            <div class="sidebar span2">
-                <!-- features nav -->
-                <div class="main-nav">
-
-                    <ul class="nav nav-list">
-
-                        <li>
-                            <span class="nav-header" data-toggle="collapse" data-target="#inner-nav">Dashboard</span>
-                            <ul class = "nav nav-list collapse in" id="inner-nav">
-                                <li><a href="#"><i class="icon-book"></i>My Course</a></li>
-                                <li><a href="{% url 'discuss:list' %}"><i class="icon-user"></i>Community</a></li>
-                                <li><a href="#"><i class="icon-hdd"></i>Groups</a></li>  
-                                <li><a href="#"><i class="icon-file"></i>Files</a></li>
-                            </ul>
-                        </li>                                         
-                    </ul>
-
-                </div>
-                <!-- end of features nav -->          
-
-            </div>
-            <!-- End of Sidebar -->
-
-            
-            <!-- Start of Main -->
-            <div class="main span7">
-
-                <div class="tabbable responsive">
-                    <ul class="nav nav-tabs profile-tab">
-                      <li><a href="announcement.html"><i class="icon-bullhorn"></i>Announcements</a></li>
+{% block tabs %}
+<ul class="nav nav-tabs profile-tab">
+                      <li><a href="{% url 'announcement:profile' %}"><i class="icon-bullhorn"></i>Announcements</a></li>
                       <li class="active">
                         <a href="dashboard.html"><i class="icon-comment"></i>Posts</a>
                       </li>
                       <li><a href="#"><i class="icon-tasks"></i>To-dos</a></li>
-                    </ul>
-                </div>
-
-                <div class="inner">
+</ul>
+{% endblock %}
+{% block tabcontent %}
 
                  <ul class="media-list">
 
@@ -196,117 +155,4 @@
                         </div>
                     </li>
                 </ul> <!-- End of Post-Lists -->
-            </div>
-            <!-- End of inner -->
-            </div>
-            <!-- End of Main -->
-
-            <div class="extras span3 hidden-phone">
-
-
-
-                <!-- Start of academic schedules -->
-
-                <div class="acad-sched box">
-                    <h4 class="box-header">Academic Schedules</h4>
-                    <ul class="box-body">
-                            <li>
-                                <div class="sched">
-                                    <p class="item-header">Exam coming this week</p>
-                                    <span class="page-date">March 11, 2013</span>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="sched">
-                                    <p class="item-header">Exam coming this week</p>
-                                    <span class="page-date">March 11, 2013</span>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="sched">
-                                    <p class="item-header">Exam coming this week</p>
-                                    <span class="page-date">March 11, 2013</span>
-                                </div>
-                            </li>
-                    </ul> 
-                    <div class="see-more"><a href="#">View all</a></div>
-                </div>
-                <!-- End of schedules -->
-
-
-                <!-- Start of recent activity -->
-
-                <div class="recent-activity box">
-                    <h4 class="box-header">Recent Activities</h4>
-                    <ul class="media-list box-body">
-
-                        <li class="media">
-                            <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
-
-                            <div class="media-body">
-                                <h5 class="media-heading"> 
-                                    <a href="#" class="post-author">Christian M. Austria</a> took the online exam
-                                    <span class="post-time-elapsed">a hour ago</span>
-                                </h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-
-                        </li>
-
-                        <li class="media">
-
-                            <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
-
-                            <div class="media-body">
-                                <h5 class="media-heading"> 
-                                    <a href="#" class="post-author">Christian M. Austria</a> took the online exam
-                                    <span class="post-time-elapsed">a hour ago</span>
-                                </h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-
-                        </li>
-
-                        <li class="media">
-
-                            <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
-
-                            <div class="media-body">
-                                <h5 class="media-heading"> 
-                                    <a href="#" class="post-author">Christian M. Austria</a> took the online exam
-                                    <span class="post-time-elapsed">a hour ago</span>
-                                </h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-
-                        </li>
-
-                        <li class="media">
-
-                            <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
-
-                            <div class="media-body">
-                                <h5 class="media-heading"> 
-                                    <a href="#" class="post-author">Christian M. Austria</a> took the online exam
-                                    <span class="post-time-elapsed">a hour ago</span>
-                                </h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-
-                        </li>
-                    </ul> 
-                    <div class="see-more"><a href="#">View all</a></div>
-                </div>
-
-                <!-- End of recent activity -->
-
-            </div>
-            <!-- End of extras -->
-
-        </div>
-        
-    </div>
-    <!-- End of Wrapper -->
 {% endblock %}

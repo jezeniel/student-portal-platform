@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from users.models import User, UserInfo
-
+from announcement.models import GlobalAnnouncement
 @login_required
 def home_view(request):
     return render(request, "official/dashboard.html", { 'user': request.user })

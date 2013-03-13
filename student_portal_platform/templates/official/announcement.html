@@ -1,0 +1,33 @@
+{% extends "official/basetab.html" %}
+
+{% block tabs %}
+<ul class="nav nav-tabs profile-tab">
+                      <li  class="active"><a href="#"><i class="icon-bullhorn"></i>Announcements</a></li>
+                      <li>
+                        <a href="{% url 'home_url' %}"><i class="icon-comment"></i>Posts</a>
+                      </li>
+                      <li><a href="#"><i class="icon-tasks"></i>To-dos</a></li>
+</ul>
+{% endblock %}
+{% block tabcontent %}
+                <div class="announcements">
+                    <h3>Announcements</h3>
+                    {% if announcements %}
+                        {% for announcement in announcements %}
+		                    <div class="info">
+		                        <h5><a href="{% url 'announcement:view' announcement.id %}">{{announcement.title}}</a></h5>
+		                        <span class="page-date">{{announcement.postdate}}</span>
+		                        <div class="info-body">
+		                            <p>{{announcement.content}}</p>
+		                        </div>
+		                    </div>
+	                    {% endfor %}
+	                {% else %}
+	                   <h5> There are no announcements.</h5>
+                    {% endif %}
+
+                </div>
+
+                <!-- End of Announcements -->
+
+{% endblock %}

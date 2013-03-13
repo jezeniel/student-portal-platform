@@ -56,30 +56,24 @@
 
 					<div class="announcements">
 						<h3>Announcements</h3>
-						<div class="info">
-							<h5>There will be no classes on Monday</h5>
-							<span class="page-date">March 11, 2013</span>
-							<div class="info-body">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi totam reprehenderit ipsum voluptate aut quo sint dicta eaque ab temporibus minus similique numquam sequi! Illo officiis obcaecati atque consequuntur eum.</p>
+						{% if announcements %}
+						  {% for announcement in announcements %}
+							<div class="info">
+								<h5>{{announcement.title}}</h5>
+								<span class="page-date">{{announcement.postdate}} by {{announcement.author}}</span>
+								<div class="info-body">
+									<p>{{announcement.content}}</p>
+								</div>
 							</div>
-						</div>
-
-						<div class="info">
-							<h5>Foundation Day</h5>
-							<span class="page-date">March 11, 2013</span>
-							<div class="info-body">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi totam reprehenderit ipsum voluptate aut quo sint dicta eaque ab temporibus minus similique numquam sequi! Illo officiis obcaecati atque consequuntur eum.</p>
-							</div>
-						</div>
-
-						<div class="info">
-							<h5>Oral Defense</h5>
-							<span class="page-date">March 11, 2013</span>
-							<div class="info-body">
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi totam reprehenderit ipsum voluptate aut quo sint dicta eaque ab temporibus minus similique numquam sequi! Illo officiis obcaecati atque consequuntur eum.</p>
-							</div>
-						</div>
-
+						  {% endfor %}
+						{% else %}
+						    <div class="info">    
+                                <div class="info-body">
+                                    <p>There are no announcements.</p>
+                                </div>
+                            </div>
+						{% endif %}
+						
 					</div>
 			</div>
 

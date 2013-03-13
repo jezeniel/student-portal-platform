@@ -28,11 +28,17 @@ class Thread(DiscussionAbstract):
     
     def get_absolute_url(self):
         return reverse('discuss:view', kwargs = { 'thread_id': self.pk })
-        
+    
+    def __unicode__(self):
+        return self.title
+    
 class Post(DiscussionAbstract):
     title = models.CharField(max_length = 100, blank = True)
     thread = models.ForeignKey(Thread)
     
+    def __unicode__(self):
+        
+        return self.title
     
 
     

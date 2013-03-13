@@ -49,7 +49,7 @@ class ReplyCreate(LoginRequiredMixin, CreateView):
 class ThreadList(LoginRequiredMixin, ListView):
     model = Thread
     context_object_name = "threads"
-    paginate_by = 5
+    paginate_by = 10
     template_name = "official/discuss-topics.html"
     
     def get_queryset(self, **kwargs):
