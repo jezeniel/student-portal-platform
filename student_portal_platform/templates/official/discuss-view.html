@@ -1,4 +1,9 @@
-{% extends "official/base2.html" %}
+{% extends "official/base/base2.html" %}
+
+{% block navigations %}
+    <li class="active"><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
+    <li><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
+{% endblock %}
 
 {% block content %}
 

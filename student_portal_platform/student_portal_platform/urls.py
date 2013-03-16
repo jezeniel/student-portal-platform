@@ -24,6 +24,8 @@ urlpatterns = patterns('',
     url(r'^comments/', include('django.contrib.comments.urls')),
     url(r'^quiz/(?P<quiz_id>\d+)/$', 'quiz.views.quiz_view', name = 'quiz_url'),
     url(r'^discussion/', include('discussion.urls', namespace="discuss")),
+    url(r'^friends/', include('friends.urls', namespace="friend")),
+
 )
 
 #remove after development

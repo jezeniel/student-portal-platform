@@ -20,7 +20,7 @@ class ThreadCreate(LoginRequiredMixin, CreateView):
     model = Thread
     form_class = ThreadForm
     template_name = "development/discussion-create.html"
-    queryset = Thread.objects.order_by("last_edit")
+    queryset = Thread.objects.order_by("last_post")
 
     def get_context_data(self, **kwargs):
         context = super(ThreadCreate, self).get_context_data(**kwargs)
@@ -53,7 +53,7 @@ class ThreadList(LoginRequiredMixin, ListView):
     template_name = "official/discuss-topics.html"
     
     def get_queryset(self, **kwargs):
-        return Thread.objects.order_by("-post_date")
+        return Thread.objects.order_by("-last_post")
         
         
 class ThreadDetail(LoginRequiredMixin, View):
@@ -72,9 +72,7 @@ class ThreadDetail(LoginRequiredMixin, View):
     def post(self, request, thread_id, *args, **kwargs):
         thread = get_object_or_404(Thread, id = thread_id)
         reply_form = QuickReplyForm(request.POST)
-        print request.POST
         if reply_form.is_valid():
-            print "valid"
             author = request.user
             content = reply_form.cleaned_data['content']
             title = thread.title

@@ -1,0 +1,65 @@
+{% extends "official/base/base2.html" %}
+ 
+{% block content %}
+    <div class="container" id="wrapper">
+         <div class = "row">
+            <div class="span12">
+                <h4>Friend Requests</h4>
+                <ul>
+               {% for friendrequest in user.friendrequest_to.all %}
+               <li class="span3">
+                   <img src="{{STATIC_URL}}img/no-image48.png" alt="">
+                   <a href="{% url 'profile_url' friendrequest.from_user.id %}">{{friendrequest.from_user}}</a>
+                   <span class="section">J2</span>
+                   <form action="{% url 'friend:list' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="request-id" value="{{friendrequest.id}}">
+                        <button type="submit" name="submit" value="decline" class="btn pull-right">Decline</button>
+                        <button type="submit" name="submit" value="accept" class="btn pull-right">Accept</button>
+                   </form>
+               </li>
+               {% endfor %}
+                </ul>
+            </div>
+         </div>
+        <div class="row">
+        <div class="friend-view">
+            <h4 class="friend-view-header">Friends</h4>
+
+            <!-- End of Friend-list Meta -->
+
+            <div class="friend-view-body">
+                    <div class = "row">
+                    <div class="pagination pagination-centered">
+                        <ul>
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">6</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="friend-results">
+                    <ul class="friend-result-list">
+                        {% for friend in user.friendship.friends.all %}
+	                        <li>
+	                            <img src="{{STATIC_URL}}img/no-image48.png" alt="">
+	                            <a href="{% url 'profile_url' friend.user.id %}">{{friend.user.get_full_name}}</a>
+	                            <span class="section">J2</span>
+	                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+      </div>
+    </div>
+   
+{% endblock %}

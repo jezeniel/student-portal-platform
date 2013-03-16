@@ -472,7 +472,6 @@ input[type="password"]{
   margin: 20px;
   border:1px solid #ccc;
   padding:0;
-  width: 500px; /*Temporary*/
   overflow:auto;
   height: 350px;
 }
@@ -757,13 +756,6 @@ table.table th{
 .topic-descri{
   margin-left:14px;
 }
-
-.pagination{
-  float:right;
-  margin: 9px 0;
-}
-
-
 
 /**************************************************
             End of Discussion Styles

@@ -1,4 +1,4 @@
-{% extends "official/base2.html" %}
+{% extends "official/base/base2.html" %}
 
 
 {% block navigations %}
@@ -23,6 +23,12 @@
                             <span class="nav-header" data-toggle="collapse" data-target="#inner-nav">Dashboard</span>
                             <ul class = "nav nav-list collapse in" id="inner-nav">
                                 <li><a href="#"><i class="icon-book"></i>My Course</a></li>
+                                <li><a href="{% url 'friend:list' %}"><i class="icon-book"></i>Friends
+                                    {% if user.friendrequest_to.count %}
+                                        <span class="badge badge-important pull-right">{{user.friendrequest_to.count}}</span>
+                                    {% endif %}
+                                    </a>
+                                </li>
                                 <li><a href="{% url 'discuss:list' %}"><i class="icon-user"></i>Community</a></li>
                                 <li><a href="#"><i class="icon-hdd"></i>Groups</a></li>  
                                 <li><a href="#"><i class="icon-file"></i>Files</a></li>

@@ -8,5 +8,4 @@ class UserInfo(models.Model):
     birthday = models.DateField(null=True)
     course = models.CharField(max_length=20, default='')
     crush = models.PositiveIntegerField(default=0);
-    friends = models.ManyToManyField(User, related_name = "friends")
 
