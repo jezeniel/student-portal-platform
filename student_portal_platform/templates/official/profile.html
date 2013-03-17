@@ -14,7 +14,14 @@
 
 
             <div class="span9">
-
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} fade in">
+                            <button type="button" class="close" data-dismiss="alert">x</button>
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <h4 class="owner">{{owner.get_full_name}} <span class="alias">({{owner.username}})</span></h4>
 
                 <div class="row-fluid user-space">
@@ -55,13 +62,13 @@
                             <div class="profile-btn">
                                 <a href="#" class="btn  btn-small"><i class="icon-envelope"></i> Send message</a>
                                 {% if user.friendship in owner.friendship.friends.all %}
-                                    <a href="#" class="btn btn-small"><i class="icon-minus"></i> Unfriend</a>
-                                {% elif cancel_request %}
-                                    <a href="#" class="btn btn-small"><i class="icon-ban-circle"></i> Cancel friend request</a>
-                                {% elif respond_to_request %}
-                                    <a href="#" class="btn btn-small"><i class="icon-plus"></i> Respond to friend request</a>
+                                    <a href="{% url 'friend:unfriend' owner.id %}" class="btn btn-small"><i class="icon-minus"></i> Unfriend</a>
+                                {% elif has_request.to_user == owner %}
+                                    <a href="{% url 'friend:cancelrequest' owner.id %}" class="btn btn-small"><i class="icon-ban-circle"></i> Cancel friend request</a>
+                                {% elif has_request.from_user == owner %}
+                                    <a href="#" class="btn btn-small" id="respondrequest"><i class="icon-plus"></i> Respond to friend request</a>
                                 {% else %}
-                                    <a href="#" class="btn btn-small"><i class="icon-plus"></i> Add as friend</a>
+                                    <a href="{% url 'friend:addfriend' owner.id %}" class="btn btn-small"><i class="icon-plus"></i> Add as friend</a>
                                 {% endif %}    
                             </div>
                             {% endif %}
@@ -128,5 +135,14 @@
     $(function () {
         $("[rel='tooltip']").tooltip();
     });
+    $(document).ready( function() {
+    	$('#respondrequest').popover({
+    		   placement: 'bottom',
+    		   html: 'true',
+    		   content: "<a href=\"{% url 'friend:acceptrequest' owner.id %}\">Accept</a> <br> " + 
+    		            " <a href=\"{% url 'friend:declinerequest' owner.id %}\">Decline</b>",
+    	});
+    });
+    
 </script>   
 {% endblock %}

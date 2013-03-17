@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 from users.models import User, UserInfo
 from announcement.models import GlobalAnnouncement
@@ -13,15 +14,13 @@ def home_view(request):
 @login_required
 def profile_view(request, user_id):
     owner = User.objects.get(id = user_id)
-    respond_to_request = None
-    cancel_request = None
     try:
-        cancel_request =  FriendRequest.objects.get(from_user = request.user, to_user = owner)
-        respond_to_request = FriendRequest.objects.get(from_user = owner, to_user = request.user)
+        has_request = FriendRequest.objects.get(Q(from_user = request.user, to_user = owner) |
+                                                Q(from_user = owner, to_user = request.user))
     except FriendRequest.DoesNotExist:
-        pass
+        has_request = None
+
     return render(request, "official/profile.html", { 'user' : request.user,
                                                       'owner' : owner ,
-                                                      'respond_to_request': respond_to_request,
-                                                      'cancel_request': cancel_request})
+                                                      'has_request': has_request})
     
