@@ -1,0 +1,32 @@
+{% extends "official/base/base2.html" %}
+
+{% block navigations %}
+    {% include "official/include/navigation.html" %}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap-datetimepicker.min.css">
+{% endblock %}
+
+{% block content %}
+    <div class= "row">
+        <div class="span6 offset3">
+	    {% load crispy_forms_tags %}
+	    {% crispy pf %}
+	    </div>
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+
+    <script src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
+
+    <script type="text/javascript">
+    $(function () {
+        $(".bsdatepicker").datetimepicker({
+            pickTime: false,
+            format: 'yyyy-MM-dd',
+        });
+    });
+    </script>
+{% endblock %}

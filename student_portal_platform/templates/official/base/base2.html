@@ -48,7 +48,11 @@
                 <div class="user-status pull-right">
                    <div class="user-mini-thumb">
                         <a href="#">
-                            <img src="{{STATIC_URL}}img/img32.png" alt="">
+                            {% if user.userinfo.primaryphoto %}
+                                <img src="{{user.userinfo.get_size32}}">
+                            {% else %}
+                                <img src="{{STATIC_URL}}img/img32.png" alt="">
+                            {% endif %}
                             <span>{{ user.get_full_name }}</span>
                         </a>
                    </div>
@@ -63,7 +67,7 @@
                      </button>
                      <ul class="dropdown-menu">
                        <!-- dropdown menu links -->
-                        <li><a href="#">Account Settings</a></li>
+                        <li><a href="{% url 'editprofile' %}">Profile Settings</a></li>
                         <li><a href="#">Help</a></li>
                         <li class="divider"></li>
                         <li><a href="{% url 'logout_url' %}">Logout</a></li>

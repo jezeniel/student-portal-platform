@@ -2,8 +2,9 @@
 
 
 {% block navigations %}
-    <li class="active"><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
-    <li><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
+    {% with home_active="active" %}
+    {% include "official/include/navigation.html" %}
+    {% endwith %}
 {% endblock %}
 
 {% block content %}

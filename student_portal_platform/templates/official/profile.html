@@ -1,8 +1,9 @@
 {% extends "official/base/base2.html" %}
 
 {% block navigations %}
-    <li><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
-    <li class="active"><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
+    {% with profile_active="active" %}
+    {% include "official/include/navigation.html" %}
+    {% endwith %}
 {% endblock %}
 
 {% block content %}
@@ -32,7 +33,11 @@
 
                                 <div class="user-thumb">
                                     <a href="#">
-                                        <img src="{{STATIC_URL}}img/img128.png" alt="">
+                                        {% if owner.userinfo.primaryphoto %}
+                                            <img src="{{owner.userinfo.primaryphoto.url}}" alt="">
+                                        {% else %}
+                                            <img src="{{STATIC_URL}}img/img128.png" alt="">
+                                        {% endif %}
                                     </a>
                                 </div>
 
@@ -40,7 +45,7 @@
                                 <div class="user-meta">
                                     <ul class="user-meta-info">
                                         <li>Student</li>
-                                        <li>J2</li>
+                                        <li>{{owner.userinfo.course}}</li>
                                         <li>Member since Jan 1</li>
                                     </ul>
                                 </div>
@@ -56,7 +61,18 @@
 
                             <div class="about-sec">
                                 <h4>About Me</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut velit doloribus rerum ratione accusantium repudiandae nobis impedit praesentium distinctio fugit qui iste aliquid quis sapiente placeat eos earum iure eum. <a href="#" class="more-text">Read more ...</a></p>
+                                <p>
+                                   {% with about_me=owner.userinfo.about_me %}
+                                   {% if about_me %}
+                                    {{about_me|truncatewords:50}}
+                                    {% ifnotequal about_me about_me|truncatewords:50 %}
+                                    <a href="#" class="more-text">Read more ...</a> 
+                                    {% endifnotequal %}
+                                   {% else %}
+                                     <i>Not Available</i>
+                                   {% endif %}
+                                   {% endwith %}
+                                </p>
                             </div>
                             {% if owner.id != user.id %}
                             <div class="profile-btn">
@@ -114,7 +130,13 @@
                             <li><a href="{% url 'profile_url' friend.user.id %}" data-toggle="tooltip" title=""
                                 data-original-title="{{friend.user.get_full_name}}" 
                                 rel="tooltip" data-container="body">
-                                <img src="{{STATIC_URL}}img/img64.png" alt=""></a></li>
+                                {% if friend.user.userinfo.primaryphoto %}
+                                    <img src="{{friend.user.userinfo.get_size64}}">
+                                {% else %}
+                                    <img src="{{STATIC_URL}}img/img64.png" alt="">
+                                {% endif %}
+                                </a></li>
+                                
                         {% endfor %}
                     </ul>
                 </div>
