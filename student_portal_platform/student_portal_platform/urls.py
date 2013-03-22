@@ -6,14 +6,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns #remove afte
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'student_portal_platform.views.home', name='home'),
-    # url(r'^student_portal_platform/', include('student_portal_platform.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     
     url(r'^$', 'login.views.login_view', name = 'login_url'),
@@ -26,8 +20,10 @@ urlpatterns = patterns('',
     url(r'^quiz/(?P<quiz_id>\d+)/$', 'quiz.views.quiz_view', name = 'quiz_url'),
     url(r'^discussion/', include('discussion.urls', namespace="discuss")),
     url(r'^friends/', include('friends.urls', namespace="friend")),
-
-    url(r'^editprofile/$', 'users.views.editprofile', name="editprofile")
+    url(r'^message/', include('messaging.urls', namespace="message")),
+    
+    url(r'^editprofile/$', 'users.views.editprofile', name="editprofile"),
+    url(r'^createlecture/$', 'lecture.views.create_lecture', name = "createlecture")
 )
 
 #remove after development

@@ -6,7 +6,7 @@ from django.db.models import Q
 from users.models import User, UserInfo
 from announcement.models import GlobalAnnouncement
 from friends.models import FriendRequest
-
+from messaging.forms import PersonalMessageForm
 @login_required
 def home_view(request):
     return render(request, "official/dashboard.html", { 'user': request.user })
@@ -22,5 +22,6 @@ def profile_view(request, user_id):
 
     return render(request, "official/profile.html", { 'user' : request.user,
                                                       'owner' : owner ,
-                                                      'has_request': has_request})
+                                                      'has_request': has_request,
+                                                      'messageform' : PersonalMessageForm()})
     

@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'quiz',
     'discussion',
     'friends',
+    'messaging',
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'

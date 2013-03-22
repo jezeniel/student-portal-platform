@@ -12,3 +12,5 @@ local_settings.py
 .project
 .pydevproject
 ../.settings
+#sublime
+*.sublime-workspace
