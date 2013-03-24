@@ -1,0 +1,66 @@
+{% extends "official/base/base2.html" %}
+{% load humanize %}
+
+{% block navigations %}
+    {% include "official/include/navigation.html" %}
+{% endblock %}
+
+{% block content %}
+
+    <div id="wrapper" class="container">
+        <h3>Global Community</h3>
+
+        <div class="row-fluid">
+
+            <div class="span12">
+                <div class="forum">
+                <ul class="breadcrumb">
+                      <li class="active">Categories</li>
+                </ul>
+                <table class="table forums ">
+
+                        <thead>
+                            <tr>
+                                <th class="ico-placeholder"><i class="icon-folder-open"></i></th>
+                                <th>Forum</th>
+                                <th>Topics</th>
+                                <th>Posts</th>
+                                <th>Last Post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for category in categories %}
+                            <tr>
+                                <td class="ico-placeholder"><i class="icon-folder-open greyed-out"></i></td>
+                                <td class="forum-topic">
+
+                                    <div class="topic-title">
+                                        <a href="{% url 'discuss:list' category.slug %}">{{category.name}}</a>
+                                    </div>
+                                    <div class="topic-descri">
+                                        Anything goes
+                                    </div>
+                                </td>
+                                <td class="forum-topic-count">
+                                    {{category.thread_set.all.count}}
+                                </td>
+                                <td class="forum-post-count">
+                                    1500
+                                </td>
+                                <td class="forum-last-post">
+                                    {% with thread=category.get_latest_thread %}
+                                        {% if thread %}
+                                            {% include "official/include/lastauthor.html" %}
+                                        {% endif %}
+                                    {% endwith %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

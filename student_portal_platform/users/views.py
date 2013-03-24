@@ -85,7 +85,7 @@ def image_handler(imagename):
     else:
         bg = im
     image_resize(bg, (160, 160), imagename)
-    thumb_sizes = [(64, 64), (32, 32)]
+    thumb_sizes = [(128,128), (64, 64), (32, 32)]
     for thumb_size in thumb_sizes:
         thumb_name = "thumb_%s" % (thumb_size[0])
         imgname = file_name + thumb_name + file_ext

@@ -9,10 +9,10 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    
+
     url(r'^$', 'login.views.login_view', name = 'login_url'),
     url(r'^home/' , 'userprofile.views.home_view', name = 'home_url'),
-    url(r'^(?P<user_id>\d+)', 'userprofile.views.profile_view', name = 'profile_url'),
+    url(r'^users/(?P<username>[a-zA-Z0-9]+)', 'userprofile.views.profile_view', name='profile_url'),
     url(r'^logout/', 'login.views.logout_view', name= 'logout_url'),
     url(r'^register/', 'users.views.register', name= 'register_url'),
     url(r'^announcement/', include('announcement.urls', namespace="announcement")),
@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     url(r'^discussion/', include('discussion.urls', namespace="discuss")),
     url(r'^friends/', include('friends.urls', namespace="friend")),
     url(r'^message/', include('messaging.urls', namespace="message")),
-    
+
     url(r'^editprofile/$', 'users.views.editprofile', name="editprofile"),
     url(r'^createlecture/$', 'lecture.views.create_lecture', name = "createlecture")
 )

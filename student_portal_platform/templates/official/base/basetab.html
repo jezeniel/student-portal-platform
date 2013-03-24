@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    
+
     <!-- Start of Main Wrapper -->
     <div class="container" id="wrapper">
 
@@ -30,32 +30,32 @@
                                     {% endif %}
                                     </a>
                                 </li>
-                                <li><a href="{% url 'discuss:list' %}"><i class="icon-user"></i>Community</a></li>
-                                <li><a href="#"><i class="icon-hdd"></i>Groups</a></li>  
+                                <li><a href="{% url 'discuss:category' %}"><i class="icon-user"></i>Community</a></li>
+                                <li><a href="#"><i class="icon-hdd"></i>Groups</a></li>
                                 <li><a href="#"><i class="icon-file"></i>Files</a></li>
                             </ul>
-                        </li>                                         
+                        </li>
                     </ul>
 
                 </div>
-                <!-- end of features nav -->          
+                <!-- end of features nav -->
 
             </div>
             <!-- End of Sidebar -->
 
-            
+
             <!-- Start of Main -->
             <div class="main span7">
-                
-                
+
+
                 <div class="tabbable responsive">
                     {% block tabs %}
-                    
+
                     {% endblock %}
                 </div>
             <div class="inner">
                 {% block tabcontent %}
-                
+
                 {% endblock %}
             </div>
             <!-- End of inner -->
@@ -91,7 +91,7 @@
                                     <span class="page-date">March 11, 2013</span>
                                 </div>
                             </li>
-                    </ul> 
+                    </ul>
                     <div class="see-more"><a href="#">View all</a></div>
                 </div>
                 <!-- End of schedules -->
@@ -107,7 +107,7 @@
                             <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
 
                             <div class="media-body">
-                                <h5 class="media-heading"> 
+                                <h5 class="media-heading">
                                     <a href="#" class="post-author">Christian M. Austria</a> took the online exam
                                     <span class="post-time-elapsed">a hour ago</span>
                                 </h5>
@@ -121,7 +121,7 @@
                             <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
 
                             <div class="media-body">
-                                <h5 class="media-heading"> 
+                                <h5 class="media-heading">
                                     <a href="#" class="post-author">Christian M. Austria</a> took the online exam
                                     <span class="post-time-elapsed">a hour ago</span>
                                 </h5>
@@ -135,7 +135,7 @@
                             <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
 
                             <div class="media-body">
-                                <h5 class="media-heading"> 
+                                <h5 class="media-heading">
                                     <a href="#" class="post-author">Christian M. Austria</a> took the online exam
                                     <span class="post-time-elapsed">a hour ago</span>
                                 </h5>
@@ -149,7 +149,7 @@
                             <a class="pull-left" href="#"><img class="media-object" src="{{STATIC_URL}}img/img32.png"></a>
 
                             <div class="media-body">
-                                <h5 class="media-heading"> 
+                                <h5 class="media-heading">
                                     <a href="#" class="post-author">Christian M. Austria</a> took the online exam
                                     <span class="post-time-elapsed">a hour ago</span>
                                 </h5>
@@ -157,7 +157,7 @@
                             </div>
 
                         </li>
-                    </ul> 
+                    </ul>
                     <div class="see-more"><a href="#">View all</a></div>
                 </div>
 
@@ -167,7 +167,7 @@
             <!-- End of extras -->
 
         </div>
-        
+
     </div>
     <!-- End of Wrapper -->
 {% endblock %}

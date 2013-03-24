@@ -1,88 +1,141 @@
 {% extends "official/base/base2.html" %}
 
 {% block navigations %}
-    <li class="active"><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
-    <li><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
+   {% include "official/include/navigation.html" %}
 {% endblock %}
 
 {% block content %}
 
+
     <div id="wrapper" class="container">
+        <h3>{{thread.title}}</h3>
+
 
         <div class="row-fluid">
-            
 
 
             <div class="span9">
+                <ul class="breadcrumb">
+                  <li><a href="{% url 'discuss:category' %}">Categories</a> <span class="divider">></span></li>
+                  <li><a href="{% url 'discuss:list' category.slug %}">{{category.name}}</a> <span class="divider">></span></li>
+                  <li class="active">{{thread.title}}</li>
+                </ul>
+
+                <div class="pagination">
+                  <ul>
+                    <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">Next</a></li>
+                  </ul>
+                </div>
+
                 <div class="topic">
                     <!-- <h3 class="topic-title">Python Help: How to program fibonnaci series in Python?</h3> -->
 
-                    <ul class="media-list topic-posts">
-                       
-                       <li class="media">
-
-                          <a class="pull-left" href="#"><img class="media-object" src="{{ STATIC_URL }}img/no-image48.png"></a>
-
-                          <div class="media-body">
-
-                              <div class="media-heading">
-                                 <h4 class="topic-title">{{thread.title}}</h4>
-                                  Posted by <a href="{% url 'profile_url' thread.author.id %}">{{thread.author}}</a>
-                                 </br>
-                                 <span class="post-date">{{thread.post_date}}</span>
-                              </div>
-
-                              <div class="topic-msg">
-                                <p>{{thread.content}}</p>
-                                <div class="post-option">
-                                  <a href="#" class="btn btn-small">Reply</a>
+                    <ul class="topic-posts">
+                        <li class="per-post-wrapper">
+                            <div class="row-fluid">
+                                <div class="per-post-meta span3">
+                                   <div>
+                                       <a href="{{thread.author.get_absolute_url}}">{{thread.author.username}}</a>
+                                       {% if thread.author.userinfo.primaryphoto %}
+                                        <img src="{{thread.author.userinfo.get_size128}}">
+                                       {% else %}
+                                        <img src="{{STATIC_URL}}img/img128.png" alt="">
+                                       {% endif %}
+                                       <ul class="per-post-meta-info">
+                                           <li>Offline</li>
+                                           <li>Last Login: 03/11/2013</li>
+                                           <li>Posts: {{thread.author.userinfo.posts}}</li>
+                                       </ul>
+                                   </div>
                                 </div>
-                              </div>
+                                <div class="per-post-content span9">
+                                    <div>
+                                        <div class="per-post-datetime">
+                                          {{thread.post_date}}
+                                        </div>
+                                        <p>{{thread.content}}</p>
+                                    </div>
 
 
-                              <!-- Start of Comments -->
-                              
-
-                          </div>
-
-                      </li>
+                                </div>
+                                <div class="reply-bar"><a href="#" class="btn">Reply</a></div>
+                            </div>
+                        </li>
                         {% for post in thread.post_set.all %}
-                       <li class="media">
-
-                          <a class="pull-left" href="#"><img class="media-object" src="{{ STATIC_URL }}img/no-image48.png"></a>
-
-                          <div class="media-body">
-
-                              <div class="media-heading">
-                                 <h4 class="topic-title"></h4>
-                                  Posted by <a href="{% url 'profile_url' post.author.id %}">{{post.author}}</a>
-                                 </br>
-                                 <span class="post-date">{{post.post_date}}</span>
-                              </div>
-
-                              <div class="topic-msg">
-                                <p>{{post.content}}</p>
-                                <div class="post-option">
-                                  <a href="#" class="btn btn-small">Reply</a>
+                        <li class="per-post-wrapper">
+                            <div class="row-fluid">
+                                <div class="per-post-meta span3">
+                                   <div>
+                                       <a href="{{post.author.get_absolute_url}}">{{post.author}}</a>
+                                       {% if thread.author.userinfo.primaryphoto %}
+                                        <img src="{{post.author.userinfo.get_size128}}">
+                                       {% else %}
+                                        <img src="{{STATIC_URL}}img/img128.png" alt="">
+                                       {% endif %}
+                                       <ul class="per-post-meta-info">
+                                           <li>Offline</li>
+                                           <li>Last Login: 03/11/2013</li>
+                                           <li>Posts: {{post.author.userinfo.posts}}</li>
+                                       </ul>
+                                   </div>
                                 </div>
-                              </div>
+                                <div class="per-post-content span9">
+                                    <div>
+                                        <div class="per-post-datetime">
+                                            {{post.post_date}}
+                                        </div>
+                                        <p>{{post.content}}</p>
+                                    </div>
 
 
-                              <!-- Start of Comments -->
-                              
+                                </div>
+                                <div class="reply-bar"><a href="#" class="btn">Reply</a></div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
 
-                          </div>
-                      </li>
-                      {% endfor %}
-                
                 {% load crispy_forms_tags %}
-                <form id="id-quickreply" action="{% url 'discuss:view' thread.id %}" method="POST">
-                    {% crispy reply_form %}
-                </form>
+                <form method="POST">
+                {% crispy reply_form %}
+              </form>
+            </div>
+
+            <div class="span3">
+                <h4>Recent Posts</h4>
+
+                <ul class="recent-posts">
+                  <li><a href="#">How to make a responsive web design?</a></li>
+                  <li><a href="#">Create a program which sorts out numbers</a></li>
+                  <li><a href="#">Python Help: Fibonacci Series</a></li>
+                  <li><a href="#">Python Help: Fibonacci Series</a></li>
+                  <li><a href="#">Python Help: Fibonacci Series</a></li>
+                </ul>
             </div>
         </div>
 
     </div>
 
+{% endblock %}
+{% block extrascripts %}
+<script>
+  $('#submit-id-submit').click( function() {
+    var btn = $(this)
+    if($("#id_content").val().length > 0) {
+      btn.button('loading')
+      setTimeout(function () {
+        btn.button('reset')
+      }, 3000);
+  }
 
+
+  });
+</script>
 {% endblock %}

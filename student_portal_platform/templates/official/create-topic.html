@@ -1,0 +1,25 @@
+{% extends "official/base/base2.html" %}
+
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    <div class="row-fluid">
+        <div class="span8 offset2">
+            {% crispy create_form %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+    <script>
+        $("#submit-id-submit").click ( function () {
+            var btn = $(this);
+            if($("#id_content").val().length > 0 && $("#id_title").val().length > 0) {
+                btn.button("loading");
+                setTimeout(function () {
+                    btn.button("reset")
+                }, 3000);
+            }
+        });
+    </script>
+{% endblock %}

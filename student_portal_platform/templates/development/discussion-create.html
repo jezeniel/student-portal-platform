@@ -1,6 +1,6 @@
 <html>
     <body>
-        <form action = "{% url 'discuss:create' %}" method="POST">
+        <form method="POST">
             {% csrf_token %}
             {{thread_form.as_p}}
             <input type="submit" value="Submit">

@@ -1,5 +1,5 @@
 {% extends "official/base/base2.html" %}
- 
+
 {% block content %}
     <div class="container" id="wrapper">
          <div class = "row">
@@ -9,7 +9,7 @@
                {% for friendrequest in user.friendrequest_to.all %}
                <li class="span3">
                    <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                   <a href="{% url 'profile_url' friendrequest.from_user.id %}">{{friendrequest.from_user}}</a>
+                   <a href="{{friendrequest.from_user.get_absolute_url }}">{{friendrequest.from_user}}</a>
                    <span class="section">J2</span>
                    <form action="{% url 'friend:list' %}" method="POST">
                         {% csrf_token %}
@@ -48,7 +48,7 @@
                         {% for friend in user.friendship.friends.all %}
 	                        <li>
 	                            <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-	                            <a href="{% url 'profile_url' friend.user.id %}">{{friend.user.get_full_name}}</a>
+	                            <a href="{{friend.user.get_absolute_url }}">{{friend.user.get_full_name}}</a>
 	                            <span class="section">J2</span>
 	                        </li>
                         {% endfor %}
@@ -61,5 +61,5 @@
         </div>
       </div>
     </div>
-   
+
 {% endblock %}

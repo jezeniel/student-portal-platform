@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, Field
+from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, Field, Button
 from crispy_forms.bootstrap import InlineRadios, AppendedText
 
 
@@ -108,7 +108,7 @@ class PersonalForm(forms.Form):
                 InlineRadios("gender", css_class="inline"),
             ),
             ButtonHolder(
-                Submit('submit', 'Sign Up!', css_class='btn btn-large span11')
+                Submit('submit', 'Sign Up!', css_class='btn btn-large span11', data_loading_text="Signing Up...")
             )
         )
         super(PersonalForm, self).__init__(*args, **kwargs)
@@ -147,7 +147,7 @@ class ProfileEdit(PersonalForm):
                 Field("about_me", placeholder="Tell us about yourself.")
             ),
             ButtonHolder(
-                Submit('submit', 'Save', css_class='btn btn-large  span2 pull-right')
+                Submit('submit', 'Save', css_class='btn btn-large  span2 pull-right', )
             )
         )
 

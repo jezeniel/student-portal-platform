@@ -1,2 +1,2 @@
 <li class="{{home_active}}"><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
-<li class="{{profile_active}}"><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
+<li class="{{profile_active}}"><a href="{{user.get_absolute_url}}"><i class="icon-user"></i>Profile</a></li>

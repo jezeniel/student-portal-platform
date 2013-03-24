@@ -3,21 +3,21 @@
 {% block head %}
 	 <style>
 		.form-horizontal .controls {
-			margin-left:0;		
+			margin-left:0;
 		}
-		
+
 		form {
 		  margin:0;
 		}
-	
+
 		.formbg {
 		  border-radius:5px;
-		  padding: 20px;	
-		  background:#eeeeee;		
+		  padding: 20px;
+		  background:#eeeeee;
 		}
-		
 
-		
+
+
 	 </style>
 {% endblock %}
 
@@ -25,7 +25,7 @@
      <!-- Start of HEADER -->
      <header class="navbar navbar-inverse navbar-fixed-top">
 
-          <div class="navbar-inner"> 
+          <div class="navbar-inner">
 
             <div class="container">
 
@@ -44,7 +44,7 @@
 
     <!-- End of HEADER -->
 
-    
+
     <!-- Start of Main Wrapper -->
     <div class="container">
 
@@ -60,8 +60,19 @@
 	            </div>
             </form>
         </div>
-        
+
     </div>
     <!-- End of Wrapper -->
 
+{% endblock %}
+{% block extrascripts %}
+    <script>
+        $("#submit-id-submit").click ( function () {
+            var btn = $(this);
+            btn.button("loading");
+            setTimeout(function () {
+                btn.button("reset")
+            }, 3000);
+        });
+    </script>
 {% endblock %}

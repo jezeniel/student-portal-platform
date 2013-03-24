@@ -1,896 +1,948 @@
-
-/**************************************************
-                  General Styles
-**************************************************/
-html,body{
+/*********************GENERAL CSS************************/
+html,
+body {
   height: 100%;
 }
-
-body{
-    padding-top:60px;
+body {
+  padding-top: 100px;
 }
-
-
-
-/**************************************************
-                  End of General Styles
-**************************************************/
-
-
-/**************************************************
-                  Overridden Styles
-**************************************************/
-.well{
-    padding:9px 0;
+ul {
+  list-style: none;
+  margin: 0;
 }
-
-.media{
-    padding-top:15px;
+h3 {
+  font-size: 18px;
 }
-
-.media-heading{
-    margin-bottom:15px;
-    font-size:13px;
+/*********************OVERRIDDEN CSS************************/
+.media .media-heading {
+  margin-bottom: 15px;
+  font-size: 13px;
 }
-
-  .media-heading .post-time-elapsed{
-      display:block;
-      font-size:11px;
-  }
-
-
-.nav .nav{
-    list-style: none;
-    margin:0 -15px;
+.media .media-heading .post-time-elapsed {
+  display: block;
+  font-size: 11px;
 }
-
-.navbar .brand, 
-.navbar.navbar-inverse li a{
+.nav .nav {
+  list-style: none;
+  margin: 0 -15px;
+}
+.navbar.navbar-inverse a {
   color: #ccc;
 }
-
-
-.navbar-search{
-    position: relative;
+.navbar .nav > li > a {
+  padding: 11px;
 }
-
-  .navbar-search .search-query{
-      padding-left:29px !important;
-  }
-
-.nav-tabs > li{
-  margin-right:-3px;
+.nav-tabs > li {
+  margin-right: -3px;
 }
-
-  .nav-tabs > li > a{
-    border: 1px solid #ddd;
-  }
-
-  .nav-tabs > li > a:hover{
-    background: none;
-    border: 1px solid #ddd;
-  }
-
-.btn-group>.btn-small{
-  font-size:12px;
+.nav-tabs > li > a {
+  border: 1px solid #e3e3e3;
 }
-
-.btn-group .dropdown-menu li a{
-  color:#444;
+.nav-tabs > li > a:hover {
+  background: none;
 }
-
-/**************************************************
-    End of Overwritten Styles in Twitter BS
-**************************************************/
-
-/**************************************************
-                  Profile Styles
-**************************************************/
-
-body{
+.navbar-form {
+  margin: 6px 0;
+  position: relative;
+}
+.navbar-form i {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+}
+.navbar-form input[type="text"] {
+  padding-left: 25px;
+}
+.navbar-form input,
+.navbar-form .btn {
+  margin: 0;
+}
+.breadcrumb {
+  border: 1px solid #e3e3e3;
+  padding: 7px 14px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 0 #ffffff;
+  -moz-box-shadow: inset 0 1px 0 #ffffff;
+  box-shadow: inset 0 1px 0 #ffffff;
+  background: #ffffff;
+  background: -webkit-linear-gradient(#ffffff, 10%, #f5f5f5);
+  background: -o-linear-gradient(#ffffff, 10%, #f5f5f5);
+  background: -moz-linear-gradient(#ffffff, 10%, #f5f5f5);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), color-stop(0.5, 10%), to(#f5f5f5));
+  background: linear-gradient(#ffffff, 10%, #f5f5f5);
+}
+/*********************DASHBOARD CSS************************/
+body {
   background: #f8f8f8;
 }
-
-#wrapper{
+#wrapper {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin-bottom:-40px;
+  margin-bottom: 18px;
 }
-
 .main-nav,
 .inner,
 .acad-sched,
-.recent-activity{
-  background: #fff;
+.recent-activity {
+  background: #ffffff;
 }
-
-
-header h1{
+header {
+  position: relative;
+}
+header h1 {
   margin: 0;
   padding: 0;
   line-height: 18px;
 }
-
-    header .navbar-search .icon-search{
-        position: absolute;
-        top:7px;
-        left:11px;
-    }
-
-    header .nav [class^="icon-"]{
-        vertical-align: top;
-        padding-right:10px;
-    }
-    
-    header a{
-      /*color:#e7e7e7;*/
-      color: #ccc;
-    }
-
-    header .user-mini-thumb:hover{
-      background:#2f2f2f;
-    }
-
-    header .user-mini-thumb a:hover{
-        text-decoration:none;
-    }
-
-
-
-.sidebar .nav-list i{
-    margin-right:10px;
+header a {
+  color: #ccc;
 }
-
-.main{
-  position:relative;
+header .nav [class^="icon-"] {
+  vertical-align: top;
+  padding-right: 10px;
 }
-
-.main .breadcrumb{
-  position:absolute;
-  right:-11px;
+header .nav-bar-search .icon-search {
+  position: absolute;
+  top: 7px;
+  left: 11px;
 }
-
-.main .inner{
-  clear:both;
-  padding:0 20px;
-  border:1px solid #e3e3e3;
+header .user-mini-thumb:hover {
+  background: #2f2f2f;
 }
-
-
-.post-options{
-    margin-top:-5px;
-    margin-bottom:10px;
-    border-bottom:1px solid #e3e3e3;
-    padding-bottom: 15px;
+header .user-mini-thumb a:hover {
+  text-decoration: none;
 }
-
-  .post-options a{
-      font-size:11px;
-      padding: 0 10px 0 0;
-  }
-
-.user-box{
-    margin:0 0 15px;
-    border:0 !important;
+header .sub-nav {
+  background: #1b1b1b;
+  min-height: 18px;
 }
-
-.user-status{
-    float:right;
-    
+header .sub-nav .breadcrumb {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-shadow: none;
 }
-  
-  .user-status span{
-    color:#ccc;
-  }
-
-  .user-status span:hover{
-    color:#fff;
-  }
-
-
-  .user-status .user-mini-thumb{
-    float:left;
-    margin: 4px 2px;
-  }
-
-  .user-status .user-settings{
-    float:right;
-    margin: 8px 0 0 8px;
-  }
-
-  .user-status .user-access-link{
-    margin: 11px 0;
-    float:right;
-  }
-
-  .user-status .user-access-link a{
-    padding: 0 5px;
-  }
-
-  .user-status .user-access-link a:hover{
-    color:#fff;
-    text-decoration: none;
-  }
-
-
-.profile-tab{
+header .sub-nav .breadcrumb li {
+  text-shadow: none;
+}
+.sidebar .main-nav {
+  padding: 0;
+}
+.sidebar .nav-list .nav-header {
+  font-size: 13px;
+  font-weight: normal;
+  color: #fff;
+  border-bottom: 1px solid #e3e3e3;
+  text-shadow: none;
+  text-transform: uppercase;
+  background: #1b1b1b;
+}
+.sidebar .nav-list i {
+  margin-right: 10px;
+}
+.main {
+  position: relative;
+}
+.main .inner {
+  clear: both;
+  padding: 0 20px;
+  border: 1px solid #e3e3e3;
+}
+.post-options {
+  margin-top: -5px;
+}
+.post-options a {
+  font-size: 11px;
+  padding: 0 10px 0 0;
+}
+.user-status {
+  float: right;
+}
+.user-status a {
+  margin-left: 4px;
+  color: #cccccc;
+}
+.user-status a:hover {
+  color: #f8f8f8;
+}
+.user-status .user-mini-thumb {
+  float: left;
+  margin: 4px 2px;
+}
+.user-status .user-settings {
+  float: right;
+  margin: 8px 0 0 8px;
+}
+.user-status .user-settings .dropdown-menu a {
+  color: #444;
+}
+.user-status .user-access-link {
+  margin: 11px 0;
+  float: right;
+}
+.user-status .user-access-link a {
+  padding: 0 5px;
+}
+.user-status .user-access-link a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.profile-tab {
   float: left;
   margin-bottom: -1px;
 }
-
-.profile-tab li{
+.profile-tab li {
   background: #fff;
 }
-
-.profile-tab [class^="icon-"]{
+.profile-tab [class^="icon-"] {
   padding: 0 5px 0 0;
 }
-/*.post-comment-box{
-    position: relative;
-
+.post-btn {
+  margin-top: -15px;
 }
-
-  .post-comment-box textarea{
-      font-size:12px;
-  }*/
-
-  .post-comment-label{
-      position: absolute;
-      color: #a1a1a1;
-      top:5px;
-      left:8px;
-      font-size: 12px;
-  }
-
-
-.post-btn{
-    margin-top:-15px;
-}
-
-
-.main-nav{
+.main-nav {
   padding: 9px 0;
   margin: 0 0 20px;
-  border: 1px solid #E3E3E3;
+  border: 1px solid #e3e3e3;
 }
-
-.main-nav{
-  padding: 0;
+.main-nav .nav-list > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
-
-.main-nav .nav-list>li>a{
-  padding-top:8px;
-  padding-bottom:8px;
+.user-box .user-box-author {
+  font-size: 16px;
+  line-height: 18px;
 }
-
-
-.friend-list{
-  position: relative;
-  border: 1px solid #E3E3E3;
-  padding: 0;
-  list-style:none;
-  margin: 0 20px 18px 0;
-  overflow: hidden;
-}
-
-  .friend-list .f-tip{
-    display:none;
-  }
-
-  .friend-list li:hover .f-tip{
-    color: #fff;
-    position: absolute;
-    top: 4px;
-    left:25px;
-    background: rgba(0,0,0,0.7);
-    padding: 3%;
-    display:block;
-  }
-
-
-  .friend-list li{
-      float:left;
-      padding: 3%;
-      width: 27%;
-  }
-
-  .friends li a{
-    padding: 0;
-    margin: 0;
-    outline: none;
-  }
-
-  .friends li a:hover{
-      background:none;
-  }
-
-
-  .friends img{
-      float: left;
-      /*margin:0 10px 10px 0;*/
-      margin: 0;
-  }
-
-.friends ul{
-    list-style: none;
-}
-
-.see-more{
-    display:block;
-    /*margin:-5px 0 0 15px;*/
-    font-size:11px;
-    margin: -2px 0 0 5px;
-    text-align:right;
-    padding-right:10px;
-}
-
-.user-box .user-box-author{
-    font-size:16px;
-    line-height: 18px;
-}
-
-
-.recent-activity,
-.box{
-  border: 1px solid #E3E3E3;
+.box {
+  border: 1px solid #e3e3e3;
   margin-bottom: 18px;
-
 }
-
-.box .box-header{
-    background: #1b1b1b;
-    color:#f2f2f2;
-    padding: 10px;
-    margin: 0;
+.box .box-header {
+  background: #1b1b1b;
+  color: #f2f2f2;
+  padding: 10px;
+  margin: 0;
+  font-weight: normal;
 }
-
-.box .item-header{
+.box .item-header {
   margin-bottom: -1px;
   margin-top: 12px;
 }
-
-.recent-activity .media-list, .box .box-body{
-    padding: 0 9px;
+.box .box-body {
+  padding: 0 9px;
 }
-
-.recent-activity .media-list{
+.see-more {
+  display: block;
+  font-size: 11px;
+  margin: -2px 0 0 5px;
+  text-align: right;
+  padding-right: 10px;
+}
+.recent-activity li:first-child {
+  margin-top: 15px;
+}
+.recent-activity .media-list {
   height: 250px;
   overflow: auto;
 }
-
-.notes{
-  margin-bottom:20px;
+.wall-posts.media-list li {
+  margin: 15px 0;
 }
-
-.notes>h3{
-  font-size:14px;
-}
-
-.list {
-  background: #FCF388;
-  color: #555;
-  padding: 0;
-  margin: 0;
-  border: 1px solid #dedede;
-}
-
-.list a{
-    color:#BA350D;
-    text-decoration:underline;
-}
-
-.list li {
-  list-style: none;
-  border-bottom: 1px dotted #F08767;
-  text-indent: 25px;
-  height: auto;
-  padding: 10px;
-  text-transform: capitalize;
-}
-
-
-
-/**************************************************
-                  End of Profile Styles
-**************************************************/
-
-
-
-/**************************************************
-            Start of Form Styles
-**************************************************/
-
-select,
-textarea,
-input[type="text"],
-input[type="password"]{
-  width:100%;
-}
-
-
-.login, .register{
-  background:#eee;
-}
-
-.login fieldset{
-  padding: 20px;
-}
-
-
-.form-menu{
-  padding: 0;
-  margin: 0;
-  list-style:none;
-}
-
-.form-menu li{
-  float: left;
-  padding:11px 10px;
-}
-
-
-.register .controls{
-  position: relative;
-}
-
-.register [class^="icon-"]{
-  position: absolute;
-  top:6px;
-  left: 8px;
-}
-
-.warning{
-  color:#ff0000;
-  position:absolute;
-  top:-20px;
-}
-
-.hint{
-  color:#888;
-  display:block;
-  font-size:11px;
-}
-
-.register input[type="text"],
-.register input[type="password"],
-.register input[type="email"]{
-  padding-left:25px;
-}
-
-
-/**************************************************
-            End of Form Styles
-**************************************************/
-
-/**************************************************
-            Start of Friend List Styles
-**************************************************/
-
-
-.friend-view{
-  margin: 20px;
-  border:1px solid #ccc;
-  padding:0;
-  overflow:auto;
-  height: 350px;
-}
-
-.friend-view ul{
-  list-style:none;
-}
-
-.friend-view-header{
-  margin: 0;
-  padding: 5px;
-  background: #7f7c7f;
-}
-
-.friend-view-meta{
-  border-bottom: 1px solid #cfcfcf;
-  overflow: hidden;
-  margin-bottom: -20px;
-}
-
-.sort-by,
-.item-per,
-.friend-search{
-  padding: 8px;
-  margin: 0;
-}
-
-.sort-by em,
-.item-per em{
-  font-weight:500;
-  font-style:normal;
-}
-
-.sort-by a,
-.item-per a{
-  font-size:11px;
-}
-
-.sort-by{
-  float: left;
-}
-
-.item-per{
-  float: right;
-}
-
-.friend-search{
-  clear: both;
-}
-
-.friend-view-body{
-  padding: 10px;
-  overflow: hidden;
-}
-
-
-.friend-view-body .friend-result-count{
-  font-size:11px;
-  vertical-align: top;
-  display:block;
-}
-
-
-.friend-result-list li{
-  float: left;
-  margin: 0 15px 15px 10px;
-}
-
-.friend-result-list a{
-  font-size:12px;
-  text-decoration: none;
-}
-.friend-result-list img{
-  float:left;
-  margin:0 10px 10px 0;
-}
-
-.friend-search input[type="text"]{
-  margin:0;
-  padding:5px 0;
-}
-
-.friend-results{
-  margin-top: -10px;
-}
-
-.friend-results .section{
-  display:block;
-  font-size:11px;
-}
-
-.friend-search{
-  float:right;
-}
-
-/**************************************************
-            End of Friend List Styles
-**************************************************/
-
-/**************************************************
-            Start of Welcome Styles
-**************************************************/
-
-
-
-.info{
-  margin: 20px 0;
-  padding: 10px 20px;
+.wall-post-comments.media-list li {
   background: #f3f3f3;
-  border:1px solid #e3e3e3;
+  margin: 15px 0;
+  padding: 15px;
+  border: 1px solid #e3e3e3;
 }
-
-.info p{
-  margin: 10px 0;
+.open > .dropdown-menu:before,
+.open > .dropdown-menu:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 10px solid;
+  border-color: transparent;
+  bottom: 100%;
+  left: 16px;
 }
-
-.sched-list{
-  list-style:none;
+.open > .dropdown-menu:before {
+  border-bottom-color: #000;
 }
-
-.schedules{
-  background: #eee;
+.open > .dropdown-menu:after {
+  border-bottom-color: #fff;
 }
-
-.sched-list li{
-  margin-bottom: 18px;
+.customToolTip {
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 20px;
+  width: 150px;
+  font-style: italic;
+  border-radius: 7px;
+  text-align: center;
+  position: absolute;
+  top: 49px;
+  right: 6px;
+  z-index: 999;
+  display: none;
+  cursor: pointer;
 }
-
-.sched-list .sched{
-  padding-bottom: 10px;
-  border-bottom: 1px dotted #ccc;
+.customToolTip:before {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 8px solid;
+  border-color: transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.7);
+  bottom: 100%;
+  right: 17px;
 }
-
-.info h5,
-.sched-list p{
-  margin: 0;
-  font-weight:bold;
-}
-
-.page-date{
-  font-size:11px;
-}
-
-
-/**************************************************
-            End of Welcome Styles
-**************************************************/
-
-
-/**************************************************
-            Start of Profile Styles
-**************************************************/
-
-.user-space{
-  border: 1px solid #e7e7e7;
-  background: #fff;
+/*********************PROFILE CSS************************/
+.user-space {
+  border: 1px solid #e3e3e3;
+  background: #ffffff;
   margin-bottom: 18px;
   padding: 20px 0;
 }
-
-  .user-space .user-area{
-    overflow: hidden;
-    margin-left: 20px;
-  }
-
-  .user-space .about-sec{
-    margin-right:20px;
-  }
-
-  .user-space .about-sec .more-text{
-    font-size:11px;
-    text-decoration: none;
-  }
-  
-  .user-space .user-thumb{
-    float:left;
-    margin-right:10px;
-  }
-
-  .user-space .user-meta-info{
-    list-style:none;
-    margin: 0;
-  }
-
-  .user-space .profile-btn .btn{
-    margin: 5px 0;
-  }
-
-.user-space .about-sec,
-.user-space .profile-btn{
-    margin-left:20px;
+.user-space .user-area {
+  overflow: hidden;
+  margin-left: 20px;
 }
-  .user-space .about-sec h4{
-    margin-top:0;
-  }
-
-
-.main .profile-tab-content{
-  background: #fff;
-  clear:both;
-  padding: 20px;
-  border:1px solid #e7e7e7;
+.user-space .about-sec {
+  margin-right: 20px;
+  margin-left: 20px;
 }
-
-/**************************************************
-            End of Profile Styles
-**************************************************/
-
-/**************************************************
-            Start of Discussion Styles
-**************************************************/
-
-.forum .forum-header{
-  margin-bottom:-10px;
+.user-space .about-sec h4 {
+  margin-top: 0;
 }
-
-table.table td,
-table.table th{
-  padding-top:15px;
-  padding-bottom: 15px;
-}
-
-.table{
-  border: 1px solid #e7e7e7;
-  margin-bottom: 0;
-  background: #fff;
-}
-
-.table tr th{
-  font-size: 14px;
-}
-
-.table a{
+.user-space .about-sec .more-text {
+  font-size: 11px;
   text-decoration: none;
 }
-
-/*.table-striped tbody > tr > td:firt-child,
-.table-striped thead > tr:first-child >th{
-  padding-left:24px;
-}*/
-
-
-.table-striped tbody tr:hover > td,
-.table-striped tbody tr:hover > th {
-  background-color: #F3F3F3;
+.user-space .user-thumb {
+  float: left;
+  margin: 0 20px 0 0;
 }
-
-.topic-title{
-  font-size:14px;
-  margin: 0;
- /* margin-left:14px;*/
+.user-space .user-meta {
+  margin-right: 20px;
 }
-
-  .topic-title a:hover{
-    border-bottom: 1px dotted #005580;
-  }
-
-.topic .post-date{
-   font-size:11px;
-
+.user-space .user-meta .user-meta-info {
+  list-style: none;
+  margin: 0 0 20px;
 }
-
-
-.topic .media{
-  padding: 15px;
-  background-color: #eee;
-  border: 1px solid #e7e7e7;
+.user-space .profile-btn {
+  margin-left: 20px;
 }
-
-.topic-posts .media >.pull-left{
-  margin:0 30px 30px 0;
+.user-space .profile-btn .btn {
+  margin: 5px 0;
 }
-
-.topic-posts .media-heading{
-  border-bottom: 1px solid #000;
+.main .profile-tab-content {
+  background: #ffffff;
+  clear: both;
+  padding: 20px;
+  border: 1px solid #e3e3e3;
+}
+.friend-list {
+  background: #ffffff;
+  position: relative;
+  border: 1px solid #e3e3e3;
+  padding: 0;
+  list-style: none;
+  margin: 0 0 18px 0;
+  overflow: hidden;
+}
+.friend-list .f-tip {
+  display: none;
+}
+.friend-list li {
+  float: left;
+  padding: 5%;
+  width: 23%;
+}
+.friend-list li:hover .f-tip {
+  color: #fff;
+  position: absolute;
+  top: 4px;
+  left: 25px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 3%;
+  display: block;
+}
+/*********************ANNOUNCEMENT CSS************************/
+.info {
+  margin: 20px 0;
+  padding: 10px 20px;
+  background: #f3f3f3;
+  border: 1px solid #e3e3e3;
+}
+.info p {
+  margin: 10px 0;
+}
+.sched-list li {
+  margin-bottom: 18px;
+}
+.sched-list .sched {
   padding-bottom: 10px;
-  margin-bottom: 10px;
+  border-bottom: 1px dotted #ccc;
+}
+.schedules {
+  background: #eee;
+}
+.info h5,
+.sched-list p {
+  margin: 0;
+  font-weight: bold;
+}
+.page-date {
   font-size: 11px;
 }
-
-
-.topic-descri{
-  margin-left:14px;
+/*********************COURSE CSS************************/
+.user-info {
+  background: #ffffff;
+  padding: 20px;
+  border: 1px solid #e3e3e3;
+  margin-bottom: 18px;
 }
-
-/**************************************************
-            End of Discussion Styles
-**************************************************/
-
-
-/**************************************************
-            Start of Chat Styles
-**************************************************/
-
-.chat-msg-wrap .chat-header{
-  text-align:center;
+.user-info img {
+  margin-bottom: 18px;
+}
+.subj-list {
+  margin: 0 0 18px 18px;
+}
+.subj-list li {
+  margin: 10px 0;
+}
+.subj-list li .subj {
+  display: block;
+  font-size: 16px;
+  margin: 0 0 5px;
+}
+.subj-list li .teacher a {
+  padding: 0 0 0 6px;
+}
+/*********************FORUM CSS************************/
+.forum {
+  overflow: hidden;
+}
+.recent-posts {
+  margin-left: 18px;
+  margin-bottom: 18px;
+}
+.recent-posts li {
+  padding: 10px 0;
+  font-style: italic;
+}
+.table {
+  float: left;
+  width: 100%;
+  border: 1px solid #e3e3e3;
   margin: 0;
+  background: #ffffff;
+}
+.table td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.table td,
+.table th {
+  border: 1px solid #e3e3e3;
+  vertical-align: middle;
+}
+.table tr:hover td,
+.table tr:hover th {
+  background: #FCFCFC;
+}
+.table a {
+  text-decoration: none;
+}
+.table .topic-title {
+  font-size: 14px;
+}
+.table .ico-placeholder {
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 25px;
+}
+.table .ico-placeholder .greyed-out {
+  opacity: 0.7;
+}
+.inbox-options {
+  float: right;
+}
+.page-stack-count {
+  float: left;
+  margin: 24px 24px 0 0;
+}
+.pager {
+  float: right;
+}
+.inbox-nav-wrapper {
+  clear: right;
+}
+.inbox-nav li {
+  padding: 0 0 10px;
+}
+.inbox-nav li [class^="icon-"] {
+  padding-left: 5px;
+}
+.pagination {
+  float: right;
+  margin: 8px 0;
+}
+.topic-posts {
+  clear: right;
+}
+.topic-posts .per-post-wrapper {
   background: #fff;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #e3e3e3;
+  -webkit-box-shadow: 1px 1px 1px #ccc;
+  -moz-box-shadow: 1px 1px 1px #ccc;
+  box-shadow: 1px 1px 1px #ccc;
+  border-radius: 8px;
 }
-
-.chat-msg-wrap{
-  border:1px solid #e7e7e7;
-  float:left;
-  width: 70%;
+.topic-posts .per-post-meta {
+  background: #f8f8f8;
+  margin-bottom: 18px;
 }
-
-
-  .chat-msg-wrap .chat-msg{
-    /*box-shadow:inset 1px 1px 1px rgba(0,0,0,0.5);*/
-    background: #fff;
-    height:400px;
-    overflow: auto;
+.topic-posts .per-post-meta div {
+  padding: 10px;
+}
+.topic-posts .per-post-meta a {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+.topic-posts .per-post-meta img {
+  display: block;
+  margin: 0 auto 18px;
+}
+.topic-posts .per-post-meta .per-post-meta-info li {
+  margin-left: 12%;
+}
+.topic-posts .per-post-content div {
+  padding: 10px;
+}
+.topic-posts .per-post-content .per-post-datetime {
+  text-align: right;
+  font-style: italic;
+}
+.topic-posts .reply-bar {
+  clear: both;
+  padding: 10px 0 0;
+  border-top: 1px solid #e3e3e3;
+}
+.topic-posts .reply-bar .btn {
+  float: right;
+}
+@media screen and (max-width: 980px) {
+  .navbar {
+    position: relative;
   }
-
-  .chat-msg-wrap .chat-talks{
-    list-style:none;
+  .navbar .brand {
+    text-align: center;
+    float: none;
+  }
+  .navbar-form .icon-search {
+    position: absolute;
+    top: 14px;
+    left: 20px;
+  }
+  .main-nav {
+    padding: 0;
+  }
+  .nav .nav {
     margin: 0;
   }
-
-  .chat-msg-wrap .chat-talks li{
-    background: #eee;
-    padding: 10px;
-    border-bottom:1px solid #e6e6e6;
+  .user-status {
+    float: none;
+    position: absolute;
+    top: 5px;
+    right: 60px;
   }
-
-  .chat-msg-wrap .chat-talks .chat-line{
+  .user-status .user-access-link {
+    float: right;
+  }
+  .sidebar {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+  }
+  .sidebar ul {
     overflow: hidden;
+    padding: 0;
   }
-
-  .chat-msg-wrap .chat-talks .chatter{
-    float:left;
-    margin: 0 50px 10px 0;
+  .sidebar ul li:first-child span {
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
   }
-
-  .chat-user{
-    vertical-align:top;
-    font-weight:bold;
+  .sidebar ul ul li {
+    float: left;
+    width: 25%;
   }
-
-  .chat-msg-wrap .chat-talks .chatter .chat-time{
+  .sidebar ul ul a {
     display: block;
-    font-size: 11px;
+    text-align: center;
   }
-
-
-  .chat-msg-wrap .chat-inp{
-    background: #fff;
-    padding: 10px;
-  }
-
-
-  .chat-msg-wrap .chat-inp .chat-hint{
-    font-weight:bold;
-  }
-
-  .chat-msg-wrap .chat-inp textarea{
-    width: 95%;
-    max-width: 95%;
-  }
-
-
-.chat-online-list{
-  float:right;
-  width: 28%;
-  background: #fff;
-}
-
-  .chat-online-list h4{
-    padding-left: 10px;
-  }
-
-  .chat-online-list .chat-users-online{
-    list-style:none;
+  .sidebar .main-nav .nav-list a {
     margin: 0;
   }
-
-  .chat-online-list .chat-users-online li{
-      padding: 10px 10px 10px 20px;
-      border:solid #ccc;
-      border-width: 1px 0;
-      margin-bottom:-1px;
+  #dashboard .main {
+    margin-left: 0;
+    width: 60%;
   }
-
-
-/**************************************************
-            End of Chat Styles
-**************************************************/
-
-
-
-@media screen and (max-width:980px){
-  
-  .friend-list li{
-      float:left;
-      padding: 3%;
-      width: 44%;
-      margin-right:0;
+  #dashboard .extras {
+    margin-left: 5%;
+    width: 35%;
   }
-  
-  .user-space .user-thumb{
-    margin-bottom:10px;
-  }
-  
-}
-
-@media screen and (max-width:767px){
-    header .brand{
-  
-    }
-}
-
-@media screen and (max-width:768px){
-  
   .friend-list li {
+    width: 40%;
+  }
+  .search-bar .navbar-form {
+    margin-right: 9px;
+  }
+}
+@media (min-width: 768px) and (max-width: 979px) {
+  .sub-nav .container {
+    width: auto;
+  }
+  input.span2 {
+    width: 150px;
+  }
+}
+@media screen and (max-width: 768px) {
+  input.span2 {
+    width: 230px;
+  }
+  .navbar-form input[class^="span"] {
+    width: auto;
+    display: inline-block;
+  }
+  .navbar .brand {
     float: left;
-    margin-right:-2%;
-    padding: 3%;
+    padding-left: 20px;
+  }
+  .user-status {
+    position: absolute;
+  }
+  .user-status .user-access-link {
+    float: right;
+  }
+  .user-area .user-thumb {
+    margin-bottom: 20px;
+  }
+  .friend-list li {
     width: 10%;
   }
-
+  #dashboard .main,
+  #dashboard .extras {
+    float: none;
+    width: 100%;
+  }
+  .sub-nav .container .breadcrumb {
+    padding: 0 0 0 20px;
+  }
+  .topic-posts .per-post-meta {
+    width: 30%;
+    float: left;
+    margin-right: 5%;
+  }
+  .topic-posts .per-post-content {
+    width: 65%;
+    float: left;
+  }
+  .topic-posts .per-post-meta-info li {
+    padding: 3px 0;
+  }
 }
-
+@media screen and (max-width: 600px) {
+  .main-nav {
+    padding: 0;
+  }
+  .nav .nav {
+    margin: 0;
+  }
+  .user-status {
+    position: static;
+    margin: 0 9px;
+  }
+  .pagination ul li a {
+    padding: 2px 7px;
+    font-size: 11px;
+  }
+  .forum h3 {
+    font-size: 18px;
+  }
+  .customToolTip {
+    padding: 8px 10px;
+  }
+  .sidebar .main-nav .nav-list li {
+    float: none;
+    width: 100%;
+    text-transform: uppercase;
+  }
+  .sidebar .main-nav .nav-list i {
+    display: none;
+  }
+  .open > .dropdown-menu {
+    position: absolute;
+    left: -58%;
+  }
+  .open > .dropdown-menu:before,
+  .open > .dropdown-menu:after {
+    position: absolute;
+    left: 80%;
+  }
+  .topic-posts .per-post-meta {
+    float: none;
+    width: 100%;
+    overflow: hidden;
+  }
+  .topic-posts .per-post-meta img {
+    float: left;
+    margin: 0 18px 18px 0;
+  }
+  .topic-posts .per-post-meta .per-post-meta-info {
+    margin-bottom: 18px;
+  }
+  .topic-posts .per-post-content {
+    float: none;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .tabbable .profile-tab {
+    float: right;
+  }
+  .tabbable .nav-tabs.profile-tab li a {
+    padding: 5px 8px;
+  }
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+  .table {
+    border: none;
+    background: none;
+  }
+  .table thead tr {
+    position: absolute;
+    left: -9999em;
+  }
+  .table tr {
+    background: #fff;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ccc;
+  }
+  .table td {
+    margin-bottom: -1px;
+    position: relative;
+    padding-left: 50%;
+  }
+  .table td.ico-placeholder {
+    display: none;
+  }
+  .table td:before {
+    font-weight: bold;
+    font-size: 14px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+  .table.forums td:nth-of-type(2):before {
+    content: "Post ";
+  }
+  .table.forums td:nth-of-type(3):before {
+    content: "Views  ";
+  }
+  .table.forums td:nth-of-type(4):before {
+    content: "Replies  ";
+  }
+  .table.forums td:nth-of-type(5):before {
+    content: "Last Post  ";
+  }
+  .table.topics td:nth-of-type(2):before {
+    content: "Topic ";
+  }
+  .table.topics td:nth-of-type(3):before {
+    content: "Replies  ";
+  }
+  .table.topics td:nth-of-type(4):before {
+    content: "Created  ";
+  }
+  .table.topics td:nth-of-type(5):before {
+    content: "Last Reply  ";
+  }
+  .table.courses td:nth-of-type(1):before {
+    content: "Subject ";
+  }
+  .table.courses td:nth-of-type(2):before {
+    content: "Course  ";
+  }
+  .table.courses td:nth-of-type(3):before {
+    content: "Teacher  ";
+  }
+}
+@media screen and (max-width: 350px) {
+  body {
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+  }
+  .search-bar .navbar-form {
+    float: none;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .search-bar .navbar-form input {
+    width: 100%;
+  }
+  .search-bar .navbar-form input[type="text"] {
+    margin-bottom: 3px;
+  }
+  .user-area .user-thumb a,
+  .user-area .user-meta,
+  .user-space .about-sec,
+  .user-space .profile-btn {
+    display: block;
+    width: 75%;
+    margin: 0 auto;
+  }
+  .user-space .user-meta {
+    overflow: visible;
+    clear: both;
+  }
+  .user-space .user-area {
+    margin: 0;
+  }
+  .user-space .about-sec {
+    margin-bottom: 20px;
+  }
+  .user-area .user-thumb {
+    width: 100%;
+    margin-right: 0;
+  }
+  .user-space .profile-btn .btn {
+    display: block;
+    padding: 8px 10px;
+    margin: 10px 0;
+  }
+  .user-thumb a img {
+    width: 100%;
+  }
+  .tabbable .profile-tab li a {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .tabbable .nav-tabs.profile-tab li {
+    background: none;
+    margin: 0;
+    display: inline-block;
+    padding: 4px;
+  }
+  .tabbable .profile-tab li.active a {
+    border: 0;
+    display: block;
+    background: none;
+  }
+  .tabbable .profile-tab li a {
+    margin: 0;
+    padding: 5px;
+    border: none;
+  }
+  .tabbable .profile-tab i {
+    display: none;
+  }
+  .user-thumb {
+    margin-bottom: 20px;
+  }
+  .owner {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .table td:before {
+    position: static;
+    display: block;
+    margin-bottom: 18px;
+  }
+  .table td {
+    padding: 15px;
+  }
+  .open > .dropdown-menu {
+    position: absolute;
+    left: -150%;
+  }
+  .customToolTip {
+    position: absolute;
+    top: 15px;
+    right: 55px;
+  }
+  .customToolTip:before {
+    border-width: 6px;
+    border-color: transparent;
+    border-left-color: rgba(0, 0, 0, 0.7);
+    left: 100%;
+    top: 8px;
+  }
+  .btn.btn-small.btn-text {
+    width: 35px;
+  }
+  .btn.btn-small.btn-text i {
+    margin-right: 10px;
+  }
+  @-moz-document url-prefix() {
+    .btn.btn-small.btn-text span {
+      display: none;
+    }
+    .btn.btn-small.btn-text i {
+      margin: 0 10px;
+    }
+  }
+  .table .topic-title {
+    font-size: 12px;
+  }
+  .table td:before {
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .topic-posts .per-post-meta {
+    float: none;
+    width: 100%;
+    overflow: hidden;
+  }
+  .topic-posts .per-post-wrapper .per-post-meta img {
+    width: 70%;
+    display: block;
+    margin: 0 auto 18px;
+    float: none;
+  }
+}
+@media screen and (max-width: 250px) {
+  .tabbable .profile-tab li {
+    float: none;
+    width: 100%;
+    text-align: center;
+  }
+  .tabbable .profile-tab li a {
+    text-transform: uppercase;
+  }
+  .pagination ul {
+    box-shadow: none;
+  }
+  .pagination ul li a {
+    background: none;
+    padding: 3px 5px;
+    border: 0;
+    font-size: 9px;
+  }
+}

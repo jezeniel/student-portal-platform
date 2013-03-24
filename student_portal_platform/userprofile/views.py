@@ -12,8 +12,8 @@ def home_view(request):
     return render(request, "official/dashboard.html", { 'user': request.user })
 
 @login_required
-def profile_view(request, user_id):
-    owner = User.objects.get(id = user_id)
+def profile_view(request, username):
+    owner = User.objects.get(username = username)
     try:
         has_request = FriendRequest.objects.get(Q(from_user = request.user, to_user = owner) |
                                                 Q(from_user = owner, to_user = request.user))
@@ -24,4 +24,4 @@ def profile_view(request, user_id):
                                                       'owner' : owner ,
                                                       'has_request': has_request,
                                                       'messageform' : PersonalMessageForm()})
-    
+

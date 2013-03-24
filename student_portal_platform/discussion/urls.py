@@ -1,9 +1,9 @@
 from django.conf.urls import url, patterns
-from django.contrib.auth.decorators import login_required
-from .views import ThreadList, ThreadDetail, ThreadCreate
+from .views import ThreadList, ThreadDetail, ThreadCreate, CategoryList
 
-urlpatterns = patterns('', 
-                url(r'^topics/$', ThreadList.as_view(), name="list"),
-                url(r'^create/$', ThreadCreate.as_view(), name="create"),
-                url(r'^thread/(?P<thread_id>\d+)/$', ThreadDetail.as_view(), name="view")
-            )
+urlpatterns = patterns('',
+                       url(r'^$', CategoryList.as_view(), name="category"),
+                       url(r'^(?P<category>[a-z-]+)/$', ThreadList.as_view(), name="list"),
+                       url(r'^(?P<category>[a-z-]+)/create/$', ThreadCreate.as_view(), name="create"),
+                       url(r'^(?P<category>[a-z-]+)/(?P<thread_id>\d+)/$', ThreadDetail.as_view(), name="view")
+                       )

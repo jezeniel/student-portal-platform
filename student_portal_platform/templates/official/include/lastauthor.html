@@ -1,0 +1,7 @@
+{% load humanize %}
+{% if thread.more_than_oneday %}
+    {{thread.last_post|naturalday}}</br>
+{% else %}
+    {{thread.last_post|naturaltime}}</br>
+{% endif %}
+by <a href="{{ thread.author.get_absolute_url }}" class="topic-author">{{thread.author.username}}</a>

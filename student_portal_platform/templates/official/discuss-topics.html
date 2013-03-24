@@ -2,65 +2,53 @@
 {% load humanize %}
 
 {% block navigations %}
-    <li class="active"><a href="{% url 'home_url' %}"><i class="icon-home"></i>Home</a></li>
-    <li><a href="{% url 'profile_url' user.id %}"><i class="icon-user"></i>Profile</a></li>
+    {% include "official/include/navigation.html" %}
 {% endblock %}
 
 {% block content %}
 
     <div id="wrapper" class="container">
+        <h3>{{category.name}}</h3>
+
+
 
         <div class="row-fluid">
-            
 
             <div class="span9">
                 <div class="forum">
-                    <h3 class="forum-header">Global Forums - <a href="{% url 'discuss:create' %}">Create a topic</a></h3>
-                    
-                    <div class="pagination">
-                      <ul>
-                        {% if page_obj.has_previous %}
-                            <li><a href="{% url 'discuss:list'%}?page={{page_obj.previous_page_number}}">Prev</a></li>
-                        {% else %}
-                            <li class="disabled"><a href="#">Prev</a></li>
-                        {% endif %}
-                        {% for page in paginator.page_range %}
-                            {% if page_obj.number == page %}
-                                <li class="active"><a href="#">{{page}}</a></li>
-                            {% else %}
-                                <li><a href="{% url 'discuss:list' %}?page={{page}}">{{page}}</a></li>
-                            {% endif %}
-                        
-                        {% endfor %}
-                        {% if page_obj.has_next %}
-                            <li><a href="{% url 'discuss:list' %}?page={{page_obj.next_page_number}}">Next</a></li>
-                        {% else %}
-                            <li class="disabled"><a href="#">Next</a></li>
-                        {% endif %}
-                      </ul>
-                    </div>
+                    <ul class="breadcrumb">
+                      <li><a href="{% url 'discuss:category' %}">Categories</a><span class="divider">></span></li>
+                      <li class="active">{{category.name}}</li>
+                    </ul>
+                    <a href="{% url 'discuss:create' category.slug %}">
+                        <button class="btn btn-inverse" style="margin-top:8px;" >Create a topic</button>
+                    </a>
+                    {% include "official/include/pagination.html" %}
+                    <table class="table topics">
+                        <thead>
+                            <tr>
+                            <th class="ico-placeholder"><i class="icon-pencil"></i></th>
+                            <th>Topic</th>
+                            <th>Views</th>
+                            <th>Replies</th>
+                            <th>Created</th>
+                            <th>Last Reply</th>
+                            </tr>
+                        </thead>
 
-                    <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th>Topic</th>
-                                <th>Views</th>
-                                <th>Replies</th>
-                                <th>Created</th>
-                                <th>Last Reply</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            {% for thread in threads %}
-                              <tr>
+                        <tbody>
+                            {% for thread in threads%}
+
+                            <tr>
+                                <td class="ico-placeholder"><i class="icon-pencil greyed-out"></i></td>
                                 <td>
                                     <div class="topic-title">
-                                        <a href="{% url 'discuss:view' thread.id %}">{{thread.title}}</a></div>
+                                    <a href="{{thread.get_absolute_url}}">{{thread.title}}</a></div>
                                     <div class="topic-descri">
-                                        by <a href="#">{{thread.author}}</a>
+                                    by <a href="{{thread.author.get_absolute_url}}">{{thread.author}}</a>
                                     </div>
                                 </td>
-                                <td>
+                               <td>
                                   {{thread.views}}
                                 </td>
                                 <td>
@@ -68,49 +56,34 @@
                                 </td>
                                 <td>
                                   {{thread.post_date}}
-                    
                                 </td>
                                 <td>
-                                    {% if thread.more_than_oneday %}
-                                        {{thread.last_post|naturalday}}</br>
-                                    {% else %}
-                                        {{thread.last_post|naturaltime}}</br>
-                                    {% endif %}
-                                    by <a href="{% url 'profile_url' thread.get_latest_author.id  %}" class="topic-author">{{thread.get_latest_author}}</a>
+                                  {% include "official/include/lastauthor.html" %}
                                 </td>
                               </tr>
+
+                            </tr>
                             {% endfor %}
-                            </tbody>
-                            
-                          </table>
+                        </tbody>
 
-
-
-                          <div class="pagination">
-                            <ul>
-			                      {% if page_obj.has_previous %}
-			                          <li><a href="{% url 'discuss:list'%}?page={{page_obj.previous_page_number}}">Prev</a></li>
-			                      {% else %}
-			                          <li class="disabled"><a href="#">Prev</a></li>
-			                      {% endif %}
-			                      {% for page in paginator.page_range %}
-			                          {% if page_obj.number == page %}
-			                              <li class="active"><a href="#">{{page}}</a></li>
-			                          {% else %}
-			                              <li><a href="{% url 'discuss:list' %}?page={{page}}">{{page}}</a></li>
-			                          {% endif %}
-			                      
-			                      {% endfor %}
-			                      {% if page_obj.has_next %}
-			                          <li><a href="{% url 'discuss:list' %}?page={{page_obj.next_page_number}}">Next</a></li>
-			                      {% else %}
-			                          <li class="disabled"><a href="#">Next</a></li>
-			                      {% endif %}
-                            </ul>
-                          </div>
+                    </table>
                 </div>
+            </div>
+
+            <div class="span3">
+
+                <h4>Recent Posts</h4>
+                <ul class="recent-posts">
+                  <li><a href="#">How to make a responsive web design?</a></li>
+                  <li><a href="#">Create a program which sorts out numbers</a></li>
+                  <li><a href="#">Python Help: Fibonacci Series</a></li>
+                  <li><a href="#">Python Help: Fibonacci Series</a></li>
+                  <li><a href="#">Python Help: Fibonacci Series</a></li>
+                </ul>
             </div>
         </div>
 
     </div>
+
+
 {% endblock %}
