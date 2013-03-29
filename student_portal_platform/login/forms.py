@@ -20,8 +20,8 @@ class LoginForm(forms.Form):
         self.helper.layout = Layout(
             Fieldset(
                 "Login",
-                Field("username", css_class="span10", placeholder="Username"),
-                Field("password", css_class="span10", placeholder="Password"),
+                Field("username", placeholder="Username"),
+                Field("password", placeholder="Password"),
                 Field("remember"),
                 Field("next")
             ),

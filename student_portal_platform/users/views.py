@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import UserInfo
-from .forms import AccountForm, PersonalForm, ProfileEdit
+from .forms import AccountForm, PersonalForm, ProfileEdit, AccountEdit
 
 
 def register(request):
@@ -44,7 +44,9 @@ def register(request):
 
 def editaccount(request):
     user = User.objects.get(id=request.user.id)
-
+    if request.method == "GET":
+        account_form = AccountEdit(initial={'email': user.email})
+    return render(request, "official/editaccount.html", {'account_form': account_form})
 
 def editprofile(request):
     user = User.objects.get(id=request.user.id)

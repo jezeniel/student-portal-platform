@@ -23,13 +23,23 @@
 
                 <div class="pagination">
                   <ul>
-                    <li><a href="#">Prev</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">Next</a></li>
+                    {% if posts.has_previous %}
+                        <li><a href="{% url 'discuss:view' category.slug thread.id %}?page={{posts.previous_page_number}}">Prev</a></li>
+                    {% else %}
+                        <li class="disabled"><a href="#">Prev</a></li>
+                    {% endif %}
+                    {% for page in posts.paginator.page_range %}
+                        {% if posts.number == page %}
+                            <li class="active"><a href="#">{{page}}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'discuss:view' category.slug thread.id %}?page={{page}}">{{page}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if posts.has_next %}
+                        <li><a href="{% url 'discuss:view' category.slug thread.id %}?page={{posts.next_page_number}}">Next</a></li>
+                    {% else %}
+                        <li class="disabled"><a href="#">Next</a></li>
+                    {% endif %}
                   </ul>
                 </div>
 
@@ -37,6 +47,7 @@
                     <!-- <h3 class="topic-title">Python Help: How to program fibonnaci series in Python?</h3> -->
 
                     <ul class="topic-posts">
+                        {% if posts.number == 1 %}
                         <li class="per-post-wrapper">
                             <div class="row-fluid">
                                 <div class="per-post-meta span3">
@@ -67,7 +78,8 @@
                                 <div class="reply-bar"><a href="#" class="btn">Reply</a></div>
                             </div>
                         </li>
-                        {% for post in thread.post_set.all %}
+                        {% endif %}
+                        {% for post in posts %}
                         <li class="per-post-wrapper">
                             <div class="row-fluid">
                                 <div class="per-post-meta span3">

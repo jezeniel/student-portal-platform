@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^message/', include('messaging.urls', namespace="message")),
 
     url(r'^editprofile/$', 'users.views.editprofile', name="editprofile"),
-    url(r'^createlecture/$', 'lecture.views.create_lecture', name = "createlecture")
+    url(r'^editaccount/$', 'users.views.editaccount', name='editaccount'),
 )
 
 #remove after development

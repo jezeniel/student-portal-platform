@@ -1,0 +1,14 @@
+{% extends "official/base/base2.html" %}
+
+{% block navigations %}
+    {% include "official/include/navigation.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class= "row">
+        <div class="span6 offset3">
+        {% load crispy_forms_tags %}
+        {% crispy account_form %}
+        </div>
+    </div>
+{% endblock %}

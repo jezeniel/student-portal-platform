@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Category, Thread, Post
 from .forms import ThreadForm, ReplyForm, QuickReplyForm
@@ -80,13 +81,23 @@ class ThreadDetail(LoginRequiredMixin, View):
     def get(self, request, thread_id, *args, **kwargs):
         thread = get_object_or_404(Thread, id=thread_id)
         thread_name = "VIEWED_THREAD_%s" % (thread_id)
+        reply_form = QuickReplyForm()
         if not self.request.session.get(thread_name, False):
             thread.views += 1
             self.request.session[thread_name] = True
-        thread.save()
-        reply_form = QuickReplyForm()
+            thread.save()
+
+        paginator = Paginator(thread.post_set.all(), 5)
+        page = request.GET.get('page')
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+
         return render(request, self.template_name, {'thread': thread, 'reply_form': reply_form,
-                                                    'category': thread.category})
+                                                    'category': thread.category, 'posts':posts})
 
     def post(self, request, thread_id, *args, **kwargs):
         thread = get_object_or_404(Thread, id=thread_id)

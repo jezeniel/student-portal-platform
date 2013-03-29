@@ -135,9 +135,9 @@ class ProfileEdit(PersonalForm):
             Fieldset(
                 "Personal Information Settings",
                 Field("primaryphoto"),
-                Field("firstname", placeholder="First Name", pattern="[\sa-zA-Z]+", css_class="span11"),
-                Field("lastname", placeholder="Last Name", pattern="[\sa-zA-Z]+", css_class="span11"),
-                Field("address", placeholder="Address", css_class="span11"),
+                Field("firstname", placeholder="First Name", pattern="[\sa-zA-Z]+"),
+                Field("lastname", placeholder="Last Name", pattern="[\sa-zA-Z]+"),
+                Field("address", placeholder="Address"),
                 InlineRadios("gender", css_class="inline"),
                 Field("course", placeholder="Course"),
                 AppendedText("birthday",
@@ -153,6 +153,26 @@ class ProfileEdit(PersonalForm):
 
 
 class AccountEdit(AccountForm):
+    password2 = forms.CharField(widget=forms.PasswordInput,
+                                label=(u""),
+                                min_length=8,
+                                required=True)
     class Meta:
         exclude = ("username")
+
+    def __init__(self, *args, **kwargs):
+        super(AccountEdit, self).__init__(*args, **kwargs)
+        self.helper.form_tag = True
+        self.helper.form_class = "span5 offset1"
+        self.helper.layout = Layout(
+            Fieldset(
+                "Account Information",
+                Field("email", placeholder="Email", type="email", css_class="span5"),
+                Field("password1", placeholder="Password", pattern="(.){8,}", css_class="span5"),
+                Field("password2", placeholder="Confirm Password", pattern="(.){8,}", css_class="span5")
+            ),
+            ButtonHolder(
+                Submit('submit', 'Save', css_class='btn btn-large  span2 pull-right')
+            )
+        )
 

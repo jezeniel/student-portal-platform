@@ -1,0 +1,46 @@
+{% extends "official/base/base2.html" %}
+
+{% block navigations %}
+    {% with message_active='active' %}
+    {% include "official/include/navigation.html" %}
+    {% endwith %}
+{% endblock %}
+{% block content %}
+
+    <div class="container" id="wrapper">
+
+        <div class="row-fluid">
+
+                <div class="span2">
+
+                    <ul class="inbox-nav">
+
+                        <li class="inbox-msg active">
+                            <a href="{% url 'message:inbox' %}"><i class="icon-inbox"></i> Inbox({{user.message_received.count}})</a>
+                        </li>
+                        <li class="inbox-draft">
+                            <a href="{% url 'message:sent' %}"><i class="icon-circle-arrow-right"></i> Sent Mail({{user.message_sent.count}})</a>
+                        </li>
+                        <li class="inbox-trash">
+                            <a href="#"><i class="icon-trash"></i> Trash({{inbox.trash_count}})</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <form action="" method="POST">
+                <div class="span10 inbox-mail">
+
+                   <div class="span10">
+                        <h2>{{message.title}}</h2>
+                        <p>{{message.content}}</p>
+                   </div>
+                </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "official/base/base2.html" %}
+
+{% block navigations %}
+    {% with message_active='active' %}
+    {% include "official/include/navigation.html" %}
+    {% endwith %}
+{% endblock %}
+{% block content %}
+
+    <div class="container" id="wrapper">
+
+        <div class="row-fluid">
+
+                <div class="span2">
+
+                    <ul class="inbox-nav">
+
+                        <li class="inbox-msg active">
+                            <a href="{% url 'message:inbox' %}"><i class="icon-inbox"></i> Inbox({{user.message_received.count}})</a>
+                        </li>
+                        <li class="inbox-draft">
+                            <a href="{% url 'message:sent' %}"><i class="icon-circle-arrow-right"></i> Sent Mail({{user.message_sent.count}})</a>
+                        </li>
+                        <li class="inbox-trash">
+                            <a href="#"><i class="icon-trash"></i> Trash({{inbox.trash_count}})</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <form action="" method="POST">
+                <div class="span10 inbox-mail">
+                   <div class="span5" style="padding-top:20px;">
+                        <button class="btn">Delete</button>
+                   </div>
+                   <div class="inbox-options">
+                        <span class="page-stack-count">
+                            <b>1 - 24</b> of <b>48</b>
+                        </span>
+                       <ul class="pager">
+                           <li><a href="#">Previous</a></li>
+                           <li><a href="#">Next</a></li>
+                       </ul>
+
+                   </div>
+                        <table class="table inbox">
+
+                            <thead>
+
+                                <tr>
+                                    <th></th>
+                                    <th>Message</th>
+                                    <th>Recipient</th>
+                                    <th>Date</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+                                {% for message in sentmail %}
+                                <tr class="inbox-msgs">
+                                    <td><input type="checkbox" name="messages" id="" value="{{message.pk}}"></td>
+                                    <td>
+                                        <div class="inbox-msg">
+                                            <h5 class="inbox-title"><a href="#">{{message.title}}</a></h5>
+                                            <p>{{message.content|truncatechars:50}}</p>
+                                        </div>
+                                    </td>
+                                    <td><a href="{{message.receiver.get_absolute_url}}" class="inbox-sender">{{message.receiver}}</a></td>
+                                    <td>
+                                        {{message.date}}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+{% endblock %}
