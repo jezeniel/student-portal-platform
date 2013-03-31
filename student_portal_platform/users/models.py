@@ -1,4 +1,5 @@
 import os
+from datetime import date
 
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -18,17 +19,33 @@ class UserInfo(models.Model):
     def __unicode__(self):
         return "%s" % (self.user)
 
+    def get_age(self):
+        today = date.today()
+        if self.birthday == None:
+            return "n/a"
+        try:
+            birthday = self.birthday.replace(year=today.year)
+        except ValueError:
+            birthday = self.birthday.replayce(year=today.year, day=born.day-1)
+        return today.year - self.birthday.year - (birthday > today)
+
     def get_absolute_url(self):
         return reverse("profile_url", kwargs={'user_id': self.user.id})
 
+    @classmethod
+    def get_photo(self, photo, thumb_name, fallback_img):
+        try:
+            img_url = photo.url
+            url, extension = os.path.splitext(img_url)
+            return "%s%s%s" % (url, thumb_name, extension)
+        except ValueError:
+            return "/static/img/%s" % (fallback_img)
+
     def get_size64(self):
-        url, extension = os.path.splitext(self.primaryphoto.url)
-        return url + "thumb_64" + extension
+        return self.get_photo(self.primaryphoto, "thumb_64", "img64.png")
 
     def get_size32(self):
-        url, extension = os.path.splitext(self.primaryphoto.url)
-        return url + "thumb_32" + extension
+        return self.get_photo(self.primaryphoto, "thumb_32", "img32.png")
 
     def get_size128(self):
-        url, extension = os.path.splitext(self.primaryphoto.url)
-        return url + "thumb_128" + extension
+        return self.get_photo(self.primaryphoto, "thumb_128", "img128.png")

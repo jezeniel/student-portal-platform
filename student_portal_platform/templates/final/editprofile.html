@@ -1,25 +1,21 @@
-{% extends "official/base/base2.html" %}
-
-{% block navigations %}
-    {% include "official/include/navigation.html" %}
-{% endblock %}
+{% extends "final/base/userbase.html" %}
 
 {% block head %}
     <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap-datetimepicker.min.css">
 {% endblock %}
 
 {% block content %}
-<div class="main-wrapper span10">
-    <div class= "row">
+ <div class="main-wrapper span10">
+    <div class= "row-fluid">
         <div class="span6 offset3">
-	    {% load crispy_forms_tags %}
-	    {% crispy pf %}
-	    </div>
+        {% load crispy_forms_tags %}
+        {% crispy pf %}
+        </div>
     </div>
 </div>
 {% endblock %}
 
-{% block extrascripts %}
+{% block scripts %}
 
     <script src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
 

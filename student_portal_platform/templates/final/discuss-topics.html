@@ -1,0 +1,72 @@
+{% extends "final/base/userbase.html" %}
+
+{% block head %}
+    <style type="text/css">
+        table tr .center-text {
+            text-align: center;
+        }
+        table tr .title-text {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .pagination {
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+<div class="main-wrapper span10">
+
+                <!-- breadcrumb -->
+
+                <!-- end of breadcrumb -->
+
+                <div class="row-fluid">
+                    <div class="span12 discussion-list">
+                        <ul class="breadcrumb">
+                          <li><a href="{% url 'discuss:category' %}">Categories</a><span class="divider">></span></li>
+                          <li class="active">{{category.name}}</li>
+                        </ul>
+
+                        <a href="{% url 'discuss:create' category.slug %}">
+                        <button class="btn btn-inverse" style="margin-bottom:8px;" >Create a topic</button>
+                        </a>
+                        {% with css_class="pull-right" %}
+                            {% include "final/include/pagination.html" %}
+                        {% endwith %}
+
+                        <table class="table table-bordered discussions">
+
+                            <tr>
+                                <th class="center-text"><i class="icon-pencil"></i></th>
+                                <th>Topic</th>
+                                <th>Views</th>
+                                <th>Replies</th>
+                                <th>Created</th>
+                                <th>Last Reply</th>
+                            </tr>
+                        {% for thread in threads %}
+                            <tr>
+                                <td class="span1 center-text"><i class="icon-pencil greyed-out"></i></td>
+                                <td class="title-text span5"><a href="{{thread.get_absolute_url}}">{{thread.title}}</a></td>
+                                <td class="center-text span2">{{thread.views}}</td>
+                                <td class="center-text span2"> {{thread.post_set.count}} </td>
+                                <td class="center-text span2"> {{thread.post_date}}</td>
+                                <td>
+                                    {% include "final/include/lastauthor.html" %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </table>
+                        {% with css_class="pull-right" %}
+                            {% include "final/include/pagination.html" %}
+                        {% endwith %}
+
+                    </div>
+
+                </div>
+            </div>
+
+{% endblock %}

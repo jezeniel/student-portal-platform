@@ -1,10 +1,9 @@
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
 
-from .models import Message
+from .models import Message, Conversation
 from .forms import PersonalMessageForm
 
 
@@ -13,16 +12,23 @@ def send_message(request, user_id):
     user = get_object_or_404(User, id=user_id)
     form = PersonalMessageForm(request.POST)
     if form.is_valid():
+        conversation = Conversation.objects.filter(users=request.user).filter(users=user)
+        if conversation:
+            conversation = conversation[0]
+        else:
+            conversation = Conversation.objects.create()
+            conversation.users.add(request.user, user)
         Message.objects.create(sender=request.user,
                                receiver=user,
-                               title=form.cleaned_data['title'],
+                               conversation=conversation,
                                content=form.cleaned_data['content'])
+
     return redirect(user.get_absolute_url())
 
 
 def inbox_view(request):
-    inbox = Message.objects.filter(receiver=request.user, deleted=False)
-    return render(request, "official/inbox.html", {'inbox': inbox, 'user': request.user})
+    conversations = request.user.conversations.all()
+    return render(request, "final/inbox.html", {'conversations': conversations})
 
 
 def sent_view(request):
@@ -30,9 +36,11 @@ def sent_view(request):
     return render(request, "official/sentmail.html", {'sentmail': sent, 'user': request.user})
 
 
-def message_view(request, message_id):
+def conversation_view(request, conversation_id):
     try:
-      message = Message.objects.get(Q(id=message_id), Q(receiver=request.user) | Q(sender=request.user))
-    except Message.DoesNotExist:
-      return redirect("message:inbox")
-    return render(request, "official/message.html", {'message': message})
+        conversation = request.user.conversations.get(id=conversation_id)
+        conversation.read_messages(request.user)
+    except Conversation.DoesNotExist:
+        return redirect("message:inbox")
+    return render(request, "final/message.html", {'conversation': conversation})
+

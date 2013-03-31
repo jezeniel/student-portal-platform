@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, Field, Button
+from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, Field, Button, HTML
 from crispy_forms.bootstrap import InlineRadios, AppendedText
 
 
@@ -134,17 +134,21 @@ class ProfileEdit(PersonalForm):
         self.helper.layout = Layout(
             Fieldset(
                 "Personal Information Settings",
+                HTML("""
+                    <label for="imgpreview" class="control-label">Current Image:</label>
+                    <div class='user-profile'><img id="imgpreview" src="{{user.userinfo.get_size128}}"></div>
+                    """),
                 Field("primaryphoto"),
-                Field("firstname", placeholder="First Name", pattern="[\sa-zA-Z]+"),
-                Field("lastname", placeholder="Last Name", pattern="[\sa-zA-Z]+"),
-                Field("address", placeholder="Address"),
+                Field("firstname", placeholder="First Name", pattern="[\sa-zA-Z]+", css_class="span12"),
+                Field("lastname", placeholder="Last Name", pattern="[\sa-zA-Z]+", css_class="span12"),
+                Field("address", placeholder="Address", css_class="span12"),
                 InlineRadios("gender", css_class="inline"),
-                Field("course", placeholder="Course"),
+                Field("course", placeholder="Course", css_class="span12"),
                 AppendedText("birthday",
                              "<i class='icon-calendar' data-time-icon='icon-calendar' data-date-icon='icon-calendar'></i>",
-                             css_class="datepicker", template="official/crispy/appended_datepicker.html",
+                             css_class="datepicker span12", template="official/crispy/appended_datepicker.html",
                              readonly=True),
-                Field("about_me", placeholder="Tell us about yourself.")
+                Field("about_me", placeholder="Tell us about yourself.", css_class="span12")
             ),
             ButtonHolder(
                 Submit('submit', 'Save', css_class='btn btn-large  span2 pull-right', )

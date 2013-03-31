@@ -51,11 +51,13 @@ def editaccount(request):
 def editprofile(request):
     user = User.objects.get(id=request.user.id)
     userinfo = user.userinfo
+    print userinfo.primaryphoto
     if request.method == "GET":
-        pf = ProfileEdit(initial={'firstname': user.first_name, 'lastname': user.last_name,
+        pf = ProfileEdit(initial={'primaryphoto': userinfo.primaryphoto,
+                                  'firstname': user.first_name, 'lastname': user.last_name,
                                   'address': userinfo.address, 'gender': userinfo.gender,
                                   'course': userinfo.course, 'birthday': userinfo.birthday,
-                                  'about_me': userinfo.about_me, 'primaryphoto': userinfo.primaryphoto})
+                                  'about_me': userinfo.about_me})
     elif request.method == "POST":
         pf = ProfileEdit(request.POST, request.FILES)
         print request.FILES
@@ -75,7 +77,7 @@ def editprofile(request):
             user.save()
             userinfo.save()
             return redirect("editprofile")
-    return render(request, "official/editprofile.html", {'pf': pf})
+    return render(request, "final/editprofile.html", {'pf': pf})
 
 
 def image_handler(imagename):
@@ -86,7 +88,6 @@ def image_handler(imagename):
         bg.paste(im, im)
     else:
         bg = im
-    image_resize(bg, (160, 160), imagename)
     thumb_sizes = [(128,128), (64, 64), (32, 32)]
     for thumb_size in thumb_sizes:
         thumb_name = "thumb_%s" % (thumb_size[0])

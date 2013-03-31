@@ -32,7 +32,7 @@ class Category(models.Model):
 
     def get_latest_thread(self):
         try:
-            thread = self.thread_set.latest('post_date')
+            thread = self.thread_set.latest('last_post')
         except Thread.DoesNotExist:
             return None
         else:

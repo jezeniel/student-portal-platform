@@ -24,61 +24,60 @@ def friends(request):
 
 @login_required
 def addfriend(request, user_id):
-    user = get_object_or_404(User, id = user_id)
-    
+    user = get_object_or_404(User, id=user_id)
+
     if user.friendship in request.user.friendship.friends.all():
         messages.error(request, "This user is already your friend.")
-        return redirect("profile_url", user_id = user_id)
-    
-    fr, created = FriendRequest.objects.get_or_create(from_user = request.user, to_user = user)
+        return redirect("profile_url", username=user.username)
+
+    fr, created = FriendRequest.objects.get_or_create(from_user=request.user, to_user=user)
     if created:
-        messages.success(request,"You successfully sent a friend request.")
-        return redirect("profile_url", user_id = user_id)
-    messages.error(request,"You already sent a friend request to this user.")
-    return redirect("profile_url", user_id = user_id)
+        messages.success(request, "You successfully sent a friend request.")
+        return redirect("profile_url", username=user.username)
+    messages.error(request, "You already sent a friend request to this user.")
+    return redirect("profile_url", username=user.username)
 
 
 @login_required
 def cancelrequest(request, user_id):
-    user = get_object_or_404(User, id = user_id)
+    user = get_object_or_404(User, id=user_id)
     try:
-        fr = FriendRequest.objects.get(from_user = request.user, to_user = user)
+        fr = FriendRequest.objects.get(from_user=request.user, to_user=user)
         fr.cancel()
-        messages.success(request,"Successfully canceled your friend request.")
+        messages.success(request, "Successfully canceled your friend request.")
     except FriendRequest.DoesNotExist:
-        messages.error(request,"You don't have a friend request with this user.")
-    return redirect("profile_url", user_id = user_id) 
+        messages.error(request, "You don't have a friend request with this user.")
+    return redirect("profile_url", username=user.username)
 
 
 @login_required
 def unfriend(request, user_id):
-    user = get_object_or_404(User, id = user_id)
+    user = get_object_or_404(User, id=user_id)
     if user.friendship in request.user.friendship.friends.all():
         Friendship.objects.unfriend(request.user, user)
         messages.success(request, "You unfriended this user.")
-    return redirect("profile_url", user_id = user_id)
- 
+    return redirect("profile_url", username=user.username)
+
 
 @login_required
 def acceptrequest(request, user_id):
-    user = get_object_or_404(User, id = user_id)
+    user = get_object_or_404(User, id=user_id)
     try:
-        fr = FriendRequest.objects.get(from_user = user, to_user = request.user)
+        fr = FriendRequest.objects.get(from_user=user, to_user=request.user)
         fr.accept()
-        messages.success(request,"You are now friends with this user.")
+        messages.success(request, "You are now friends with this user.")
     except FriendRequest.DoesNotExist:
-        messages.error(request,"You do not have a friend request from this user.")
-    return redirect("profile_url", user_id = user_id)
+        messages.error(request, "You do not have a friend request from this user.")
+    return redirect("profile_url", username=user.username)
 
 
 @login_required
 def declinerequest(request, user_id):
-    user = get_object_or_404(User, id = user_id)
+    user = get_object_or_404(User, id=user_id)
     try:
-        fr = FriendRequest.objects.get(from_user = user, to_user = request.user)
+        fr = FriendRequest.objects.get(from_user=user, to_user=request.user)
         fr.decline()
-        messages.success(request,"You denied the friend request of this user.")
+        messages.success(request, "You denied the friend request of this user.")
     except FriendRequest.DoesNotExist:
-        messages.error(request,"You do not have a friend request from this user.")
-    return redirect("profile_url", user_id = user_id)
-
+        messages.error(request, "You do not have a friend request from this user.")
+    return redirect("profile_url", username=user.username)

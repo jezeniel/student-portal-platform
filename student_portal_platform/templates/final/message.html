@@ -1,0 +1,86 @@
+{% extends "final/base/userbase.html" %}
+
+{% block content %}
+<div class="main-wrapper span10">
+
+                <div class="row-fluid inbox-options">
+                    <ul class="offset2 pull-left">
+                        <li>
+                            <a href="#" class="btn btn-small btn-inverse">
+                                <i class="icon-trash"></i>
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="pagination pull-right">
+                        <li>
+                           <div class="inbox-count">
+                               <strong>1 - 4 </strong>
+                               of
+                               <strong>4</strong>
+                           </div>
+                        </li>
+                        <li>
+                            <a href="#" class="btn">&#9664;</a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn">&#9654;</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span2 inbox">
+
+                        <ul class="inbox-nav">
+                            <li>
+                                <a href="#"><i class="icon-envelope"></i>Inbox</a>
+                                <span class="label pull-right">21</span>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon-hdd"></i>Drafts</a>
+                                <span class="label pull-right">01</span>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon-trash"></i>Trash</a>
+                                <span class="label pull-right">04</span>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="span10 inbox-mail">
+
+                        <form action="">
+                            <table class="table table-bordered">
+
+                                <tr>
+                                    <th>
+                                        <i class="icon-comment-alt"></i> Conversation
+                                    </th>
+                                </tr>
+                                {% for message in conversation.message_set.all %}
+                                <tr>
+                                    <td>
+                                        <ul class="inbox-message">
+                                            <li>
+                                                <img src="{{message.sender.userinfo.get_size32}}" alt="">
+                                                <div class="inbox-message-body">
+                                                    <h4><a href="{{message.sender.get_absolute_url}}">{{message.sender}}</a></h4>
+                                                    <p>{{message.content}}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </table>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Online E-learning</title>
+	<link rel="stylesheet" href="{{STATIC_URL}}css/bootstrapv2.css" media="all">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/style2.css" media="all">
+	{% block head %}
+	{% endblock %}
+</head>
+<body>
+
+	<!-- Start of Header -->
+	<header class="navbar navbar-inverse navbar-static-top">
+
+		<div class="navbar-inner">
+
+			<div class="container-fluid">
+
+				<!-- Button used for toggling the menu -->
+				<a href="#" class="btn btn-navbar" data-toggle="collapse" data-target=".sidebar-collapse">
+
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+
+				</a>
+
+				<a href="#" class="brand">
+					<img src="{{STATIC_URL}}img/logo.png" alt="">
+					<span class="hidden-phone">E-learning</span>
+				</a>
+				<!-- End of button for toggling the menu -->
+
+				<!-- Start of header-nav -->
+				<div class="header-nav">
+
+					<ul class="nav pull-right">
+
+						<li class="dropdown">
+
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+								<i class="icon-envelope icon-white"></i>
+								<span class="label label-important">{{user.message_received.count_unread}}</span>
+							</a>
+
+							<ul class="dropdown-menu messages">
+
+								{% for conversation in user.conversations.all|slice:":5" %}
+								<li>
+
+									<a href="{{conversation.get_absolute_url}}">
+										{% if user.message_received.count_unread %}
+											<i class="icon-envelope"></i>
+										{% else %}
+											<i class="icon-envelope-alt"></i>
+										{% endif %}
+										{% with message=conversation.get_latest_message %}
+										<span class="noti-message">{{message.content|truncatechars:30}}</span>
+										<span class="noti-date">{{message.sender}}</span>
+										{% comment %}<span class="noti-date">{{message.date|date:"F d,Y"}}</span>{% endcomment %}
+										{% endwith %}
+									</a>
+
+								</li>
+								{% endfor %}
+
+								<li><a href="{% url 'message:inbox' %}"><span class="dropdown-menu-view-all">View all</span></a></li>
+
+
+
+							</ul>
+
+						</li>
+
+						<li class="dropdown">
+
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+								<i class="icon-list icon-white"></i>
+								<span class="label label-important">4</span>
+							</a>
+
+							<ul class="dropdown-menu notifications">
+
+								<li>
+
+									<span class="dropdown-menu-title">
+										You have 4 notification[s]
+									</span>
+
+								</li>
+
+								<li>
+
+									<a href="#">
+										<i class="icon-pencil"></i>
+										<span class="noti-message"> Mrs. Anonymous has posted an online quiz</span>
+										<span class="noti-date">1 min</span>
+									</a>
+
+								</li>
+
+								<li>
+
+									<a href="#">
+										<i class="icon-pencil"></i>
+										<span class="noti-message"> Lectures on Calculus have been uploaded</span>
+										<span class="noti-date">1 min</span>
+									</a>
+
+								</li>
+
+								<li class="important">
+
+									<a href="#">
+										<i class="icon-warning-sign"></i>
+										<span class="noti-message"> TO-DO-LIST: [Take the exam on Calculus] ... </span>
+										<span class="noti-date">1 min</span>
+									</a>
+
+								</li>
+
+								<li>
+
+									<a href="#">
+										<i class="icon-pencil"></i>
+										<span class="noti-message">New message</span>
+										<span class="noti-date">1 min</span>
+									</a>
+
+								</li>
+
+								<li><a href="#"><span class="dropdown-menu-view-all">View all</span></a></li>
+
+
+
+							</ul>
+
+						</li>
+
+						<li class="dropdown">
+
+							<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+								<i class="icon-cogs icon-white"></i>
+								<span class="caret"></span>
+							</a>
+
+							<ul class="dropdown-menu">
+
+
+								<li>
+
+									<a href="{{user.get_absolute_url}}">
+										<i class="icon-user"></i>
+										{{user.username}}
+									</a>
+
+								</li>
+
+								<li>
+
+									<a href="{% url 'editprofile' %}">
+										<i class="icon-wrench"></i>
+										Profile Settings
+									</a>
+
+								</li>
+
+								<li>
+
+									<a href="#">
+										<i class="icon-question-sign"></i>
+										Help
+									</a>
+
+								</li>
+
+								<li>
+
+									<a href="{% url 'logout_url' %}">
+										<i class="icon-off"></i>
+										Logout
+									</a>
+
+								</li>
+
+							</ul>
+
+						</li>
+
+					</ul>
+
+				</div>
+				<!-- End of header-nav -->
+
+
+			</div>
+
+		</div>
+
+	</header>
+	<!-- End of Header -->
+
+    <div class="container-fluid" id="wrapper">
+
+        <div class="row-fluid">
+
+            <!-- Start of .sidebar-collapse -->
+            <div class="main-menu-span span2">
+
+                <!-- Start of .main-menu-span -->
+                <div class="nav-collapse sidebar-collapse">
+
+                    <ul class="nav nav-tabs nav-stacked main-menu">
+                        <li>
+                            <a href="{% url 'home_url' %}"><i class="icon-home"></i><span class="hidden-tablet">Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a href="{{user.get_absolute_url}}"><i class="icon-user"></i><span class="hidden-tablet">My Profile</span></a>
+                        </li>
+                        <li>
+                            <a href="course.html"><i class="icon-book"></i><span class="hidden-tablet">My Course</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'discuss:category' %}"><i class="icon-group"></i><span class="hidden-tablet">Community</span></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-file-alt"></i><span class="hidden-tablet">Files</span></a>
+                        </li>
+                    </ul>
+
+                </div>
+                <!-- End of .main-menu-span -->
+
+            </div>
+            <!-- End of sidebar-collapse -->
+
+            <!-- Start of .main -->
+            {% block content %}
+            {% endblock %}
+            <!-- End of .main -->
+
+        </div>
+
+    </div>
+	<!-- End of #wrapper -->
+
+	<script src="{{STATIC_URL}}js/jquery.js"></script>
+	<script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+	{% block scripts %}
+	{% endblock %}
+</body>
+</html>

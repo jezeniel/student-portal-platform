@@ -47,12 +47,14 @@ class QuickReplyForm(forms.ModelForm):
     content = forms.CharField(label='',
                               widget=forms.Textarea,
                               required=True)
+    next = forms.CharField(widget=forms.HiddenInput)
 
     class Meta:
         model = Post
-        fields = ('content',)
+        fields = ('content', 'next')
 
     def __init__(self, *args, **kwargs):
+        super(QuickReplyForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = "POST"
         self.helper.form_tag = False
@@ -61,7 +63,8 @@ class QuickReplyForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 "Quick Reply",
-                Field("content", css_class="span12")
+                Field("content", css_class="span12"),
+                Field("next"),
             ),
             ButtonHolder(
                 Submit("submit", "Quick Reply", css_class="btn btn-large pull-right", data_loading_text="Posting..."),

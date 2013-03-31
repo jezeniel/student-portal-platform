@@ -1,0 +1,51 @@
+{% extends "final/base/userbase.html" %}
+
+{% block head %}
+    <style type="text/css">
+        table tr .center-text {
+            text-align: center;
+        }
+        table tr .title-text {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="main-wrapper span10">
+                <div class="row-fluid">
+                    <div class="span10 discussion-list">
+                        <ul class="breadcrumb">
+                            <li class='active'>Category</li>
+                        </ul>
+                        <table class="table table-bordered discussions">
+
+                            <tr>
+                                <th><i class="icon-folder-open"></i></th>
+                                <th>Category</th>
+                                <th>Topics</th>
+                                <th>Last Post</th>
+                            </tr>
+                        {% for category in categories %}
+                            <tr>
+                                <td class="span1"><i class="icon-folder-open muted"></i></td>
+                                <td class="title-text span5">
+                                    <a href="{% url 'discuss:list' category.slug %}">{{category.name}}</a>
+                                </td>
+                                <td class="center-text span2">{{category.thread_set.all.count}}</td>
+                                <td class="span4">
+                                    {% with thread=category.get_latest_thread %}
+                                        {% include "final/include/lastauthor.html" %}
+                                    {% endwith %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </table>
+
+                    </div>
+                </div>
+</div>
+
+{% endblock %}

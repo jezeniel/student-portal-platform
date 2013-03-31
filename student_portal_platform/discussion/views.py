@@ -55,14 +55,14 @@ class ReplyCreate(LoginRequiredMixin, CreateView):
 class CategoryList(LoginRequiredMixin, ListView):
     model = Category
     context_object_name = "categories"
-    template_name = "official/discuss-category.html"
+    template_name = "final/discuss-category.html"
 
 
 class ThreadList(LoginRequiredMixin, ListView):
     model = Thread
     context_object_name = "threads"
     paginate_by = 10
-    template_name = "official/discuss-topics.html"
+    template_name = "final/discuss-topics.html"
 
     def get_context_data(self, **kwargs):
         context = super(ThreadList, self).get_context_data(**kwargs)
@@ -76,19 +76,19 @@ class ThreadList(LoginRequiredMixin, ListView):
 
 
 class ThreadDetail(LoginRequiredMixin, View):
-    template_name = "official/discuss-view.html"
+    template_name = "final/discuss-view.html"
 
     def get(self, request, thread_id, *args, **kwargs):
         thread = get_object_or_404(Thread, id=thread_id)
+        #increment the topic views
         thread_name = "VIEWED_THREAD_%s" % (thread_id)
-        reply_form = QuickReplyForm()
         if not self.request.session.get(thread_name, False):
             thread.views += 1
             self.request.session[thread_name] = True
             thread.save()
 
-        paginator = Paginator(thread.post_set.all(), 5)
-        page = request.GET.get('page')
+        paginator = Paginator(thread.post_set.all(), 8)
+        page = request.GET.get('page', 1)
         try:
             posts = paginator.page(page)
         except PageNotAnInteger:
@@ -96,6 +96,9 @@ class ThreadDetail(LoginRequiredMixin, View):
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
 
+        page = paginator.num_pages + (posts.end_index() % 8 == 0)
+
+        reply_form = QuickReplyForm(initial={'next': page})
         return render(request, self.template_name, {'thread': thread, 'reply_form': reply_form,
                                                     'category': thread.category, 'posts':posts})
 
@@ -106,5 +109,8 @@ class ThreadDetail(LoginRequiredMixin, View):
             author = request.user
             content = reply_form.cleaned_data['content']
             title = thread.title
-            reply = Post.objects.create(content=content, author=author, title=title, thread=thread)
-        return redirect("discuss:view", thread_id=thread.id, category=thread.category.slug)
+            next = reply_form.cleaned_data['next']
+            post = Post.objects.create(content=content, author=author, title=title, thread=thread)
+        url = reverse("discuss:view", kwargs={'category':thread.category.slug, 'thread_id':thread.id})
+        url += "?page=%s#post-%s" % (next,post.id)
+        return redirect(url)

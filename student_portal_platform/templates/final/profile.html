@@ -1,0 +1,235 @@
+{% extends 'final/base/userbase.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+            <!-- Start of .main -->
+            <div class="main-wrapper span10">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} fade in">
+                            <button type="button" class="close" data-dismiss="alert"><i class="icon-remove-sign"></i></button>
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="row-fluid">
+                    <div class="span9 user-box">
+                        <!-- inner row -->
+                        <div class="row-fluid user-profile-span inner-row">
+
+                            <div class="span3">
+                                <div class="user-profile">
+
+                                    <img src="{{owner.userinfo.get_size128}}" alt="">
+                                    {% if owner.id != user.id %}
+                                        <ul class="user-options">
+
+                                            <li>
+                                                <a href="#personal-message" data-toggle="modal">
+                                                    <i class="icon-envelope"></i>
+                                                    Send a message
+                                                </a>
+                                                {% if user.friendship in owner.friendship.friends.all %}
+                                                    <a href="{% url 'friend:unfriend' owner.id %}"><i class="icon-minus"></i> Unfriend</a>
+                                                {% elif has_request.to_user == owner %}
+                                                    <a href="{% url 'friend:cancelrequest' owner.id %}"><i class="icon-ban-circle"></i> Cancel friend request</a>
+                                                {% elif has_request.from_user == owner %}
+                                                    <a href="#" id="respondrequest"><i class="icon-plus"></i> Respond to request</a>
+                                                {% else %}
+                                                    <a href="{% url 'friend:addfriend' owner.id %}"><i class="icon-plus"></i> Add as friend</a>
+                                                {% endif %}
+                                                <a href="#">
+                                                    <i class="icon-comment"></i>
+                                                    Leave a comment
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="span9">
+                                <h3 class="user"><a href="#">{{owner.username}}</a></h3>
+                                <div class="user-meta">
+                                    <span class="user-name">{{owner.get_full_name|title}}</span>, {{owner.userinfo.get_age}}, {{owner.userinfo.gender}}, Student<br>
+                                    <span class="user-last-login">Last login: Yesterday 3:00pm</span> <br>
+                                    <span class="user-since">Member since: {{owner.date_joined}}</span>
+                                </div>
+                                <div class="user-about">
+                                    <p>
+                                        <i class="icon-quote-left"></i>
+                                           {% with about_me=owner.userinfo.about_me %}
+                                              {% if about_me %}
+                                                   {{about_me|truncatewords:50}}
+                                                {% ifnotequal about_me about_me|truncatewords:50 %}
+                                                     <a href="#" class="more-text">Read more ...</a>
+                                                {% endifnotequal %}
+                                              {% else %}
+                                                   <i>Not Available</i>
+                                               {% endif %}
+                                           {% endwith %}
+                                        <i class="icon-quote-right"></i>
+                                    </p>
+                                </div>
+
+                                <!-- Here -->
+                            </div>
+                        </div>
+
+
+                        <hr class="spacer">
+
+                        <div class="row-fluid inner-row">
+
+                            <div class="span12">
+
+                                <div class="user-comment-area">
+                                    <h4>chanHxc's Space</h4>
+
+                                    <div>
+                                        <strong>Sort by: </strong>
+                                        <a href="#" class="btn btn-mini sort-options">Newest</a>
+                                        <a href="#" class="btn btn-mini sort-options">Oldest</a>
+                                        <a href="#" class="btn btn-mini sort-options">Most Liked</a>
+
+                                        <span class="user-comment-count pull-right">
+                                            1-10 of 100 Comments
+                                        </span>
+
+                                    </div>
+
+                                    <ul class="media-list user-comments">
+                                        <li class="media">
+                                            <a href="#" class="pull-left">
+                                                <img src="{{STATIC_URL}}img/no-image48.png" alt="">
+                                            </a>
+
+                                            <div class="media-body">
+                                                <h5 class="media-heading"><a href="#">Title</a></h5>
+
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A illo accusantium ipsum nisi ex iusto commodi temporibus natus non nulla cumque rerum minus cum obcaecati aperiam amet quisquam perferendis reiciendis?</p>
+                                            </div>
+
+                                        </li>
+
+                                        <li class="media">
+                                            <a href="#" class="pull-left">
+                                                <img src="{{STATIC_URL}}img/no-image48.png" alt="">
+                                            </a>
+
+                                            <div class="media-body">
+                                                <h5 class="media-heading"><a href="#">Title</a></h5>
+
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A illo accusantium ipsum nisi ex iusto commodi temporibus natus non nulla cumque rerum minus cum obcaecati aperiam amet quisquam perferendis reiciendis?</p>
+                                            </div>
+
+                                        </li>
+
+                                        <li class="media">
+                                            <a href="#" class="pull-left">
+                                                <img src="{{STATIC_URL}}img/no-image48.png" alt="">
+                                            </a>
+
+                                            <div class="media-body">
+                                                <h5 class="media-heading"><a href="#">Title</a></h5>
+
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A illo accusantium ipsum nisi ex iusto commodi temporibus natus non nulla cumque rerum minus cum obcaecati aperiam amet quisquam perferendis reiciendis?</p>
+                                            </div>
+
+                                        </li>
+
+                                        <li class="media">
+                                            <a href="#" class="pull-left">
+                                                <img src="{{STATIC_URL}}img/no-image48.png" alt="">
+                                            </a>
+
+                                            <div class="media-body">
+                                                <h5 class="media-heading"><a href="#">Title</a></h5>
+
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A illo accusantium ipsum nisi ex iusto commodi temporibus natus non nulla cumque rerum minus cum obcaecati aperiam amet quisquam perferendis reiciendis?</p>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- end of inner-row -->
+
+                    </div>
+
+                    <!-- Friend BOX -->
+                    <div class="span3 box">
+
+                        <div class="box-header">
+                            {% with friend_count=owner.friendship.friends.all.count %}
+                            <h3>Friend{{friend_count|pluralize}} ({{friend_count}})</h3>
+                            {% endwith %}
+                        </div>
+
+                        <div class="box-content">
+
+                            <ul class="box-content-list">
+                                {% for friend in owner.friendship.friends.all %}
+                                    <li>
+                                        <a href="{{friend.user.get_absolute_url}}">
+                                            <img src="{{friend.user.userinfo.get_size64}}" alt="">
+                                        </a>
+                                        <strong>{{friend.user.get_full_name|title}}</strong> <br>
+                                        Online <br>
+                                    </li>
+                                {% endfor %}
+
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+                    <!-- END FRIEND BOX -->
+
+                </div>
+
+            </div>
+            <!-- End of .main -->
+            <div id="personal-message" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pmLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="pmLabel">Message</h3>
+                  </div>
+                  <div class="modal-body">
+                     <div class="row-fluid">
+                     <form method="POST" action="{% url 'message:send' owner.id %}">
+                    {% crispy messageform %}
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                  </div>
+                  </form>
+            </div>
+
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $(function () {
+            $("[rel='tooltip']").tooltip();
+        });
+        $(document).ready( function() {
+            $('#respondrequest').popover({
+                   placement: 'bottom',
+                   html: 'true',
+                   content: "<a href=\"{% url 'friend:acceptrequest' owner.id %}\">Accept</a> <br> " +
+                            " <a href=\"{% url 'friend:declinerequest' owner.id %}\">Decline</b>",
+            });
+        });
+
+    </script>
+{% endblock %}
