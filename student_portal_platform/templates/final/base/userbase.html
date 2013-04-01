@@ -219,11 +219,14 @@
                             <a href="{{user.get_absolute_url}}"><i class="icon-user"></i><span class="hidden-tablet">My Profile</span></a>
                         </li>
                         <li>
-                            <a href="course.html"><i class="icon-book"></i><span class="hidden-tablet">My Course</span></a>
+                            <a href="{% url 'course:list' %}"><i class="icon-book"></i><span class="hidden-tablet">My Course</span></a>
                         </li>
                         <li>
                             <a href="{% url 'discuss:category' %}"><i class="icon-group"></i><span class="hidden-tablet">Community</span></a>
                         </li>
+                        <li>
+							<a href="{% url 'friend:list' %}"><i class="icon-user"></i><span class="hidden-tablet">Friends</span></a>
+						</li>
                         <li>
                             <a href="#"><i class="icon-file-alt"></i><span class="hidden-tablet">Files</span></a>
                         </li>

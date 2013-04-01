@@ -67,8 +67,7 @@ class Thread(DiscussionAbstract):
     def more_than_oneday(self):
         if timezone.now() > self.last_post + timezone.timedelta(days=1):
             return True
-        else:
-            return False
+        return False
 
     def get_absolute_url(self):
         return reverse('discuss:view', kwargs={'thread_id': self.pk, 'category': self.category.slug})

@@ -9,7 +9,7 @@ from friends.models import FriendRequest, Friendship
 @login_required
 def friends(request):
     if request.method == "GET":
-        return render(request, "official/friends.html", {'user': request.user})
+        return render(request, "final/friends.html", {'user': request.user})
     elif request.method == "POST":
         try:
             fr = FriendRequest.objects.get(id=request.POST['request-id'])

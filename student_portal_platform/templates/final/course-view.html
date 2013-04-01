@@ -1,0 +1,191 @@
+{% extends "final/base/userbase.html" %}
+
+{% block content %}
+            <div class="main-wrapper span10">
+
+                <!-- breadcrumb -->
+
+                <div class="clearfix">
+                    <ul class="breadcrumb pull-left">
+
+                        <li>
+                            <a href="#">Course</a>
+                            <span class="divider">/</span>
+                        </li>
+
+                        <li><a href="#" class="active">Lectures</a></li>
+                    </ul>
+                    <!-- end of breadcrumb -->
+
+                    <ul class="teacher-options pull-right" style="margin:0;">
+                        {% if user.groups.all.0.name == 'teacher' %}
+                        <li><a href="{% url 'conference:create' subject.id %}" class="btn btn-info"><i class="icon-play"></i>  Start Video Conference</a></li>
+                        <li><a href="{% url 'conference:end' subject.id %}" class="btn btn-danger"><i class="icon-stop"></i>  End Video Conference</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'conference:join' subject.id %}" class="btn btn-info"><i class="icon-signin "></i>  Join Conference</a></li>
+                    </ul>
+                </div>
+                <div class="row-fluid">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{message.tags}} fade in">
+                                <button type="button" class="close" data-dismiss="alert"><i class="icon-remove-sign"></i></button>
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <h3 class="subject-name">{{subject.name}}</h3>
+
+                <div class="row-fluid">
+                    <div class="span9" announcement-list>
+
+                        <div class="box-header">
+                            <h3>Announcements</h3>
+                        </div>
+
+                        <div class="box-content">
+
+                            <ul class="box-content-list">
+                                {% if subject.subjectannouncement_set.count %}
+                                <li>
+                                    <div class="announcement">
+
+                                        <div class="announcement-header">
+                                            <h4>Capstone Redefense</h4>
+                                            <span class="date-posted">Date posted: March 11, 2013</span>
+                                        </div>
+
+                                        <div class="announcement-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ad dolor blanditiis dicta eum voluptatibus autem illum ut et dignissimos? Dolore inventore sint odit voluptatibus illo natus sapiente laboriosam dicta.</p>
+                                        </div>
+
+                                    </div>
+                                </li>
+                                {% else %}
+                                <li>
+                                    <div class="announcement">
+
+                                        <div class="announcement-header">
+                                            <h4>There are no announcements.</h4>
+                                        </div>
+
+                                    </div>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div class="span3 student-list">
+
+                        <div class="box-header">
+                            <h3>Students</h3>
+                        </div>
+
+                        <div class="box-content">
+
+                        <ul class="box-content-list">
+
+                            {% if subject.students.count %}
+                                {% for student in subject.students.all %}
+                                <li>
+                                    <a href="{{student.get_absolute_url}}">
+                                        <img src="{{student.userinfo.get_size32}}" alt="">
+                                        {{student.get_full_name}}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            {% else %}
+
+                            <li>
+                                No students enrolled.
+                            </li>
+                            {% endif %}
+
+
+                        </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+
+                    <div class="span4">
+
+                        <table class="table table-bordered">
+
+                            <tr>
+                                <th>Quiz</th>
+                                <th>Date</th>
+                            </tr>
+
+                            <tr>
+                                <td><a href="#">Quiz 1</a></td>
+                                <td>March 11, 2013</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="#">Quiz 2</a></td>
+                                <td>March 11, 2013</td>
+                            </tr>
+
+
+
+
+                        </table>
+
+                    </div>
+
+                    <div class="span4  subject-list">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Lectures</th>
+                                <th>Date Posted</th>
+                            </tr>
+
+                            <tr>
+                                <td><a href="#">chapter1.doc</a></td>
+                                <td>February 01, 2013</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="#">chapter1.doc</a></td>
+                                <td>February 01, 2013</td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <div class="span4">
+
+                        <table class="table table-bordered">
+
+                            <tr>
+                                <th>Filename</th>
+                                <th>Date Uploaded</th>
+                            </tr>
+
+                            <tr>
+                                <td><a href="#">file01.doc</a></td>
+                                <td>March 11, 2013</td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="#">file01.doc</a></td>
+                                <td>March 11, 2013</td>
+                            </tr>
+
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+{% endblock %}

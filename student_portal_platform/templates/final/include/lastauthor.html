@@ -1,5 +1,5 @@
 <a href="{{thread.get_absolute_url}}">{{thread.title}}</a><br/>
-by <a href="{{thread.author.get_absolute_ur}}" class="topic-author">{{thread.author.get_full_name|title}}</a>,
+by <a href="{{thread.author.get_absolute_url}}" class="topic-author">{{thread.author.get_full_name|title}}</a>,
 {% load humanize %}
 {% if thread.more_than_oneday %}
     {{thread.last_post|naturalday}}</br>

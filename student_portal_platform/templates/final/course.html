@@ -1,0 +1,75 @@
+{% extends "final/base/userbase.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+            <div class="main-wrapper span10">
+
+                <!-- breadcrumb -->
+
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Home</a>
+                        <span class="divider">/</span>
+                    </li>
+
+                    <li><a href="#" class="active">Course</a></li>
+                </ul>
+                <!-- end of breadcrumb -->
+
+                <div class="row-fluid">
+
+                    <div class="span12 subject-list">
+
+                        <table class="table table-bordered subjects">
+                            <tr>
+                                <th>Subject</th>
+                                <th>Teacher</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                            </tr>
+                            {% if user.groups.all.0.name == 'teacher' %}
+                                {% for subject in user.subject_teaching.all %}
+                                    <tr>
+                                        <td><a href="{{subject.get_absolute_url}}">{{subject.name}}</a></td>
+                                        <td><a href="{{subject.teacher.get_absolute_url}}">
+                                            {{subject.teacher.get_full_name}}
+                                            </a>
+                                        </td>
+                                        <td><a href="#">{{subject.start_date}}</a></td>
+                                        <td><a href="#">{{subject.end_date}}</a></td>
+                                    </tr>
+                                {% endfor %}
+                            {% elif user.groups.all.0.name == 'student'%}
+                                {% for subject in user.subject_attending.all %}
+                                <tr>
+                                    <td><a href="{{subject.get_absolute_url}}">{{subject.name}}</a></td>
+                                    <td><a href="{{subject.teacher.get_absolute_url}}">
+                                        {{subject.teacher.get_full_name}}
+                                        </a>
+                                    </td>
+                                    <td><a href="#">{{subject.start_date}}</a></td>
+                                    <td><a href="#">{{subject.end_date}}</a></td>
+                                </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </table>
+                        {% crispy addsubjectform %}
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
+
+    <script type="text/javascript">
+    $(function () {
+        $(".bsdatepicker").datetimepicker({
+            format: 'yyyy-MM-dd',
+            pickTime: false
+        });
+    });
+    </script>
+{% endblock %}

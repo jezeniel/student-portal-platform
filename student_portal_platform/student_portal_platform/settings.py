@@ -140,7 +140,11 @@ INSTALLED_APPS = (
     'discussion',
     'friends',
     'messaging',
+    'bbb',
 )
+
+BBB_SALT = "3c47d4364226fbc7e7a97e1fec9afae5"
+BBB_API = "http://192.168.1.103/bigbluebutton/api/"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 CRISPY_FAIL_SILENTLY = not DEBUG

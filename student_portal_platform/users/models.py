@@ -1,6 +1,7 @@
 import os
 from datetime import date
 
+from django.utils import timezone
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -20,13 +21,13 @@ class UserInfo(models.Model):
         return "%s" % (self.user)
 
     def get_age(self):
-        today = date.today()
-        if self.birthday == None:
+        today = timezone.now().date()
+        if self.birthday is None:
             return "n/a"
         try:
             birthday = self.birthday.replace(year=today.year)
         except ValueError:
-            birthday = self.birthday.replayce(year=today.year, day=born.day-1)
+            birthday = self.birthday.replace(year=today.year, day=today.day-1)
         return today.year - self.birthday.year - (birthday > today)
 
     def get_absolute_url(self):

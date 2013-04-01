@@ -31,11 +31,11 @@
                                                     Send a message
                                                 </a>
                                                 {% if user.friendship in owner.friendship.friends.all %}
-                                                    <a href="{% url 'friend:unfriend' owner.id %}"><i class="icon-minus"></i> Unfriend</a>
+                                                    <a href="#delete-friend" data-toggle="modal"><i class="icon-minus"></i> Unfriend</a>
                                                 {% elif has_request.to_user == owner %}
                                                     <a href="{% url 'friend:cancelrequest' owner.id %}"><i class="icon-ban-circle"></i> Cancel friend request</a>
                                                 {% elif has_request.from_user == owner %}
-                                                    <a href="#" id="respondrequest"><i class="icon-plus"></i> Respond to request</a>
+                                                    <a href="#friend-request" data-toggle="modal"><i class="icon-plus"></i> Respond to request</a>
                                                 {% else %}
                                                     <a href="{% url 'friend:addfriend' owner.id %}"><i class="icon-plus"></i> Add as friend</a>
                                                 {% endif %}
@@ -54,7 +54,7 @@
                                 <h3 class="user"><a href="#">{{owner.username}}</a></h3>
                                 <div class="user-meta">
                                     <span class="user-name">{{owner.get_full_name|title}}</span>, {{owner.userinfo.get_age}}, {{owner.userinfo.gender}}, Student<br>
-                                    <span class="user-last-login">Last login: Yesterday 3:00pm</span> <br>
+                                    <span class="user-last-login">Last login: {{owner.last_login}}</span> <br>
                                     <span class="user-since">Member since: {{owner.date_joined}}</span>
                                 </div>
                                 <div class="user-about">
@@ -86,7 +86,7 @@
                             <div class="span12">
 
                                 <div class="user-comment-area">
-                                    <h4>chanHxc's Space</h4>
+                                    <h4>User Comments</h4>
 
                                     <div>
                                         <strong>Sort by: </strong>
@@ -200,36 +200,61 @@
             <!-- End of .main -->
             <div id="personal-message" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pmLabel" aria-hidden="true">
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove-circle"></i></button>
                     <h3 id="pmLabel">Message</h3>
                   </div>
                   <div class="modal-body">
                      <div class="row-fluid">
                      <form method="POST" action="{% url 'message:send' owner.id %}">
-                    {% crispy messageform %}
-                    </div>
+                     {% crispy messageform %}
+                     </div>
                   </div>
                   <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                   </div>
                   </form>
+                    </div>
+                </div>
             </div>
 
-{% endblock %}
-{% block scripts %}
-    <script type="text/javascript">
-        $(function () {
-            $("[rel='tooltip']").tooltip();
-        });
-        $(document).ready( function() {
-            $('#respondrequest').popover({
-                   placement: 'bottom',
-                   html: 'true',
-                   content: "<a href=\"{% url 'friend:acceptrequest' owner.id %}\">Accept</a> <br> " +
-                            " <a href=\"{% url 'friend:declinerequest' owner.id %}\">Decline</b>",
-            });
-        });
+            <div id="delete-friend" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pmLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove-circle"></i></button>
+                    <h3 id="pmLabel">Unfriend</h3>
+                  </div>
+                  <div class="modal-body">
+                     Are you sure you want to unfriend <strong>{{owner.get_full_name}}</strong> ?
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <a href="{% url 'friend:unfriend' owner.id %}" class="btn btn-danger">
+                        Unfriend
+                    </a>
+                  </div>
+                    </div>
+                </div>
+            </div>
 
-    </script>
+            <div id="friend-request" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pmLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove-circle"></i></button>
+                    <h3 id="pmLabel">Friend Request</h3>
+                  </div>
+                  <div class="modal-body">
+                     Do you want to accept the friend request of <strong>{{owner.get_full_name}}</strong> ?
+                  </div>
+                  <div class="modal-footer">
+                    <a href="{% url 'friend:acceptrequest' owner.id %}" class="btn btn-primary">
+                        Accept
+                    </a>
+                    <a href="{% url 'friend:declinerequest' owner.id %}" class="btn btn-danger">
+                        Decline
+                    </a>
+
+                  </div>
+                    </div>
+                </div>
+            </div>
+
 {% endblock %}

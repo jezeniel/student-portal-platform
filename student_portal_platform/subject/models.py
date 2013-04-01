@@ -1,33 +1,29 @@
 from django.db import models
-from django.db.models.signals import m2m_changed
-from django.dispatch import receiver 
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
+
 class Subject(models.Model):
-    name = models.CharField(max_length=50)
-    students = models.ManyToManyField(User)
+    name = models.CharField(max_length=100)
+    students = models.ManyToManyField(User, related_name="subject_attending")
     teacher = models.ForeignKey(User, related_name="subject_teaching")
     pub_date = models.DateField(auto_now_add=True)
     start_date = models.DateField()
     end_date = models.DateField()
     ongoing = models.BooleanField(default=False)
-    
+    private = models.BooleanField(default=False)
+
     def __unicode__(self):
         return self.name
 
-class Grade(models.Model):
-    subject = models.ForeignKey(Subject)
-    student = models.ForeignKey(User)
-    grade = models.DecimalField(max_digits = 5,decimal_places=2, default=0)
-    
-    def __unicode__(self):
-        return "%s-%s-%s" % (self.student.username ,self.subject.name, str(self.grade))
+    def get_absolute_url(self):
+        return reverse("course:view", kwargs={'course_id': self.id})
 
-#SIGNALS
-@receiver(m2m_changed, sender = Subject.students.through)
-def grade_add_handler(sender,instance, action, model, pk_set, **kwargs):
-    ''' Initialize grade for students joined a subject'''
-    if action == 'pre_add':
-        for pk in pk_set:
-            user = model.objects.get(id = pk)
-            grade, created = Grade.objects.get_or_create(student = user, subject = instance)
+
+class SubjectInvitation(models.Model):
+    subject = models.ForeignKey(Subject, related_name="invitations")
+    teacher = models.ForeignKey(User, related_name="teacher")
+    student = models.ForeignKey(User, related_name="student")
+
+    def __unicode__(self):
+        return "S:%s T:%s S:%s" % (self.subject.name, self.teacher.username, self.student.username)

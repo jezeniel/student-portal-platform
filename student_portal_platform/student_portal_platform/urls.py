@@ -11,17 +11,22 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', 'login.views.login_view', name = 'login_url'),
-    url(r'^home/' , 'userprofile.views.home_view', name = 'home_url'),
+    url(r'^home/', 'userprofile.views.home_view', name = 'home_url'),
     url(r'^users/(?P<username>[a-zA-Z0-9]+)', 'userprofile.views.profile_view', name='profile_url'),
+
     url(r'^logout/', 'login.views.logout_view', name= 'logout_url'),
     url(r'^register/', 'users.views.register', name= 'register_url'),
     url(r'^announcement/', include('announcement.urls', namespace="announcement")),
+
     url(r'^comments/', include('django.contrib.comments.urls')),
     url(r'^quiz/(?P<quiz_id>\d+)/$', 'quiz.views.quiz_view', name = 'quiz_url'),
     url(r'^discussion/', include('discussion.urls', namespace="discuss")),
+
     url(r'^friends/', include('friends.urls', namespace="friend")),
     url(r'^message/', include('messaging.urls', namespace="message")),
+    url(r'^course/', include('subject.urls', namespace="course")),
 
+    url(r'^conference/', include('bbb.urls', namespace="conference")),
     url(r'^editprofile/$', 'users.views.editprofile', name="editprofile"),
     url(r'^editaccount/$', 'users.views.editaccount', name='editaccount'),
 )
