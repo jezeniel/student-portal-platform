@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     # project apps
     'login',
     'users',
+    'userprofile',
     'announcement',
     'subject',
     'quiz',
@@ -141,13 +142,20 @@ INSTALLED_APPS = (
     'friends',
     'messaging',
     'bbb',
+    'lecture',
 )
 
 BBB_SALT = "3c47d4364226fbc7e7a97e1fec9afae5"
-BBB_API = "http://192.168.1.103/bigbluebutton/api/"
+BBB_API = "http://192.168.1.113/bigbluebutton/api/"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 CRISPY_FAIL_SILENTLY = not DEBUG
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "jpzapanta22@gmail.com"
+EMAIL_HOST_PASSWORD = os.environ['GMAIL_PASSWORD']
+EMAIL_PORT = 587
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

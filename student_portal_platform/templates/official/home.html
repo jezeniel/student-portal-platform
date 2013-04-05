@@ -40,7 +40,7 @@
 	</header>
 
 	<div class="container">
-		<div class="row">
+		<div class="row-fluid">
 		    <div class = "span3">
 				{% load crispy_forms_tags %}
                 {% if messages %}
@@ -50,7 +50,10 @@
                         </div>
                     {% endfor %}
                 {% endif %}
+                <form action="{% url 'login_url' %}" method="POST" id="id-login">
 				{% crispy loginform %}
+                <a href="{% url 'forgetpass' %}" class="pull-right">Forgot your password?</a>
+            </form>
             </div>
 			<div class="span6">
 

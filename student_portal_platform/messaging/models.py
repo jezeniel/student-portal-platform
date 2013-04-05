@@ -45,6 +45,10 @@ class Conversation(models.Model):
         for message in self.message_set.filter(unread=True, receiver=user):
             message.read()
 
+    def remove_user(self, user_id):
+        user = User.objects.get(id=user_id)
+        self.users.remove(user)
+
     def get_absolute_url(self):
         return reverse("message:conversation", kwargs={'conversation_id': self.id})
 

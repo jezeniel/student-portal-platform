@@ -1,10 +1,20 @@
 import os
+import string
+from hashlib import sha1
+from random import choice as randchoice
 from datetime import date
 
 from django.utils import timezone
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+def generate_code(length=25, chars= string.ascii_uppercase + string.digits + string.ascii_lowercase):
+    return ''.join(randchoice(chars) for x in range(length))
+
 
 class UserInfo(models.Model):
     user = models.OneToOneField(User, unique=True)
@@ -50,3 +60,15 @@ class UserInfo(models.Model):
 
     def get_size128(self):
         return self.get_photo(self.primaryphoto, "thumb_128", "img128.png")
+
+
+class ForgotPassword(models.Model):
+    email = models.EmailField()
+    code = models.CharField(max_length=40, blank=True)
+
+    def save(self, *args, **kwargs):
+        code = generate_code() + self.email
+        code = sha1(code).hexdigest()
+        self.code = code
+        super(ForgotPassword, self).save(*args, **kwargs)
+

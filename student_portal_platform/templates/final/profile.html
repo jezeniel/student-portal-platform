@@ -5,14 +5,7 @@
             <!-- Start of .main -->
             <div class="main-wrapper span10">
 
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{message.tags}} fade in">
-                            <button type="button" class="close" data-dismiss="alert"><i class="icon-remove-sign"></i></button>
-                            {{message}}
-                        </div>
-                    {% endfor %}
-                {% endif %}
+                {% include "final/include/messages.html" %}
                 <div class="row-fluid">
                     <div class="span9 user-box">
                         <!-- inner row -->
@@ -39,10 +32,12 @@
                                                 {% else %}
                                                     <a href="{% url 'friend:addfriend' owner.id %}"><i class="icon-plus"></i> Add as friend</a>
                                                 {% endif %}
-                                                <a href="#">
+                                                {% if user.friendship in owner.friendship.friends.all %}
+                                                <a href="#profile-comment" data-toggle="modal">
                                                     <i class="icon-comment"></i>
                                                     Leave a comment
                                                 </a>
+                                                {% endif %}
                                             </li>
 
                                         </ul>
@@ -53,7 +48,7 @@
                             <div class="span9">
                                 <h3 class="user"><a href="#">{{owner.username}}</a></h3>
                                 <div class="user-meta">
-                                    <span class="user-name">{{owner.get_full_name|title}}</span>, {{owner.userinfo.get_age}}, {{owner.userinfo.gender}}, Student<br>
+                                    <span class="user-name">{{owner.get_full_name|title}}</span>, {{owner.userinfo.get_age}}, {{owner.userinfo.gender}}, {{owner.groups.all.0.name|title}}<br>
                                     <span class="user-last-login">Last login: {{owner.last_login}}</span> <br>
                                     <span class="user-since">Member since: {{owner.date_joined}}</span>
                                 </div>
@@ -86,8 +81,8 @@
                             <div class="span12">
 
                                 <div class="user-comment-area">
-                                    <h4>User Comments</h4>
-
+                                    <h4>Profile Comments</h4>
+                                    {% comment %}
                                     <div>
                                         <strong>Sort by: </strong>
                                         <a href="#" class="btn btn-mini sort-options">Newest</a>
@@ -99,59 +94,22 @@
                                         </span>
 
                                     </div>
+                                    {% endcomment %}
 
                                     <ul class="media-list user-comments">
+                                        {% for comment in owner.profilecomments.all %}
                                         <li class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="{{STATIC_URL}}img/no-image48.png" alt="">
+                                            <a href="{{comment.author.get_absolute_url}}" class="pull-left">
+                                                <img src="{{comment.author.userinfo.get_size64}}" alt="">
                                             </a>
 
                                             <div class="media-body">
-                                                <h5 class="media-heading"><a href="#">Title</a></h5>
-
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A illo accusantium ipsum nisi ex iusto commodi temporibus natus non nulla cumque rerum minus cum obcaecati aperiam amet quisquam perferendis reiciendis?</p>
+                                                <h5 class="media-heading"><a href="{{comment.author.get_absolute_url}}">{{comment.author}}</a></h5>
+                                                <p>{{comment.content}}</p>
                                             </div>
-
                                         </li>
+                                        {% endfor %}
 
-                                        <li class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                            </a>
-
-                                            <div class="media-body">
-                                                <h5 class="media-heading"><a href="#">Title</a></h5>
-
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A illo accusantium ipsum nisi ex iusto commodi temporibus natus non nulla cumque rerum minus cum obcaecati aperiam amet quisquam perferendis reiciendis?</p>
-                                            </div>
-
-                                        </li>
-
-                                        <li class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                            </a>
-
-                                            <div class="media-body">
-                                                <h5 class="media-heading"><a href="#">Title</a></h5>
-
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A illo accusantium ipsum nisi ex iusto commodi temporibus natus non nulla cumque rerum minus cum obcaecati aperiam amet quisquam perferendis reiciendis?</p>
-                                            </div>
-
-                                        </li>
-
-                                        <li class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                            </a>
-
-                                            <div class="media-body">
-                                                <h5 class="media-heading"><a href="#">Title</a></h5>
-
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A illo accusantium ipsum nisi ex iusto commodi temporibus natus non nulla cumque rerum minus cum obcaecati aperiam amet quisquam perferendis reiciendis?</p>
-                                            </div>
-
-                                        </li>
                                     </ul>
 
                                 </div>
@@ -182,7 +140,7 @@
                                             <img src="{{friend.user.userinfo.get_size64}}" alt="">
                                         </a>
                                         <strong>{{friend.user.get_full_name|title}}</strong> <br>
-                                        Online <br>
+                                        {{friend.user.groups.all.0.name|title}} <br>
                                     </li>
                                 {% endfor %}
 
@@ -257,4 +215,24 @@
                 </div>
             </div>
 
+            <div id="profile-comment" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pmLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove-circle"></i></button>
+                    <h3 id="pmLabel">Comment</h3>
+                  </div>
+                  <div class="modal-body">
+                     <div class="row-fluid">
+                     <form action="{% url 'profilecomment' owner.id %}" method="POST">
+                     {% csrf_token %}
+                     <textarea class="span12 textarea" cols="40" id="profile_comm" name="profile_comment" placeholder="Type your comment here..." required="required" rows="10"></textarea>
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Post Comment</button>
+                </form>
+                  </div>
+                    </div>
+                </div>
+            </div>
 {% endblock %}

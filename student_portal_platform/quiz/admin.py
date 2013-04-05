@@ -9,7 +9,7 @@ from quiz.models import Quiz, Question, Choice
 class ChoiceInline(admin.TabularInline):
     model = Choice
     extra = 3
-    
+
 class QuestionInline(admin.StackedInline):
     model = Question
     extra = 3
@@ -19,13 +19,13 @@ class QuestionAdmin(admin.ModelAdmin):
                (None, { 'fields': ['quiz', 'question'] }),
                ]
     inlines = [ChoiceInline]
-    
+
 class QuizAdmin(admin.ModelAdmin):
     fieldsets = [
                  (None, {'fields': ['subject','title']}),
-                 ("Date Options", {'fields' :['start_date', 'exp_date']}), 
                 ]
     inlines = [QuestionInline]
-    
+
+
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Question, QuestionAdmin)

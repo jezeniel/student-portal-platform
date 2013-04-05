@@ -17,110 +17,39 @@
                         <div class="box-content">
 
                             <ul class="box-content-list">
-
+                            {% if announcements %}
+                                {% for announcement in announcements %}
                                 <li>
                                     <div class="announcement">
 
                                         <div class="announcement-header">
-                                            <h4>Capstone Redefense</h4>
-                                            <span class="date-posted">Date posted: March 11, 2013</span>
+                                            <h4>{{announcement.title}}</h4>
+                                            <span class="date-posted">{{announcement.postdate}}</span>
                                         </div>
 
                                         <div class="announcement-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ad dolor blanditiis dicta eum voluptatibus autem illum ut et dignissimos? Dolore inventore sint odit voluptatibus illo natus sapiente laboriosam dicta.</p>
+                                            <p>{{announcement.content}}</p>
                                         </div>
 
                                     </div>
                                 </li>
-
+                                {% endfor %}
+                            {% else %}
                                 <li>
                                     <div class="announcement">
 
                                         <div class="announcement-header">
-                                            <h4>Capstone Redefense</h4>
-                                            <span class="date-posted">Date posted: March 11, 2013</span>
+                                            <h4>There are no announcements.</h4>
+                                            <span class="date-posted">{{announcement.postdate}}</span>
                                         </div>
 
                                         <div class="announcement-body">
-                                            <p>Redefense of Capstone will be held this April 1, 2013</p>
+                                            <p>{{announcement.content}}</p>
                                         </div>
 
                                     </div>
                                 </li>
-
-                                <li>
-                                    <div class="announcement">
-
-                                        <div class="announcement-header">
-                                            <h4>Title</h4>
-                                            <span class="date-posted">Date posted: March 11, 2013</span>
-                                        </div>
-
-                                        <div class="announcement-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi delectus quisquam pariatur ipsam autem omnis quam. Laboriosam mollitia delectus fuga magnam numquam earum neque vel commodi quibusdam excepturi. Vitae libero.</p>
-                                        </div>
-
-                                    </div>
-                                </li>
-
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                    <div class="box span4">
-
-                        <div class="box-header">
-                            <h3>Online Users</h3>
-                        </div>
-
-                        <div class="box-content">
-
-                            <ul class="box-content-list">
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-
+                            {% endif %}
                             </ul>
 
                         </div>
@@ -128,177 +57,27 @@
                     </div>
 
 
-
-                </div>
                 <!-- end of announcements -->
-
-
-                <!-- update -->
-                <div class="row-fluid">
-
-                    <div class="box span4">
+<div class="box span4">
 
                         <div class="box-header">
-                            <h3>Recent Posts</h3>
+                            <h3>Course Invitations</h3>
                         </div>
 
                         <div class="box-content">
 
                             <ul class="box-content-list">
-
+                                {% for course_invite in user.course_invitations.all %}
                                 <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
+                                    <a href="{{course_invite.teacher.get_absolute_url}}">
+                                        <img src="{{course_invite.teacher.userinfo.get_size64}}" alt="">
                                     </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
+                                    <strong>{{course_invite.teacher.get_full_name}}</strong>
+                                    invited you in {{course_invite.subject.name}}. <br>
+                                    <a href="{% url 'course:accept' course_invite.subject.id %}" class="btn">Accept</a>
+                                    <a href="{% url 'course:decline' course_invite.subject.id %}" class="btn">Decline</a><br>
                                 </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                    <div class="box span4">
-
-                        <div class="box-header">
-                            <h3>Recent Posts</h3>
-                        </div>
-
-                        <div class="box-content">
-
-                            <ul class="box-content-list">
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                    <div class="box span4">
-
-                        <div class="box-header">
-                            <h3>Recent Posts</h3>
-                        </div>
-
-                        <div class="box-content">
-
-                            <ul class="box-content-list">
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="{{STATIC_URL}}img/no-image48.png" alt="">
-                                    </a>
-                                    <strong>Username :</strong>
-                                    chanHxc <br>
-                                    <strong>Status :</strong>
-                                    Student <br>
-                                </li>
+                                {% endfor %}
 
 
                             </ul>

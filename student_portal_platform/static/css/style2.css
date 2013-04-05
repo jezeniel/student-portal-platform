@@ -2,8 +2,8 @@ body {
 	/*background: url("../img/debut_light.png") repeat-y top right,
 				url("../img/twinkle_twinkle.png") repeat top left; */
 
-	background: url("../img/twinkle_twinkle.png") repeat-y top left,
-				url("../img/debut_light.png") repeat top right; 
+	background: url("../img/sidebar_bg.png") repeat-y top left,
+				url("../img/main_bg.png") repeat top right; 
 }
 
 ul {
@@ -24,6 +24,30 @@ ul {
 .nav-tabs.nav-stacked>li>a:hover>i {
 	opacity:0.8;
 }
+
+/*SEARCH FORM STYLES*/
+
+.input-append {
+	width: 100%;
+}
+
+.input-append input[type="text"] {
+	width: 70%;
+}
+
+.input-append .btn {
+	width: 25%;
+}
+
+.search-field-container {
+	background: #f4f4f4;
+	padding: 7px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+}
+/*END OF SEARCH-FORM*/
+
+
 
 /* BREADCRUMB STYLES */
 .breadcrumb {
@@ -234,7 +258,7 @@ h3.user {
 }
 
 .user-about {
-	margin:20px 0;
+	margin:20px 20px 0 0;
 	font-size: 12px;
 	color: #555;
 }
@@ -327,6 +351,21 @@ h3.user {
 .temp li {
 	float: left;
 	padding: 0 10px;
+}
+
+.inbox-table {
+
+}
+
+.inbox-table tr td {
+	margin: 0;
+	padding: 0;
+	padding:20px;
+}
+
+.inbox-table tr td a {
+	float:left;
+	margin: 0 20px 20px 0;
 }
 /* END OF COURSE STYLES*/
 
@@ -726,6 +765,10 @@ h3.user {
 		width:100%;
 	}
 
+	.user-options {
+		margin: 0 20px 0 0;
+	}
+
 	.user-options li a {
 		font-size:14px;
 		padding:0 0 10px 0;
@@ -742,10 +785,40 @@ h3.user {
 	}
 }
 
+@media (max-width: 400px) {
+	.user-profile {
+		margin: 0 0 20px;
+		padding:0;
+	}
+
+	.user-profile img {
+		display: block;
+		margin: 0 auto;
+		width: 75%;
+		float:none;
+	}
+
+	.user-options {
+		float:none;
+		clear: both;
+		margin: 20px 12% 20px 12%;
+	}
+
+	.user-options li a {
+		font-size:16px;
+		padding: 0 0 10px 0;
+	}
+
+	h3.user {
+		text-align:center;
+		margin-left:-20px;
+	}
+}
+
 @media (min-width:768px){
 
 	#wrapper .main-wrapper {
-		background: #fff url("../img/debut_light.png") repeat;
+		background: #fff url("../img/main_bg.png") repeat;
 		/*margin:-20px 0 0 0;*/
 		margin: 0;
 		min-height:600px;
@@ -770,7 +843,7 @@ h3.user {
 		border:1px solid;
 		border-width:1px 0;
 		border-top-color:#212121;
-		border-bottom-color:#0a0a0a;
+		border-bottom-color:#2F2F2F;
 		margin: 1px 0 0;
 	}
 

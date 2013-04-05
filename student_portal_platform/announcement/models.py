@@ -8,20 +8,20 @@ class Announcement(models.Model):
     author = models.ForeignKey(User)
     content = models.TextField()
     postdate = models.DateTimeField(auto_now_add = True)
-    
+
     class Meta:
         abstract = True
-
+        ordering = ['-postdate']
 
 class SubjectAnnouncement(Announcement):
     subject = models.ForeignKey(Subject)
-    
+
     def __unicode__(self):
         return "%s : %s - %s" % (self.subject, self.title, str(self.postdate))
-        
+
 class GlobalAnnouncement(Announcement):
     def __unicode__(self):
         return "%s - %s"  % (self.title, str(self.postdate))
 
-    
-    
+
+

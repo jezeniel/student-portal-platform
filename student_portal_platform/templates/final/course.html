@@ -1,24 +1,33 @@
 {% extends "final/base/userbase.html" %}
 {% load crispy_forms_tags %}
 
+{% block head %}
+    <link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap-datetimepicker.min.css">
+    <style>
+    .margin-bot5 {
+        margin-bottom:5px;
+
+    }
+    </style>
+{% endblock %}
+
 {% block content %}
             <div class="main-wrapper span10">
 
                 <!-- breadcrumb -->
 
                 <ul class="breadcrumb">
-                    <li>
-                        <a href="#">Home</a>
-                        <span class="divider">/</span>
-                    </li>
 
-                    <li><a href="#" class="active">Course</a></li>
+                    <li class="active">Course</li>
                 </ul>
                 <!-- end of breadcrumb -->
 
                 <div class="row-fluid">
 
                     <div class="span12 subject-list">
+                        {% if user.groups.all.0.name == 'teacher' %}
+                        <a href="#create-subject"  data-toggle="modal" class="btn margin-bot5"><i class="icon-plus-sign"></i> Add Course</a>
+                        {% endif %}
 
                         <table class="table table-bordered subjects">
                             <tr>
@@ -32,7 +41,11 @@
                                     <tr>
                                         <td><a href="{{subject.get_absolute_url}}">{{subject.name}}</a></td>
                                         <td><a href="{{subject.teacher.get_absolute_url}}">
-                                            {{subject.teacher.get_full_name}}
+                                            {% if subject.teacher == user %}
+                                                You
+                                            {% else %}
+                                                {{subject.teacher.get_full_name}}
+                                            {% endif %}
                                             </a>
                                         </td>
                                         <td><a href="#">{{subject.start_date}}</a></td>
@@ -44,7 +57,7 @@
                                 <tr>
                                     <td><a href="{{subject.get_absolute_url}}">{{subject.name}}</a></td>
                                     <td><a href="{{subject.teacher.get_absolute_url}}">
-                                        {{subject.teacher.get_full_name}}
+                                            {{subject.teacher.get_full_name}}
                                         </a>
                                     </td>
                                     <td><a href="#">{{subject.start_date}}</a></td>
@@ -53,8 +66,24 @@
                                 {% endfor %}
                             {% endif %}
                         </table>
-                        {% crispy addsubjectform %}
                     </div>
+                </div>
+            </div>
+
+            <div id="create-subject" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="pmLabel" aria-hidden="true">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove-circle"></i></button>
+                    <h3 id="pmLabel">Create a Subject</h3>
+                  </div>
+                  <div class="modal-body">
+                        <form method="POST" action="{% url 'course:list' %}" id="addsubject-form">
+                        {% crispy addsubjectform %}
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button id="addsubmit" class="btn btn-primary"> Add Subject</button>
+                  </div>
                 </div>
             </div>
 
@@ -65,10 +94,19 @@
     <script src="{{STATIC_URL}}js/bootstrap-datetimepicker.min.js"></script>
 
     <script type="text/javascript">
+
     $(function () {
+        $("#addsubmit").on('click', function(e) {
+            e.preventDefault();
+
+            $("#addsubject-form").submit();
+
+            $("#create-subject").show(true);
+        });
+
         $(".bsdatepicker").datetimepicker({
             format: 'yyyy-MM-dd',
-            pickTime: false
+            pickTime: false,
         });
     });
     </script>

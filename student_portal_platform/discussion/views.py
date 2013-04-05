@@ -7,8 +7,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Category, Thread, Post
-from .forms import ThreadForm, ReplyForm, QuickReplyForm
+from .models import Category, Thread, Post, SubjectThread, SubjectPost
+from .forms import ThreadForm, ReplyForm, QuickReplyForm, SubjectThreadForm
+from subject.models import Subject
 
 
 class LoginRequiredMixin(object):
@@ -22,7 +23,7 @@ class LoginRequiredMixin(object):
 class ThreadCreate(LoginRequiredMixin, CreateView):
     model = Thread
     form_class = ThreadForm
-    template_name = "official/create-topic.html"
+    template_name = "final/create-thread.html"
 
     def get_context_data(self, **kwargs):
         context = super(ThreadCreate, self).get_context_data(**kwargs)
@@ -112,5 +113,77 @@ class ThreadDetail(LoginRequiredMixin, View):
             next = reply_form.cleaned_data['next']
             post = Post.objects.create(content=content, author=author, title=title, thread=thread)
         url = reverse("discuss:view", kwargs={'category':thread.category.slug, 'thread_id':thread.id})
+        url += "?page=%s#post-%s" % (next,post.id)
+        return redirect(url)
+
+class SubjectThreadList(LoginRequiredMixin, ListView):
+    model = SubjectThread
+    context_object_name = "subjectthreads"
+    paginate_by = 10
+    template_name = "final/course-discussion/discuss-topics.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SubjectThreadList, self).get_context_data(**kwargs)
+        context['subject'] = get_object_or_404(Subject, id=self.kwargs['course_id'])
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        id = self.kwargs['course_id']
+        subject = get_object_or_404(Subject, id=id)
+        return subject.subjectthread_set.order_by("-last_post")
+
+class SubjectThreadCreate(LoginRequiredMixin, CreateView):
+    model = SubjectThread
+    form_class = SubjectThreadForm
+    template_name = "final/create-thread.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SubjectThreadCreate, self).get_context_data(**kwargs)
+        context['create_form'] = context['form']
+        return context
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.subject = Subject.objects.get(id=self.kwargs['course_id'])
+        return super(SubjectThreadCreate,self).form_valid(form)
+
+
+class SubjectThreadDetail(LoginRequiredMixin, View):
+    template_name = "final/course-discussion/discuss-view.html"
+
+    def get(self, request, thread_id, *args, **kwargs):
+        thread = get_object_or_404(SubjectThread, id=thread_id)
+        #increment the topic views
+        thread_name = "COURSE_VIEWED_THREAD_%s" % (thread_id)
+        if not self.request.session.get(thread_name, False):
+            thread.views += 1
+            self.request.session[thread_name] = True
+            thread.save()
+
+        paginator = Paginator(thread.subjectpost_set.all(), 8)
+        page = request.GET.get('page', 1)
+        try:
+            posts = paginator.page(page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+
+        page = paginator.num_pages + (posts.end_index() % 8 == 0)
+
+        reply_form = QuickReplyForm(initial={'next': page})
+        return render(request, self.template_name, {'thread': thread, 'reply_form': reply_form,
+                                                    'subject': thread.subject, 'posts':posts})
+
+    def post(self, request, thread_id, *args, **kwargs):
+        thread = get_object_or_404(SubjectThread, id=thread_id)
+        reply_form = QuickReplyForm(request.POST)
+        if reply_form.is_valid():
+            author = request.user
+            content = reply_form.cleaned_data['content']
+            title = thread.title
+            next = reply_form.cleaned_data['next']
+            post = SubjectPost.objects.create(content=content, author=author, title=title, thread=thread)
+        url = reverse("course:discuss_view", kwargs={'course_id':thread.subject.id, 'thread_id':thread.id})
         url += "?page=%s#post-%s" % (next,post.id)
         return redirect(url)

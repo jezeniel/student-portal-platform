@@ -2,13 +2,14 @@ from re import match
 
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.models import check_password
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, Field, Button, HTML
-from crispy_forms.bootstrap import InlineRadios, AppendedText
+from crispy_forms.bootstrap import InlineRadios, AppendedText, StrictButton
 
 
-GENDER_CHOICE = (('male', 'Male'), ('female', 'Female'))
+GENDER_CHOICE = (('Male', 'Male'), ('Female', 'Female'))
 
 
 class AccountForm(forms.Form):
@@ -156,27 +157,152 @@ class ProfileEdit(PersonalForm):
         )
 
 
-class AccountEdit(AccountForm):
+class AccountEdit(forms.Form):
+    oldpassword = forms.CharField(widget=forms.PasswordInput,
+                                  label=(u""),
+                                  min_length=8,
+                                  required=False)
+
+    email = forms.EmailField(required=True,
+                             label=(u""),
+                             help_text="ex. johndoe@domain.com")
+
+    password1 = forms.CharField(widget=forms.PasswordInput,
+                                label=(u""),
+                                min_length=8,
+                                required=False,
+                                help_text="At least 8 characters.")
+
+    password2 = forms.CharField(widget=forms.PasswordInput,
+                                label=(u""),
+                                min_length=8,
+                                required=False)
+
+    def __init__(self, user=None,*args, **kwargs):
+        super(AccountEdit, self).__init__(*args, **kwargs)
+        self._user = user
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = "span10 offset1"
+        self.helper.layout = Layout(
+            Fieldset(
+                "Change Email",
+                Field("email", placeholder="Email", type="email", css_class="span12"),
+            ),
+            Fieldset(
+                "Change Password",
+                Field("oldpassword", placeholder="Old Password", pattern="(.){8,}", css_class="span12"),
+                Field("password1", placeholder="Password", pattern="(.){8,}", css_class="span12"),
+                Field("password2", placeholder="Confirm Password", pattern="(.){8,}", css_class="span12")
+            ),
+            ButtonHolder(
+                Submit('submit', 'Save', css_class='btn btn-large pull-right')
+            )
+        )
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            user = User.objects.get(email=email)
+            if self._user.email == user.email:
+                return email
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError("Email already been used.")
+
+    def clean(self):
+        cleaned_data = super(AccountEdit, self).clean()
+        oldpassword = cleaned_data.get("oldpassword")
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+        if (len(password1) > 0  or len(password2) > 0) and len(oldpassword) == 0:
+            self._errors['oldpassword'] = self.error_class(["Please enter old password."])
+            del cleaned_data['password1']
+            del cleaned_data['password2']
+        else:
+            if len(oldpassword) > 0:
+                if check_password(oldpassword, self._user.password):
+                    if password1 and password2:
+                        if password1 != password2:
+                            self._errors['password1'] = self.error_class(["Does not match."])
+                            del cleaned_data['password1']
+                            del cleaned_data['password2']
+                    else:
+                        self._errors['password1'] = self.error_class(["Please fill both fields."])
+                        del cleaned_data['password1']
+                        del cleaned_data['password2']
+
+                else:
+                    self._errors['oldpassword'] = self.error_class(["Incorrect password"])
+                    del cleaned_data['password1']
+                    del cleaned_data['password2']
+
+
+            return cleaned_data
+
+class ForgetPasswordForm(forms.Form):
+    email = forms.EmailField()
+
+    def __init__(self, *args, **kwargs):
+        super(ForgetPasswordForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.html5_required = False
+        self.helper.form_method = "POST"
+        self.helper.form_action = ""
+        self.helper.form_class = "formbg"
+        self.helper.layout = Layout(
+                Fieldset('Forget Password',
+                    HTML('A password reset link will be sent in your email address.'),
+                    Field('email', placeholder="Email", css_class="span12")
+                ),
+                ButtonHolder(
+                    Submit('submit','Forget Password', data_loading_text = "Processing...", id='forget-submit', type="submit", css_class="btn-large btn-primary span5 offset3")
+                )
+            )
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise forms.ValidationError("No account associated with this email.")
+        return email
+
+class ForgetNewPasswordForm(forms.Form):
+    password1 = forms.CharField(widget=forms.PasswordInput,
+                                label=(u""),
+                                min_length=8,
+                                required=True,
+                                help_text="At least 8 characters.")
+
     password2 = forms.CharField(widget=forms.PasswordInput,
                                 label=(u""),
                                 min_length=8,
                                 required=True)
-    class Meta:
-        exclude = ("username")
-
     def __init__(self, *args, **kwargs):
-        super(AccountEdit, self).__init__(*args, **kwargs)
-        self.helper.form_tag = True
-        self.helper.form_class = "span5 offset1"
+        super(ForgetNewPasswordForm,self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
         self.helper.layout = Layout(
-            Fieldset(
-                "Account Information",
-                Field("email", placeholder="Email", type="email", css_class="span5"),
-                Field("password1", placeholder="Password", pattern="(.){8,}", css_class="span5"),
-                Field("password2", placeholder="Confirm Password", pattern="(.){8,}", css_class="span5")
-            ),
-            ButtonHolder(
-                Submit('submit', 'Save', css_class='btn btn-large  span2 pull-right')
+                Fieldset('New Password',
+                Field("password1", placeholder="Password", pattern="(.){8,}", css_class="span12"),
+                Field("password2", placeholder="Confirm Password", pattern="(.){8,}", css_class="span12"),
+                ),
+                ButtonHolder(
+                    StrictButton('Change Password' , id="change-pass", type="submit", css_class="btn-large btn-primary span5 offset3")
+                )
             )
-        )
+
+        def clean(self):
+            cleaned_data = super(AccountForm, self).clean()
+            password1 = cleaned_data.get("password1")
+            password2 = cleaned_data.get("password2")
+            if password1 and password2:
+                if password1 != password2:
+                    self._errors['password1'] = self.error_class(["Password did not match."])
+
+                    del cleaned_data['password1']
+                    del cleaned_data['password2']
+
+            return cleaned_data
 

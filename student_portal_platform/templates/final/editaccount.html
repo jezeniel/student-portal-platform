@@ -1,0 +1,21 @@
+{% extends "final/base/userbase.html" %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <style>
+        legend {
+            margin-bottom:0;
+
+        }
+    </style>
+{% endblock %}
+{% block content %}
+ <div class="main-wrapper span10">
+    <div class= "row-fluid">
+        <div class="span6 offset3">
+        {% include "final/include/messages.html" %}
+        {% crispy editaccount_form %}
+        </div>
+    </div>
+</div>
+{% endblock %}

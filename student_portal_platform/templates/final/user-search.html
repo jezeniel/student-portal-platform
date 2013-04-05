@@ -1,0 +1,46 @@
+{% extends "final/base/userbase.html" %}
+
+{% block content %}
+
+<!-- Start of .main -->
+            <div class="main-wrapper span10">
+
+                <!-- breadcrumb -->
+
+
+                <div class="row-fluid">
+                    <div class="span12">
+
+                        <div class="friends">
+
+                            <h4>Search result{{results|pluralize}} ({{results.count}})</h4>
+
+                            <ul class="friend-list">
+
+                                {% for result in results %}
+                                    {% if result.userinfo %}
+                                    <li>
+                                        <a href="{{result.get_absolute_url}}">
+                                            <img src="{{result.userinfo.get_size64}}" alt="">
+
+                                        </a>
+                                        <div>
+                                            <a href="{{result.get_absolute_url}}">{{result.get_full_name}}</a><br>
+                                        </div>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- End of .main -->
+
+{% endblock %}

@@ -2,10 +2,12 @@ from django.utils import timezone
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.text import slugify
 
 from users.models import UserInfo
-
+from subject.models import Subject
 
 class DiscussionAbstract(models.Model):
     author = models.ForeignKey(User)
@@ -41,7 +43,6 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
-
 
 class Thread(DiscussionAbstract):
     category = models.ForeignKey(Category)
@@ -90,3 +91,56 @@ class Post(DiscussionAbstract):
 
     def __unicode__(self):
         return self.title
+
+
+
+class SubjectThread(DiscussionAbstract):
+    subject = models.ForeignKey(Subject)
+    title = models.CharField(max_length=100)
+    views = models.IntegerField(default=0)
+
+    def save(self):
+        if self.last_post is None:
+            self.last_post = timezone.now()
+            author = UserInfo.objects.get(user=self.author)
+            author.posts += 1
+            author.save()
+        super(SubjectThread, self).save()
+
+    def get_latest_author(self):
+        try:
+            author = self.post_set.latest('post_date').author
+        except Post.DoesNotExist:
+            return self.author
+        else:
+            return author
+
+    def get_absolute_url(self):
+            return reverse('course:discuss_view', kwargs={'thread_id': self.pk, 'course_id': self.subject.id})
+
+    def more_than_oneday(self):
+        if timezone.now() > self.last_post + timezone.timedelta(days=1):
+            return True
+        return False
+
+    def __unicode__(self):
+        return self.title
+
+
+class SubjectPost(DiscussionAbstract):
+    title = models.CharField(max_length=100, blank=True)
+    thread = models.ForeignKey(SubjectThread)
+
+    def save(self, *args, **kwargs):
+        self.thread.last_post = timezone.now()
+        self.thread.save()
+        author = UserInfo.objects.get(user=self.author)
+        author.posts += 1
+        author.save()
+        super(SubjectPost, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.title
+
+
+

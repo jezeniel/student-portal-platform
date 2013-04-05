@@ -22,8 +22,15 @@ class Subject(models.Model):
 
 class SubjectInvitation(models.Model):
     subject = models.ForeignKey(Subject, related_name="invitations")
-    teacher = models.ForeignKey(User, related_name="teacher")
-    student = models.ForeignKey(User, related_name="student")
+    teacher = models.ForeignKey(User, related_name="invited_students")
+    student = models.ForeignKey(User, related_name="course_invitations")
 
     def __unicode__(self):
         return "S:%s T:%s S:%s" % (self.subject.name, self.teacher.username, self.student.username)
+
+    def accept(self):
+        self.subject.students.add(self.student)
+        self.delete()
+
+    def decline(self):
+        self.delete()

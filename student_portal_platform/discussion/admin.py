@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Thread, Category
+from .models import Thread, Category, SubjectThread
 
 
-admin.site.register([Thread, Category])
+admin.site.register([Thread, Category, SubjectThread])

@@ -1,4 +1,11 @@
 {% extends "final/base/userbase.html" %}
+{% block head %}
+    <style>
+        .text-center {
+            text-align:center !important;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
             <div class="main-wrapper span10">
@@ -18,11 +25,9 @@
                     <!-- end of breadcrumb -->
 
                     <ul class="teacher-options pull-right" style="margin:0;">
-                        {% if user.groups.all.0.name == 'teacher' %}
-                        <li><a href="{% url 'conference:create' subject.id %}" class="btn btn-info"><i class="icon-play"></i>  Start Video Conference</a></li>
-                        <li><a href="{% url 'conference:end' subject.id %}" class="btn btn-danger"><i class="icon-stop"></i>  End Video Conference</a></li>
-                        {% endif %}
                         <li><a href="{% url 'conference:join' subject.id %}" class="btn btn-info"><i class="icon-signin "></i>  Join Conference</a></li>
+                        <li><a href="{% url 'course:discuss_list' subject.id %}" class="btn"><i class="icon-comments-alt"></i> Discussions </a></li>
+
                     </ul>
                 </div>
                 <div class="row-fluid">
@@ -41,27 +46,38 @@
                     <div class="span9" announcement-list>
 
                         <div class="box-header">
-                            <h3>Announcements</h3>
+                            <h3>Announcements <span class="pull-right"><a href="#"><i class="icon-edit"></i></a></h3>
+
                         </div>
 
                         <div class="box-content">
 
+
                             <ul class="box-content-list">
                                 {% if subject.subjectannouncement_set.count %}
+                                    {% for announcement in subject.subjectannouncement_set.all|slice:"3" %}
+                                    <li>
+                                        <div class="announcement">
+
+                                            <div class="announcement-header">
+                                                <h4>{{announcement.title}}</h4>
+                                                <span class="date-posted">{{announcement.postdate}}</span>
+                                            </div>
+
+                                            <div class="announcement-body">
+                                                <p>{{announcement.content}}</p>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                {% comment %}
                                 <li>
                                     <div class="announcement">
-
-                                        <div class="announcement-header">
-                                            <h4>Capstone Redefense</h4>
-                                            <span class="date-posted">Date posted: March 11, 2013</span>
-                                        </div>
-
-                                        <div class="announcement-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam ad dolor blanditiis dicta eum voluptatibus autem illum ut et dignissimos? Dolore inventore sint odit voluptatibus illo natus sapiente laboriosam dicta.</p>
-                                        </div>
-
+                                        <a href="#"><span class="pull-right">View All</a>
                                     </div>
                                 </li>
+                                {% endcomment %}
                                 {% else %}
                                 <li>
                                     <div class="announcement">
@@ -73,6 +89,8 @@
                                     </div>
                                 </li>
                                 {% endif %}
+
+
 
                             </ul>
 
@@ -146,42 +164,25 @@
                     <div class="span4  subject-list">
                         <table class="table table-bordered">
                             <tr>
-                                <th>Lectures</th>
-                                <th>Date Posted</th>
+                                <th class="span1"></th>
+                                <th class="span6">Lectures</th>
+                                <th class="span5">Upload Date</th>
                             </tr>
 
+                            {% for lecture in lectures %}
                             <tr>
-                                <td><a href="#">chapter1.doc</a></td>
-                                <td>February 01, 2013</td>
+                                <td class="text-center">
+                                    <a href="{{lecture.docfile.url}}"><i class="icon-download-alt"></i></a>
+                                </td>
+                                <td> {{lecture.filename}}</td>
+                                <td>{{lecture.date_uploaded}}</td>
                             </tr>
-
+                            {% endfor %}
+                            {% if not lectures %}
                             <tr>
-                                <td><a href="#">chapter1.doc</a></td>
-                                <td>February 01, 2013</td>
+                                <td colspan="4" class="text-center">There are no lectures uploaded.</td>
                             </tr>
-
-                        </table>
-                    </div>
-
-                    <div class="span4">
-
-                        <table class="table table-bordered">
-
-                            <tr>
-                                <th>Filename</th>
-                                <th>Date Uploaded</th>
-                            </tr>
-
-                            <tr>
-                                <td><a href="#">file01.doc</a></td>
-                                <td>March 11, 2013</td>
-                            </tr>
-
-                            <tr>
-                                <td><a href="#">file01.doc</a></td>
-                                <td>March 11, 2013</td>
-                            </tr>
-
+                            {% endif %}
 
                         </table>
                     </div>

@@ -7,18 +7,16 @@ from crispy_forms.layout import Field, Fieldset, Layout, Submit, ButtonHolder
 from crispy_forms.bootstrap import AppendedText
 
 class AddSubjectForm(forms.Form):
-    private = forms.BooleanField(widget=forms.CheckboxInput, required=False)
     name = forms.CharField(label=u"Subject Name", max_length=100)
     start_date = forms.DateTimeField()
     end_date = forms.DateTimeField()
 
     def __init__(self, *args, **kwargs):
+        super(AddSubjectForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.html5_required = True
         self.helper.layout = Layout(
-                Fieldset(
-                    'Create a Subject',
-                    Field("name"),
+                    Field("name", css_class="span10"),
                     AppendedText("start_date",
                              "<i class='icon-calendar' data-time-icon='icon-time' data-date-icon='icon-calendar'></i>",
                              css_class="datepicker", template="official/crispy/appended_datepicker.html",
@@ -27,14 +25,7 @@ class AddSubjectForm(forms.Form):
                              "<i class='icon-calendar' data-time-icon='icon-time' data-date-icon='icon-calendar'></i>",
                              css_class="datepicker", template="official/crispy/appended_datepicker.html",
                              readonly=True),
-                    Field("private")
-                ),
-                ButtonHolder(
-                    Submit('submit', 'Save', css_class='btn btn-large  span2 pull-right')
-                )
             )
-
-        super(AddSubjectForm, self).__init__(*args, **kwargs)
 
     def clean(self):
         cleaned_data = super(AddSubjectForm,self).clean()

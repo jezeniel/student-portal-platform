@@ -41,7 +41,9 @@
 
 							<a href="#" data-toggle="dropdown" class="dropdown-toggle">
 								<i class="icon-envelope icon-white"></i>
-								<span class="label label-important">{{user.message_received.count_unread}}</span>
+								{% if user.message_received.count_unread > 0 %}
+									<span class="label label-important">{{user.message_received.count_unread}}</span>
+								{% endif %}
 							</a>
 
 							<ul class="dropdown-menu messages">
@@ -72,7 +74,7 @@
 							</ul>
 
 						</li>
-
+						{% comment %}
 						<li class="dropdown">
 
 							<a href="#" data-toggle="dropdown" class="dropdown-toggle">
@@ -137,7 +139,7 @@
 							</ul>
 
 						</li>
-
+						{% endcomment %}
 						<li class="dropdown">
 
 							<a href="#" data-toggle="dropdown" class="dropdown-toggle">
@@ -162,6 +164,14 @@
 									<a href="{% url 'editprofile' %}">
 										<i class="icon-wrench"></i>
 										Profile Settings
+									</a>
+
+								</li>
+
+								<li>
+									<a href="{% url 'editaccount' %}">
+										<i class="icon-wrench"></i>
+										Account Settings
 									</a>
 
 								</li>
@@ -222,14 +232,27 @@
                             <a href="{% url 'course:list' %}"><i class="icon-book"></i><span class="hidden-tablet">My Course</span></a>
                         </li>
                         <li>
-                            <a href="{% url 'discuss:category' %}"><i class="icon-group"></i><span class="hidden-tablet">Community</span></a>
+                            <a href="{% url 'discuss:category' %}"><i class="icon-globe"></i><span class="hidden-tablet">Community</span></a>
                         </li>
                         <li>
-							<a href="{% url 'friend:list' %}"><i class="icon-user"></i><span class="hidden-tablet">Friends</span></a>
+							<a href="{% url 'friend:list' %}"><i class="icon-group"></i><span class="hidden-tablet">Friends</span>
+								{% if user.friendrequest_to.count %}
+								<span class="label label-important pull-right">{{user.friendrequest_to.count}}</span>
+								{% endif %}
+							</a>
 						</li>
                         <li>
                             <a href="#"><i class="icon-file-alt"></i><span class="hidden-tablet">Files</span></a>
                         </li>
+                   		<li>
+							<form action="{% url 'search' %}" class="input-append search-bar" method="POST">
+								{% csrf_token %}
+								<div>
+									<input id="appendedInputButton" type="text" placeholder="Search Users" name="usersearch">
+									<button class="btn" type="submit"><i class="icon-search"></i></button>
+								</div>
+							</form>
+						</li>
                     </ul>
 
                 </div>

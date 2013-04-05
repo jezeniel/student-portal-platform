@@ -38,7 +38,7 @@
                                         <a href="{% url 'discuss:list' category.slug %}">{{category.name}}</a>
                                     </div>
                                     <div class="topic-descri">
-                                        Anything goes
+                                        Anything goes haha
                                     </div>
                                 </td>
                                 <td class="forum-topic-count">
@@ -48,11 +48,19 @@
                                     1500
                                 </td>
                                 <td class="forum-last-post">
-                                    {% with thread=category.get_latest_thread %}
-                                        {% if thread %}
-                                            {% include "official/include/lastauthor.html" %}
-                                        {% endif %}
-                                    {% endwith %}
+                                    {% if category.get_latest_thead %}
+                                        {% with thread=category.get_latest_thread %}
+
+                                                {% load humanize %}
+                                                {% if thread.more_than_oneday %}
+                                                    {{thread.last_post|naturalday}}</br>
+                                                {% else %}
+                                                    {{thread.last_post|naturaltime}}</br>
+                                                {% endif %}
+                                                by <a href="{{ thread.author.get_absolute_url }}" class="topic-author">{{thread.author.username}}</a>
+
+                                        {% endwith %}
+                                    {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}

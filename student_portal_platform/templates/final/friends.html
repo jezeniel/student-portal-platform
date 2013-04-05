@@ -10,65 +10,29 @@
 
                 <div class="row-fluid">
                     <div class="span12">
-                        <form action="" class="input-append">
-                            <div class="input-append">
-                              <input id="appendedInputButton" type="text" placeholder="Search">
-                              <button class="btn" type="button"><i class="icon-search"></i></button>
-                            </div>
-                        </form>
 
+                        {% if user.friendrequest_to.count %}
                         <div class="friends">
-                            <h4>Pending List</h4>
+                            <h4>Friend Requests</h4>
                             <ul class="friend-pending-list">
+                            {% for friendrequest in user.friendrequest_to.all %}
                             <li>
-                                <a href="#">
-                                    <img src="img/img64.png" alt="">
-
+                                <a href="{{friendrequest.from_user.get_absolute_url}}">
+                                    <img src="{{friendrequest.from_user.userinfo.get_size64}}">
                                 </a>
                                 <div>
-                                    <a href="#">Christian M. Austria</a> <br>
-                                    <a href="#" class="btn btn-mini">Approve</a>
-                                    <a href="#" class="btn btn-mini">Reject</a>
+                                    <a href="#">{{friendrequest.from_user.get_full_name}}</a> <br>
+                                   <form action="{% url 'friend:list' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="request-id" value="{{friendrequest.id}}">
+                                        <button type="submit" name="submit" value="accept" class="btn btn-small">Accept</button>
+                                        <button type="submit" name="submit" value="decline" class="btn btn-small">Decline</button>
+                                   </form>
                                 </div>
                             </li>
-
-                            <li>
-                                <a href="#">
-                                    <img src="img/img64.png" alt="">
-
-                                </a>
-                                <div>
-                                    <a href="#">Christian M. Austria</a> <br>
-                                    <a href="#" class="btn btn-mini">Approve</a>
-                                    <a href="#" class="btn btn-mini">Reject</a>
-                                </div>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <img src="img/img64.png" alt="">
-
-                                </a>
-                                <div>
-                                    <a href="#">Christian M. Austria</a> <br>
-                                    <a href="#" class="btn btn-mini">Approve</a>
-                                    <a href="#" class="btn btn-mini">Reject</a>
-                                </div>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    <img src="img/img64.png" alt="">
-
-                                </a>
-                                <div>
-                                    <a href="#">Christian M. Austria</a> <br>
-                                    <a href="#" class="btn btn-mini">Approve</a>
-                                    <a href="#" class="btn btn-mini">Reject</a>
-                                </div>
-                            </li>
+                            {% endfor %}
                         </div>
-
+                        {% endif %}
 
                         </ul>
 
@@ -79,35 +43,18 @@
                             <h4>Friend List</h4>
 
                             <ul class="friend-list">
+
+                                {% for friend in user.friendship.friends.all %}
                                 <li>
-                                    <a href="#">
-                                        <img src="img/img64.png" alt="">
+                                    <a href="{{friend.user.get_absolute_url}}">
+                                        <img src="{{friend.user.userinfo.get_size64}}" alt="">
 
                                     </a>
                                     <div>
-                                        <a href="#">Christian M. Austria</a> <br>
+                                        <a href="{{friend.user.get_absolute_url}}">{{friend.user.get_full_name}}</a><br>
                                     </div>
                                 </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="img/img64.png" alt="">
-
-                                    </a>
-                                    <div>
-                                        <a href="#">Christian M. Austria</a> <br>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <img src="img/img64.png" alt="">
-
-                                    </a>
-                                    <div>
-                                        <a href="#">Christian M. Austria</a> <br>
-                                    </div>
-                                </li>
+                                {% endfor %}
 
                             </ul>
                         </div>

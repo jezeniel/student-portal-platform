@@ -1,0 +1,167 @@
+{% extends "final/base/userbase.html" %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <style type="text/css">
+        .pagination {
+            margin:0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="main-wrapper span10">
+
+                <!-- breadcrumb -->
+
+                <ul class="breadcrumb">
+                  <li><a href="{% url 'course:discuss_list' subject.id %}">{{subject.name}}</a> <span class="divider">></span></li>
+                  <li class="active">{{thread.title}}</li>
+                </ul>
+                <!-- end of breadcrumb -->
+
+                <div class="row-fluid">
+
+                    <div class="span9">
+                        <div class="pagination pull-right">
+                          <ul>
+                            {% if posts.has_previous %}
+                                <li><a href="{{thread.get_absolute_url}}?page={{posts.previous_page_number}}">Prev</a></li>
+                            {% else %}
+                                <li class="disabled"><a href="#">Prev</a></li>
+                            {% endif %}
+                            {% for page in posts.paginator.page_range %}
+                                {% if posts.number == page %}
+                                    <li class="active"><a href="#">{{page}}</a></li>
+                                {% else %}
+                                    <li><a href="{{thread.get_absolute_url}}?page={{page}}">{{page}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if posts.has_next %}
+                                <li><a href="{{thread.get_absolute_url}}?page={{posts.next_page_number}}">Next</a></li>
+                            {% else %}
+                                <li class="disabled"><a href="#">Next</a></li>
+                            {% endif %}
+                          </ul>
+                        </div>
+
+                        <div class="topic">
+
+                            <ul class="topic-list">
+                                {% if posts.number == 1 %}
+                                    <li class="topic-post-wrapper">
+
+                                        <div class="row-fluid inner-row">
+
+                                            <div class="span3 topic-user-box">
+
+                                                <div>
+                                                    <a href="{{thread.author.get_absolute_url}}" class="topic-user-name">
+                                                        {{thread.author.username}}
+                                                    </a>
+                                                    <span class="topic-user-status">Student</span>
+
+                                                    <img src="{{thread.author.userinfo.get_size128}}" alt="">
+
+                                                    <ul class="topic-user-meta">
+                                                        <li>Offline</li>
+                                                        <li>Last login: 03/11/13</li>
+                                                        <li>Posts: {{thread.author.userinfo.posts}}</li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="span9 topic-body">
+                                                <span class="topic-date">{{thread.post_date}}</span>
+                                                <h4>{{thread.title}}</h4>
+                                                <p>{{thread.content}}</p>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                {% endif %}
+                                {% for post in posts %}
+                                <li class="topic-post-wrapper">
+                                        <span id='post-{{post.id}}'></span>
+                                        <div class="row-fluid inner-row">
+
+                                            <div class="span3 topic-user-box">
+
+                                                <div>
+                                                    <a href="{{post.author.get_absolute_url}}" class="topic-user-name">
+                                                        {{post.author.get_full_name}}
+                                                    </a>
+                                                    <span class="topic-user-status">Student</span>
+
+                                                    <img src="{{post.author.userinfo.get_size128}}" alt="">
+
+                                                    <ul class="topic-user-meta">
+                                                        <li>Offline</li>
+                                                        <li>Last login: 03/11/13</li>
+                                                        <li>Posts: {{post.author.userinfo.posts}}</li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="span9 topic-body">
+                                                <span class="topic-date">{{post.post_date}}</span>
+                                                <p>{{post.content}}</p>
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+
+                        </div>
+
+                        <div class="pagination pull-right">
+                          <ul>
+                            {% if posts.has_previous %}
+                                <li><a href="{{thread.get_absolute_url}}?page={{posts.previous_page_number}}">Prev</a></li>
+                            {% else %}
+                                <li class="disabled"><a href="#">Prev</a></li>
+                            {% endif %}
+                            {% for page in posts.paginator.page_range %}
+                                {% if posts.number == page %}
+                                    <li class="active"><a href="#">{{page}}</a></li>
+                                {% else %}
+                                    <li><a href="{{thread.get_absolute_url}}?page={{page}}">{{page}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if posts.has_next %}
+                                <li><a href="{{thread.get_absolute_url}}?page={{posts.next_page_number}}">Next</a></li>
+                            {% else %}
+                                <li class="disabled"><a href="#">Next</a></li>
+                            {% endif %}
+                          </ul>
+                        </div>
+                        <form method="POST" class="span12">
+                        {% crispy reply_form %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $('#submit-id-submit').click( function() {
+    var btn = $(this)
+    if($("#id_content").val().length > 0) {
+      btn.button('loading')
+      setTimeout(function () {
+        btn.button('reset')
+      }, 3000);
+  }
+
+
+  });
+</script>
+{% endblock %}

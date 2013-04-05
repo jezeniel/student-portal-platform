@@ -3,7 +3,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Field
 
-from .models import Thread, Post
+from .models import Thread, Post, SubjectThread
 
 
 class ThreadForm(forms.ModelForm):
@@ -32,6 +32,33 @@ class ThreadForm(forms.ModelForm):
             )
         )
         return super(ThreadForm, self).__init__(*args, **kwargs)
+
+class SubjectThreadForm(forms.ModelForm):
+    title   = forms.CharField(label='')
+    content = forms.CharField(label='',
+                              widget=forms.Textarea)
+
+    class Meta:
+        model = SubjectThread
+        fields = ('title', 'content')
+
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_method = 'POST'
+        self.helper.html5_required = True
+        self.helper.layout = Layout(
+            Fieldset(
+                "Create a Topic",
+                Field("title", css_class="span12", placeholder = "Title"),
+                Field("content", css_class="span12", placeholder = "Content"),
+            ),
+            ButtonHolder(
+                Submit("submit", "Create Topic", css_class="btn btn-large pull-right",
+                       data_loading_text="Posting..."
+                )
+            )
+        )
+        return super(SubjectThreadForm, self).__init__(*args, **kwargs)
 
 
 class ReplyForm(forms.ModelForm):

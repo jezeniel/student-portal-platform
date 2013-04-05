@@ -81,3 +81,5 @@ def declinerequest(request, user_id):
     except FriendRequest.DoesNotExist:
         messages.error(request, "You do not have a friend request from this user.")
     return redirect("profile_url", username=user.username)
+
+
